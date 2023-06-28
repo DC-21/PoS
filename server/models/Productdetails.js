@@ -4,18 +4,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      amounttopay: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      amounttendered: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      change: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
       paymenttype: {
         type: DataTypes.STRING,
         allowNull: false,
