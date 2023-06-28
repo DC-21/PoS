@@ -8,9 +8,9 @@ router.get("/", async(req, res) => {
 });
 
 router.post("/", async(req, res)=>{
-  const post = req.body;
-  await Accountdetails.create(post);
-  res.json(post);
+  const past = req.body;
+  await Accountdetails.create(past);
+  res.json(past);
 });
 
 module.exports = router;
