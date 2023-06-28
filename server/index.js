@@ -5,11 +5,11 @@ app.use(express.json());
 
 const db = require('./models');
 
-const helloRouter = require('./routes/helloRouter');
+const accountRouter = require('./routes/accountRouter');
 const productRouter = require('./routes/productRouter');
 const userRouter = require('./routes/userRouter');
 
-app.use('/hello',helloRouter);
+app.use('/account',accountRouter);
 app.use('/product',productRouter);
 app.use('/user',userRouter)
 

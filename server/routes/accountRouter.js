@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { Userdetails } = require('../models');
+const { Accountdetails } = require('../models');
 
 router.get("/", async(req, res) => {
-  const listDetails = await Userdetails.findAll();
+  const listDetails = await Accountdetails.findAll();
   res.json(listDetails);
 });
 
 router.post("/", async(req, res)=>{
   const post = req.body;
-  await Userdetails.create(post);
+  await Accountdetails.create(post);
   res.json(post);
 });
 
