@@ -1,34 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
     const Productdetails = sequelize.define("Productdetails", {
-      receiptNo: {
-        type: DataTypes.STRING, 
-        allowNull: false,
-      },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      receivedFromAccountType: {
+      receiptno: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      receivedFromAccountNumber: {
-        type: DataTypes.STRING, 
-        allowNull: false,
-      },
-      receivedFromAccountName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      customerBalance: {
+      amounttopay: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      amountToPay: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      amountTendered: {
+      amounttendered: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
@@ -36,20 +16,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      paymentType: {
+      paymenttype: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       description: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      incomeGroupCode: {
+      incomegroupcode: {
         type: DataTypes.STRING,
         allowNull: false,
       },
     });
-    
     return Productdetails;
   };
-  
