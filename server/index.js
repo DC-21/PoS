@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/user',require('./routes/routes'));
+app.use('/use', require('./routes/routes'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -23,17 +23,6 @@ app.use((err, req, res, next) => {
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
-
-app.post('/data', (req, res) => {
-    const data = req.body; // Access the posted JSON data
-  
-    // Perform any necessary operations with the data
-  
-    console.log(data); // Output the data to the console
-  
-    res.send('Data received successfully!');
-  });
-  
 
 // Test the database connection
 (async () => {
