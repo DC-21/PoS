@@ -1,21 +1,31 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const sequelize=require('./utils/db')
+
 const app = express();
 
+
+// Configure bodyParser
 app.use(express.json());
-
-const db = require('./models');
-
-const accountRouter = require('./routes/accountRouter');
-const productRouter = require('./routes/productRouter');
-const userRouter = require('./routes/userRouter');
-
-app.use('/account',accountRouter)
-app.use('/product',productRouter)
-app.use('/user',userRouter)
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
-db.sequelize.sync().then(()=>{
-    app.listen(3000, ()=>{
-        console.log("server is running on port 3000");
+// Test the database connection
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection has been established successfully.');
+
+    // Synchronize models with the database
+    await sequelize.sync();
+
+    // Start the server
+    app.listen(3000, () => {
+      console.log('App listening on http://localhost:3000');
     });
-});
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
