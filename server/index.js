@@ -21,7 +21,7 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-app.get('/user/user-details', async (req, res) => {
+app.get('/user-details', async (req, res) => {
   try {
     const users = await Use.findAll();
     console.log(users); // Display the users on the console
