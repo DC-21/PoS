@@ -19,10 +19,17 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-// Define a GET request handler for the root endpoint
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+app.get('/user', async (req, res) => {
+    try {
+      const users = await Use.findAll();
+      console.log(users); // Display the users on the console
+      res.status(200).json(users);
+    } catch (error) {
+      console.error('Error retrieving users:', error);
+      res.status(500).json({ message: 'An error occurred while retrieving users.' });
+    }
+  });
+  
 
 // Test the database connection
 (async () => {

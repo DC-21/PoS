@@ -14,7 +14,7 @@ const Use = db.define("Use", {
     unique: true,
   },
   accountno: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
     unique: true,
   },
@@ -29,17 +29,17 @@ const Use = db.define("Use", {
     unique: true,
   },
   amounttopay: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     unique: true,
   },
   amounttendered: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: true,
     unique: true,
   },
   change: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: true,
     unique: true,
   },
