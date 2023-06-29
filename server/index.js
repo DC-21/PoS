@@ -1,15 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./utils/db');
+const Use = require('./models/Use');
+const useRouter = require('./routes/routes');
 
 const app = express();
 
 // Configure bodyParser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/use', require('./routes/routes'));
+
+// Use the router for the '/use' routes
+app.use('/use', useRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -19,17 +21,16 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-app.get('/user', async (req, res) => {
-    try {
-      const users = await Use.findAll();
-      console.log(users); // Display the users on the console
-      res.status(200).json(users);
-    } catch (error) {
-      console.error('Error retrieving users:', error);
-      res.status(500).json({ message: 'An error occurred while retrieving users.' });
-    }
-  });
-  
+app.get('/user/user-details', async (req, res) => {
+  try {
+    const users = await Use.findAll();
+    console.log(users); // Display the users on the console
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error retrieving users:', error);
+    res.status(500).json({ message: 'An error occurred while retrieving users.' });
+  }
+});
 
 // Test the database connection
 (async () => {
