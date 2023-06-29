@@ -6,14 +6,14 @@ const useRouter = require('./routes/routes');
 
 const app = express();
 
-// Configure bodyParser
+// Configure bodyParser //
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use the router for the '/use' routes
-app.use('/use', useRouter);
+app.use('/user', useRouter);
 
-// Error handling middleware
+// Error handling middleware to protect server from crashing //
 app.use((err, req, res, next) => {
   console.log(err);
   const status = err.statusCode || 500;
@@ -24,7 +24,7 @@ app.use((err, req, res, next) => {
 app.get('/user-details', async (req, res) => {
   try {
     const users = await Use.findAll();
-    console.log(users); // Display the users on the console
+    console.log(users);
     res.status(200).json(users);
   } catch (error) {
     console.error('Error retrieving users:', error);
@@ -32,16 +32,16 @@ app.get('/user-details', async (req, res) => {
   }
 });
 
-// Test the database connection
+//section to Test the database connection //
 (async () => {
   try {
     await sequelize.authenticate();
     console.log('Database connection has been established successfully.');
 
-    // Synchronize models with the database
+    // section Synchronize models with the database //
     await sequelize.sync();
 
-    // Start the server
+    // section to Start the server //
     app.listen(3000, () => {
       console.log('App listening on http://localhost:3000');
     });
