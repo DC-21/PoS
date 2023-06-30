@@ -12,6 +12,17 @@ router.post('/user-details', async (req, res) => {
   }
 });
 
+router.post('/receiptno', async (req, res) => {
+  try {
+      const {receiptnoData} = req.body;
+      const newReceipt = await Use.create({receiptnoData});
+      res.status(200).json({ message: 'User created successfully!', user: newReceipt});
+    } catch (error) {
+    console.error('Error handling receiptno:', error);
+    res.status(500).json({ message: 'An error occurred while handling receiptno.' });
+  }
+});
+
 router.post('/accounttype', async (req, res) => {
     try {
         const {accountTypeData} = req.body;
