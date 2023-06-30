@@ -1,6 +1,18 @@
 import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 
 const Trans = () => {
+
+  const[userdetails, setUserDetails] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/user-details").then((response) => {
+      setUserDetails(response.data);
+    });
+  }, []);
+
   return (
     <div className="flex w-full h-auto items-center px-10 py-10">
       <form className="gap-4 flex flex-col items-start justify-center text-center w-full">
