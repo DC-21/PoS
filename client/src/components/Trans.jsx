@@ -3,7 +3,9 @@ import axios from "axios";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toLocaleDateString()
+  );
   const [receiptNumber, setReceiptNumber] = useState("");
 
   useEffect(() => {
@@ -11,7 +13,8 @@ const Trans = () => {
       .get("http://localhost:3000/user-details")
       .then((response) => {
         setUserDetails(response.data);
-        const lastReceiptNumber = response.data[response.data.length - 1]?.receiptNumber || "";
+        const lastReceiptNumber =
+          response.data[response.data.length - 1]?.receiptNumber || "";
         setReceiptNumber(lastReceiptNumber);
       })
       .catch((error) => {
@@ -34,7 +37,8 @@ const Trans = () => {
       document.getElementById("description6").value = user.amounttendered || "";
       document.getElementById("description7").value = user.change || "";
       document.getElementById("description8").value = user.description || "";
-      document.getElementById("description9").value = user.incomegroupcode || "";
+      document.getElementById("description9").value =
+        user.incomegroupcode || "";
     }
   };
 
@@ -65,7 +69,7 @@ const Trans = () => {
               value={currentDate}
             />
           </div>
-           <div className="w-full flex">
+          <div className="w-full flex">
             <label htmlFor="description3" className="w-1/2 text-start">
               Received from Account Name:
             </label>
@@ -165,6 +169,9 @@ const Trans = () => {
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
+          <div className="flex justify-center mt-10 w-full">
+          <button className="text-center px-4 py-2 bg-slate-300 rounded">Submit</button>
+        </div>
         </form>
       </div>
     </div>
