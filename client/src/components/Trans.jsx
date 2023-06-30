@@ -25,6 +25,7 @@ const Trans = () => {
     const user = userDetails.find((user) => user.accountname === accountName);
     if (user) {
       // Update the input fields with the user details
+      document.getElementById("description0").value = user.receiptno || "";
       document.getElementById("description1").value = user.accounttype || "";
       document.getElementById("description2").value = user.accountno || "";
       document.getElementById("description3").value = user.accountname || "";
@@ -47,7 +48,7 @@ const Trans = () => {
             </label>
             <input
               type=""
-              id="no"
+              id="description0"
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={receiptNumber}
               onChange={(e) => setReceiptNumber(e.target.value)}
