@@ -64,6 +64,18 @@ const Trans = () => {
               value={currentDate}
             />
           </div>
+           <div className="w-full flex">
+            <label htmlFor="description3" className="w-1/2 text-start">
+              Received from Account Name:
+            </label>
+            <input
+              type="text"
+              id="description3"
+              placeholder="Customer"
+              className="w-1/2 bg-slate-100 border border-gray-400"
+              onBlur={handleAccountNameChange} // Add onBlur event listener
+            />
+          </div>
           <div className="w-full flex">
             <label htmlFor="description1" className="w-1/2 text-start">
               Received from Account Type:
@@ -84,18 +96,6 @@ const Trans = () => {
               id="description2"
               placeholder="Customer"
               className="w-1/2 bg-slate-100 border border-gray-400"
-            />
-          </div>
-          <div className="w-full flex">
-            <label htmlFor="description3" className="w-1/2 text-start">
-              Received from Account Name:
-            </label>
-            <input
-              type="text"
-              id="description3"
-              placeholder="Customer"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-              onBlur={handleAccountNameChange} // Add onBlur event listener
             />
           </div>
           <div className="w-full flex">
