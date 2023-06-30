@@ -47,7 +47,7 @@ const Trans = () => {
               </div>
               <div className="w-full flex">
                 <label htmlFor="description2" className="w-1/2 text-start">
-                  Received from Account No:
+                  Received from Account Name:
                 </label>
                 <input
                   type="text"
@@ -59,7 +59,7 @@ const Trans = () => {
               </div>
               <div className="w-full flex">
                 <label htmlFor="description2" className="w-1/2 text-start">
-                  Received from Account No:
+                  Account Balance:
                 </label>
                 <input
                   type="text"
@@ -71,7 +71,7 @@ const Trans = () => {
               </div>
               <div className="w-full flex">
                 <label htmlFor="description2" className="w-1/2 text-start">
-                  Received from Account No:
+                  Amount To Pay:
                 </label>
                 <input
                   type="text"
@@ -81,11 +81,66 @@ const Trans = () => {
                   className="w-1/2 bg-slate-100 border border-gray-400"
                 />
               </div>
-              <div>{value.amounttendered}</div>
-              <div>{value.change}</div>
-              <div>{value.paymenttype}</div>
-              <div>{value.description}</div>
-              <div>{value.incomegroupcode}</div>
+              <div className="w-full flex">
+                <label htmlFor="description2" className="w-1/2 text-start">
+                  Amount Tendered:
+                </label>
+                <input
+                  type="text"
+                  id="description2"
+                  placeholder="Customer"
+                  value={value.amounttendered}
+                  className="w-1/2 bg-slate-100 border border-gray-400"
+                />
+              </div>
+              <div className="w-full flex">
+                <label htmlFor="description2" className="w-1/2 text-start">
+                  Change:
+                </label>
+                <input
+                  type="text"
+                  id="description2"
+                  placeholder="Customer"
+                  value={value.change}
+                  className="w-1/2 bg-slate-100 border border-gray-400"
+                />
+              </div>
+              <div className="w-full flex">
+                <label htmlFor="description2" className="w-1/2 text-start">
+                  Payment Type:
+                </label>
+                <input
+                  type="text"
+                  id="description2"
+                  placeholder="Customer"
+                  value={value.paymenttype}
+                  className="w-1/2 bg-slate-100 border border-gray-400"
+                />
+              </div>
+              <div className="w-full flex">
+                <label htmlFor="description2" className="w-1/2 text-start">
+                  Description:
+                </label>
+                <input
+                  type="text"
+                  id="description2"
+                  placeholder="Customer"
+                  value={value.description}
+                  className="w-1/2 bg-slate-100 border border-gray-400"
+                />
+              </div>
+              <div className="w-full flex">
+                <label htmlFor="description2" className="w-1/2 text-start">
+                  Income Group Code:
+                </label>
+                <input
+                  type="text"
+                  id="description2"
+                  placeholder="Customer"
+                  value={value.incomegroupcode}
+                  className="w-1/2 bg-slate-100 border border-gray-400"
+                />
+              </div>
             </form>
           </div>
         );
