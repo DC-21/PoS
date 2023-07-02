@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import axios from 'axios';
 
 const styles = StyleSheet.create({
   page: {
@@ -30,8 +31,8 @@ const ReceiptGenerator = () => {
     const fetchTransactionData = async () => {
       try {
         // Replace with your actual API/database call
-        const response = await fetch('/api/transaction'); // Assuming the API endpoint is /api/transaction
-        const data = await response.json();
+        const response = await axios.get('http://localhost:3000/user-details'); // Assuming the API endpoint is /api/transaction
+        const data = response.data;
 
         // Assuming the data is returned in the following format:
         const { customerName, date, items, total } = data;
@@ -68,12 +69,9 @@ const ReceiptGenerator = () => {
           <Text style={styles.label}>Date:</Text>
           <Text style={styles.value}>{receiptData.date}</Text>
 
-          <Text style={styles.heading}>Items Purchased:</Text>
+          <Text style={styles.heading}>Service:</Text>
           {receiptData.items.map((item, index) => (
             <View key={index}>
-              <Text style={styles.label}>Item Name:</Text>
-              <Text style={styles.value}>{item.name}</Text>
-
               <Text style={styles.label}>Quantity:</Text>
               <Text style={styles.value}>{item.quantity}</Text>
 

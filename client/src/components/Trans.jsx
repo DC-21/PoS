@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Receipt from './Receipt';
 import axios from "axios";
 
 const Trans = () => {
@@ -171,6 +172,7 @@ const Trans = () => {
           </div>
           <div className="flex justify-center mt-10 w-full">
           <button className="text-center px-4 py-2 bg-slate-300 rounded">Submit</button>
+          <Receipt className='bg-blue-200'/>
         </div>
         </form>
       </div>
