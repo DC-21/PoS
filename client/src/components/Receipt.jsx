@@ -9,7 +9,16 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 4,
   },
-  heading: {
+  headingContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  companyName: {
+    flex: 1,
+    fontSize: 10,
+    marginBottom: 4,
+  },
+  receiptTitle: {
     fontSize: 10,
     marginBottom: 4,
   },
@@ -34,17 +43,20 @@ const styles = StyleSheet.create({
 const ReceiptDocument = ({ receiptData }) => (
   <Document>
     <Page size="A7" style={styles.page}>
-      <Text style={styles.heading}>Sacip Solutions Limited</Text>
-      <Text style={styles.heading}>Receipt</Text>
-
-      <View>
-        <Text style={styles.label}>Customer Name:</Text>
-        <Text style={styles.value}>{receiptData.customerName}</Text>
+      <View style={styles.headingContainer}>
+        <Text style={styles.companyName}>Sacip Solutions Limited</Text>
       </View>
+      <Text style={styles.receiptTitle}>Receipt</Text>
 
-      <View>
-        <Text style={styles.label}>Date:</Text>
-        <Text style={styles.value}>{receiptData.date}</Text>
+      <View style={styles.flexContainer}>
+        <View style={styles.flexItem}>
+          <Text style={styles.label}>Customer Name:</Text>
+          <Text style={styles.value}>{receiptData.customerName}</Text>
+        </View>
+        <View style={styles.flexItem}>
+          <Text style={styles.label}>Date:</Text>
+          <Text style={styles.value}>{receiptData.date}</Text>
+        </View>
       </View>
 
       <Text style={styles.heading}>Items Purchased:</Text>
@@ -67,7 +79,7 @@ const ReceiptDocument = ({ receiptData }) => (
         </View>
       ))}
 
-      <View>
+      <View style={styles.flexContainer}>
         <Text style={styles.label}>Total:</Text>
         <Text style={styles.value}>{receiptData.total}</Text>
       </View>
