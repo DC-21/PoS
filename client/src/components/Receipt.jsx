@@ -6,19 +6,19 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#fff',
-    padding: 20,
+    padding: 10,
   },
   heading: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 10,
+    marginBottom: 4,
   },
   label: {
-    fontSize: 12,
-    marginBottom: 5,
+    fontSize: 8,
+    marginBottom: 3,
   },
   value: {
-    fontSize: 12,
-    marginBottom: 10,
+    fontSize: 8,
+    marginBottom: 4,
   },
   flexContainer: {
     display: 'flex',
@@ -43,8 +43,6 @@ const ReceiptDocument = ({ receiptData }) => (
 
       <Text style={styles.label}>Date:</Text>
       <Text style={styles.value}>{receiptData.date}</Text>
-
-      <Text style={styles.heading}>Items Purchased:</Text>
       {receiptData.items.map((item, index) => (
         <View key={index}>
           <Text style={styles.label}>Item Name:</Text>
