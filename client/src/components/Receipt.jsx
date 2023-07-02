@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     padding: 10,
+    marginBottom: 4,
   },
   heading: {
     fontSize: 10,
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
 const ReceiptDocument = ({ receiptData }) => (
   <Document>
     <Page size="A6" style={styles.page}>
+    <Text style={styles.heading}>Sacip Solutions Limited</Text>
       <Text style={styles.heading}>Receipt</Text>
 
       <View style={styles.flexContainer}>
