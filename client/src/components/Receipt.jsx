@@ -27,39 +27,50 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   flexItem: {
-    flex: 1,
     marginRight: 10,
   },
 });
 
 const ReceiptDocument = ({ receiptData }) => (
   <Document>
-    <Page size="A6" style={styles.page}>
-    <Text style={styles.heading}>Sacip Solutions Limited</Text>
+    <Page size="A7" style={styles.page}>
+      <Text style={styles.heading}>Sacip Solutions Limited</Text>
       <Text style={styles.heading}>Receipt</Text>
 
-      <View style={styles.flexContainer}>
+      <View>
         <Text style={styles.label}>Customer Name:</Text>
         <Text style={styles.value}>{receiptData.customerName}</Text>
       </View>
 
-      <Text style={styles.label}>Date:</Text>
-      <Text style={styles.value}>{receiptData.date}</Text>
+      <View>
+        <Text style={styles.label}>Date:</Text>
+        <Text style={styles.value}>{receiptData.date}</Text>
+      </View>
+
+      <Text style={styles.heading}>Items Purchased:</Text>
       {receiptData.items.map((item, index) => (
-        <View key={index}>
-          <Text style={styles.label}>Item Name:</Text>
-          <Text style={styles.value}>{item.name}</Text>
+        <View key={index} style={styles.flexContainer}>
+          <View style={styles.flexItem}>
+            <Text style={styles.label}>Item Name:</Text>
+            <Text style={styles.value}>{item.name}</Text>
+          </View>
 
-          <Text style={styles.label}>Quantity:</Text>
-          <Text style={styles.value}>{item.quantity}</Text>
+          <View style={styles.flexItem}>
+            <Text style={styles.label}>Quantity:</Text>
+            <Text style={styles.value}>{item.quantity}</Text>
+          </View>
 
-          <Text style={styles.label}>Price:</Text>
-          <Text style={styles.value}>{item.price}</Text>
+          <View style={styles.flexItem}>
+            <Text style={styles.label}>Price:</Text>
+            <Text style={styles.value}>{item.price}</Text>
+          </View>
         </View>
       ))}
 
-      <Text style={styles.label}>Total:</Text>
-      <Text style={styles.value}>{receiptData.total}</Text>
+      <View>
+        <Text style={styles.label}>Total:</Text>
+        <Text style={styles.value}>{receiptData.total}</Text>
+      </View>
     </Page>
   </Document>
 );
