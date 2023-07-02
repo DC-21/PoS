@@ -1,17 +1,24 @@
-import React from 'react';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import React from "react";
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
 
 // Styles for the PDF document
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    flexDirection: "column",
+    backgroundColor: "#fff",
     padding: 10,
     marginBottom: 4,
   },
   headingContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
+    flexDirection: "row",
+    marginBottom: 4,
   },
   companyName: {
     flex: 1,
@@ -31,12 +38,17 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   flexContainer: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "column",
     marginBottom: 10,
   },
   flexItem: {
     marginRight: 10,
+    flexDirection: "row",
+  },
+  flexItems: {
+    marginRight: 10,
+    flexDirection: "row",
   },
 });
 
@@ -53,13 +65,12 @@ const ReceiptDocument = ({ receiptData }) => (
           <Text style={styles.label}>Customer Name:</Text>
           <Text style={styles.value}>{receiptData.customerName}</Text>
         </View>
-        <View style={styles.flexItem}>
+        <View style={styles.flexItems}>
           <Text style={styles.label}>Date:</Text>
           <Text style={styles.value}>{receiptData.date}</Text>
         </View>
       </View>
 
-      <Text style={styles.heading}>Items Purchased:</Text>
       {receiptData.items.map((item, index) => (
         <View key={index} style={styles.flexContainer}>
           <View style={styles.flexItem}>
@@ -89,20 +100,23 @@ const ReceiptDocument = ({ receiptData }) => (
 
 const ReceiptGenerator = () => {
   const receiptData = {
-    customerName: 'John Doe',
-    date: '2023-07-02',
+    customerName: "John Doe",
+    date: "2023-07-02",
     items: [
-      { name: 'Item 1', quantity: 2, price: 10 },
-      { name: 'Item 2', quantity: 1, price: 20 },
+      { name: "Item 1", quantity: 2, price: 10 },
+      { name: "Item 2", quantity: 1, price: 20 },
     ],
     total: 40,
   };
 
   return (
     <div className="px-3 py-2 bg-blue-200">
-      <PDFDownloadLink document={<ReceiptDocument receiptData={receiptData} />} fileName="receipt.pdf">
+      <PDFDownloadLink
+        document={<ReceiptDocument receiptData={receiptData} />}
+        fileName="receipt.pdf"
+      >
         {({ blob, url, loading, error }) =>
-          loading ? 'Generating PDF...' : 'Download Receipt'
+          loading ? "Generating PDF..." : "Download Receipt"
         }
       </PDFDownloadLink>
     </div>
