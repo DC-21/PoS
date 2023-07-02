@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import axios from 'axios';
+import React from 'react';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
+// Styles for the PDF document
 const styles = StyleSheet.create({
   page: {
+    flexDirection: 'column',
+    backgroundColor: '#fff',
     padding: 20,
   },
   heading: {
@@ -52,56 +54,23 @@ const ReceiptDocument = ({ receiptData }) => (
 );
 
 const ReceiptGenerator = () => {
-  const [customerName, setCustomerName] = useState('');
-  const [date, setDate] = useState('');
-  const [items, setItems] = useState([]);
-  const [total, setTotal] = useState(0);
+  const receiptData = {
+    customerName: 'John Doe',
+    date: '2023-07-02',
+    items: [
+      { name: 'Item 1', quantity: 2, price: 10 },
+      { name: 'Item 2', quantity: 1, price: 20 },
+    ],
+    total: 40,
+  };
 
-  useEffect(() => {
-    // Simulating API/database call
-    const fetchTransactionData = async () => {
-      try {
-        // Replace with your actual API/database call
-        const response = await axios.get('http://localhost:3000/user-details'); // Assuming the API endpoint is /api/transaction
-        const data = response.data;
-
-        // Assuming the data is returned in the following format:
-        const { customerName, date, items, total } = data;
-
-        setCustomerName(customerName);
-        setDate(date);
-        setItems(items);
-        setTotal(total);
-      } catch (error) {
-        console.log('Error fetching transaction data:', error);
-      }
-    };
-
-    fetchTransactionData();
-  }, []);
-
-  const generateReceipt = () => {
-    const receiptData = {
-      customerName,
-      date,
-      items,
-      total,
-    };
-
-    return (
+  return (
+    <div className='px-3 py-2 bg-blue-200'>
       <PDFDownloadLink document={<ReceiptDocument receiptData={receiptData} />} fileName="receipt.pdf">
         {({ blob, url, loading, error }) =>
           loading ? 'Generating PDF...' : 'Download Receipt'
         }
       </PDFDownloadLink>
-    );
-  };
-
-  const receipt = generateReceipt();
-
-  return (
-    <div>
-      {receipt}
     </div>
   );
 };
