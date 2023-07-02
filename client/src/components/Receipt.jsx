@@ -20,15 +20,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 10,
   },
+  flexContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  flexItem: {
+    flex: 1,
+    marginRight: 10,
+  },
 });
 
 const ReceiptDocument = ({ receiptData }) => (
   <Document>
-    <Page size="A4" style={styles.page}>
+    <Page size="A6" style={styles.page}>
       <Text style={styles.heading}>Receipt</Text>
 
-      <Text style={styles.label}>Customer Name:</Text>
-      <Text style={styles.value}>{receiptData.customerName}</Text>
+      <View style={styles.flexContainer}>
+        <Text style={styles.label}>Customer Name:</Text>
+        <Text style={styles.value}>{receiptData.customerName}</Text>
+      </View>
 
       <Text style={styles.label}>Date:</Text>
       <Text style={styles.value}>{receiptData.date}</Text>
@@ -65,7 +76,7 @@ const ReceiptGenerator = () => {
   };
 
   return (
-    <div className='px-3 py-2 bg-blue-200'>
+    <div className="px-3 py-2 bg-blue-200">
       <PDFDownloadLink document={<ReceiptDocument receiptData={receiptData} />} fileName="receipt.pdf">
         {({ blob, url, loading, error }) =>
           loading ? 'Generating PDF...' : 'Download Receipt'
