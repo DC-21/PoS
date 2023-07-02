@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import axios from 'axios';
 
 const styles = StyleSheet.create({
@@ -19,6 +19,37 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+const ReceiptDocument = ({ receiptData }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <Text style={styles.heading}>Receipt</Text>
+
+      <Text style={styles.label}>Customer Name:</Text>
+      <Text style={styles.value}>{receiptData.customerName}</Text>
+
+      <Text style={styles.label}>Date:</Text>
+      <Text style={styles.value}>{receiptData.date}</Text>
+
+      <Text style={styles.heading}>Items Purchased:</Text>
+      {receiptData.items.map((item, index) => (
+        <View key={index}>
+          <Text style={styles.label}>Item Name:</Text>
+          <Text style={styles.value}>{item.name}</Text>
+
+          <Text style={styles.label}>Quantity:</Text>
+          <Text style={styles.value}>{item.quantity}</Text>
+
+          <Text style={styles.label}>Price:</Text>
+          <Text style={styles.value}>{item.price}</Text>
+        </View>
+      ))}
+
+      <Text style={styles.label}>Total:</Text>
+      <Text style={styles.value}>{receiptData.total}</Text>
+    </Page>
+  </Document>
+);
 
 const ReceiptGenerator = () => {
   const [customerName, setCustomerName] = useState('');
@@ -57,47 +88,22 @@ const ReceiptGenerator = () => {
       total,
     };
 
-    // Generate the receipt as a PDF
-    const MyDocument = () => (
-      <Document>
-        <Page size="A5" style={styles.page}>
-          <Text style={styles.heading}>Receipt</Text>
-
-          <Text style={styles.label}>Customer Name:</Text>
-          <Text style={styles.value}>{receiptData.customerName}</Text>
-
-          <Text style={styles.label}>Date:</Text>
-          <Text style={styles.value}>{receiptData.date}</Text>
-
-          <Text style={styles.heading}>Service:</Text>
-          {receiptData.items.map((item, index) => (
-            <View key={index}>
-              <Text style={styles.label}>Quantity:</Text>
-              <Text style={styles.value}>{item.quantity}</Text>
-
-              <Text style={styles.label}>Price:</Text>
-              <Text style={styles.value}>{item.price}</Text>
-            </View>
-          ))}
-
-          <Text style={styles.label}>Total:</Text>
-          <Text style={styles.value}>{receiptData.total}</Text>
-        </Page>
-      </Document>
+    return (
+      <PDFDownloadLink document={<ReceiptDocument receiptData={receiptData} />} fileName="receipt.pdf">
+        {({ blob, url, loading, error }) =>
+          loading ? 'Generating PDF...' : 'Download Receipt'
+        }
+      </PDFDownloadLink>
     );
-
-    // Render the receipt as a PDF
-    const pdfData = (
-      <PDFViewer width="100%" height={500}>
-        <MyDocument />
-      </PDFViewer>
-    );
-
-    // Display or process the PDF data
-    console.log(pdfData);
   };
 
-  // ... Rest of the code
+  const receipt = generateReceipt();
+
+  return (
+    <div>
+      {receipt}
+    </div>
+  );
 };
 
 export default ReceiptGenerator;
