@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Receipt from './Receipt';
+import Receipt from "./Receipt";
 import axios from "axios";
 
 const Trans = () => {
@@ -38,7 +38,8 @@ const Trans = () => {
       document.getElementById("description6").value = user.amounttendered || "";
       document.getElementById("description7").value = user.change || "";
       document.getElementById("description8").value = user.description || "";
-      document.getElementById("description9").value = user.incomegroupcode || "";
+      document.getElementById("description9").value =
+        user.incomegroupcode || "";
 
       // Set the amountToPay and customerBalance states
       setAmountToPay(user.amounttopay || "");
@@ -53,10 +54,14 @@ const Trans = () => {
     const user = userDetails.find((user) => user.accountname === accountName);
 
     if (user) {
-      const updatedUser = { ...user, amounttopay: amountToPay, accountbalance: customerBalance };
+      const updatedUser = {
+        ...user,
+        amounttopay: amountToPay,
+        accountbalance: customerBalance,
+      };
 
       axios
-        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+        .put(`http://localhost:3000/user/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
           // Perform any necessary actions after the update is successful
@@ -66,12 +71,22 @@ const Trans = () => {
           // Reset the states
           setAmountToPay("");
           setCustomerBalance("");
+
+          // Trigger receipt generator here
+          generateReceipt();
         })
         .catch((error) => {
           console.error("Error updating user details:", error);
           // Handle the error and display an error message
         });
     }
+  };
+
+  const generateReceipt = () => {
+    // Add your receipt generation logic here
+    // This function will be called when the transaction is successful
+    // You can access the necessary data from the user details and form inputs
+    // Perform any necessary calculations and generate the receipt
   };
 
   return (
@@ -86,7 +101,7 @@ const Trans = () => {
               type=""
               id="description0"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={receiptNumber}
+              defaultValue={receiptNumber}
               onChange={(e) => setReceiptNumber(e.target.value)}
             />
           </div>
@@ -98,7 +113,7 @@ const Trans = () => {
               type=""
               id="date"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={currentDate}
+              defaultValue={currentDate}
             />
           </div>
           <div className="w-full flex">
@@ -205,15 +220,13 @@ const Trans = () => {
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
-          <div className="flex justify-center mt-10 w-full">
-            <button
-              className="text-center px-4 py-2 bg-slate-300 rounded"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-            <Receipt className='bg-blue-200'/>
-          </div>
+          <button
+            type="button"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
