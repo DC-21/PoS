@@ -8,6 +8,8 @@ const Trans = () => {
     new Date().toLocaleDateString()
   );
   const [receiptNumber, setReceiptNumber] = useState("");
+  const [amountToPay, setAmountToPay] = useState("");
+  const [customerBalance, setCustomerBalance] = useState("");
 
   useEffect(() => {
     axios
@@ -25,10 +27,8 @@ const Trans = () => {
 
   const handleAccountNameChange = (e) => {
     const accountName = e.target.value;
-    // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
     if (user) {
-      // Update the input fields with the user details
       document.getElementById("description0").value = user.receiptno || "";
       document.getElementById("description1").value = user.accounttype || "";
       document.getElementById("description2").value = user.accountno || "";
@@ -38,8 +38,39 @@ const Trans = () => {
       document.getElementById("description6").value = user.amounttendered || "";
       document.getElementById("description7").value = user.change || "";
       document.getElementById("description8").value = user.description || "";
-      document.getElementById("description9").value =
-        user.incomegroupcode || "";
+      document.getElementById("description9").value = user.incomegroupcode || "";
+
+      // Set the amountToPay and customerBalance states
+      setAmountToPay(user.amounttopay || "");
+      setCustomerBalance(user.accountbalance || "");
+    }
+  };
+
+  const handleSubmit = () => {
+    const accountName = document.getElementById("description3").value;
+
+    // Find the user details based on the entered account name
+    const user = userDetails.find((user) => user.accountname === accountName);
+
+    if (user) {
+      const updatedUser = { ...user, amounttopay: amountToPay, accountbalance: customerBalance };
+
+      axios
+        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+        .then((response) => {
+          console.log("User details updated successfully:", response.data);
+          // Perform any necessary actions after the update is successful
+
+          // Clear the input fields
+          document.getElementById("description3").value = "";
+          // Reset the states
+          setAmountToPay("");
+          setCustomerBalance("");
+        })
+        .catch((error) => {
+          console.error("Error updating user details:", error);
+          // Handle the error and display an error message
+        });
     }
   };
 
@@ -79,7 +110,7 @@ const Trans = () => {
               id="description3"
               placeholder="Customer"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              onBlur={handleAccountNameChange} // Add onBlur event listener
+              onBlur={handleAccountNameChange}
             />
           </div>
           <div className="w-full flex">
@@ -113,6 +144,8 @@ const Trans = () => {
               id="description4"
               placeholder="Customer"
               className="w-1/2 bg-slate-100 border border-gray-400"
+              value={customerBalance}
+              onChange={(e) => setCustomerBalance(e.target.value)}
             />
           </div>
           <div className="w-full flex">
@@ -124,6 +157,8 @@ const Trans = () => {
               id="description5"
               placeholder="Customer"
               className="w-1/2 bg-slate-100 border border-gray-400"
+              value={amountToPay}
+              onChange={(e) => setAmountToPay(e.target.value)}
             />
           </div>
           <div className="w-full flex">
@@ -171,9 +206,14 @@ const Trans = () => {
             />
           </div>
           <div className="flex justify-center mt-10 w-full">
-          <button className="text-center px-4 py-2 bg-slate-300 rounded">Submit</button>
-          <Receipt className='bg-blue-200'/>
-        </div>
+            <button
+              className="text-center px-4 py-2 bg-slate-300 rounded"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+            <Receipt className='bg-blue-200'/>
+          </div>
         </form>
       </div>
     </div>
