@@ -16,47 +16,38 @@ const Use = db.define("Use", {
   accounttype: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   accountno: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    unique: true,
   },
   accountname: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   accountbalance: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
-    unique: true,
   },
   amounttopay: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
-    unique: true,
   },
   amounttendered: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: true,
-    unique: true,
   },
   change: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: true,
-    unique: true,
   },
   paymenttype: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   description: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   incomegroupcode: {
     type: Sequelize.STRING,

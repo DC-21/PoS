@@ -49,29 +49,29 @@ const Trans = () => {
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-
+  
     // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
-
+  
     if (user) {
       const updatedUser = {
         ...user,
         amounttopay: amountToPay,
         accountbalance: customerBalance,
       };
-
+  
       axios
-        .put(`http://localhost:3000/user/${user.id}`, updatedUser)
+        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
           // Perform any necessary actions after the update is successful
-
+  
           // Clear the input fields
           document.getElementById("description3").value = "";
           // Reset the states
           setAmountToPay("");
           setCustomerBalance("");
-
+  
           // Trigger receipt generator here
           generateReceipt();
         })
@@ -81,6 +81,7 @@ const Trans = () => {
         });
     }
   };
+  
 
   const generateReceipt = () => {
     // Add your receipt generation logic here

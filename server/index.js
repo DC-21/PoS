@@ -34,28 +34,6 @@ app.get('/user-details', async (req, res) => {
   }
 });
 
-app.put('/user/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, email, age } = req.body;
-
-    // Find the user by ID
-    const user = await Use.findByPk(id);
-
-    // Update the user details
-    user.name = name;
-    user.email = email;
-    user.age = age;
-
-    // Save the updated user
-    await user.save();
-
-    res.status(200).json({ message: 'User details updated successfully.' });
-  } catch (error) {
-    console.error('Error updating user details:', error);
-    res.status(500).json({ message: 'An error occurred while updating user details.' });
-  }
-});
 
 //section to Test the database connection //
 (async () => {
