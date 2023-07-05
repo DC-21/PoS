@@ -26,50 +26,46 @@ const Trans = () => {
     const accountName = e.target.value;
     setSelectedAccountName(accountName);
     const user = userDetails.find((user) => user.accountname === accountName);
-    if (user) {
-      document.getElementById("description0").value = user.receiptno || "";
-      document.getElementById("description1").value = user.accounttype || "";
-      document.getElementById("description2").value = user.accountno || "";
-      document.getElementById("description3").value = user.accountname || "";
-      document.getElementById("description4").value = user.accountbalance || "";
-      document.getElementById("description5").value = user.amounttopay || "";
-      document.getElementById("description6").value = user.amounttendered || "";
-      document.getElementById("description7").value = user.change || "";
-      document.getElementById("description8").value = user.description || "";
-      document.getElementById("description9").value = user.incomegroupcode || "";
-
-      // Set the amountToPay and customerBalance states
-      setAmountToPay(user.amounttopay || "");
-      setCustomerBalance(user.accountbalance || "");
-    }
+    
+    document.getElementById("description0").value = user?.receiptno || "";
+    document.getElementById("description1").value = user?.accounttype || "";
+    document.getElementById("description2").value = user?.accountno || "";
+    document.getElementById("description3").value = user?.accountname || "";
+    document.getElementById("description4").value = user?.accountbalance || "";
+    document.getElementById("description5").value = ""; // Set amountToPay to empty
+    document.getElementById("description6").value = user?.amounttendered || "";
+    document.getElementById("description7").value = user?.change || "";
+    document.getElementById("description8").value = user?.description || "";
+    document.getElementById("description9").value = user?.incomegroupcode || "";
+  
+    // Set the customerBalance state
+    setCustomerBalance(user?.accountbalance || "");
   };
+  
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-
+  
     // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
-
+  
     if (user) {
       const updatedUser = {
         ...user,
-        amounttopay: amountToPay,
+        amounttopay: amountToPay !== "" ? amountToPay : null,
         accountbalance: customerBalance,
       };
-
+  
       axios
         .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
-
+  
           // Clear the input fields
           document.getElementById("description3").value = "";
           // Reset the states
-          setAmountToPay("");
+          setAmountToPay(null);
           setCustomerBalance("");
-
-          // Trigger receipt generator here
-          generateReceipt();
         })
         .catch((error) => {
           console.error("Error updating user details:", error);
@@ -77,13 +73,7 @@ const Trans = () => {
         });
     }
   };
-
-  const generateReceipt = () => {
-    // Add your receipt generation logic here
-    // This function will be called when the transaction is successful
-    // You can access the necessary data from the user details and form inputs
-    // Perform any necessary calculations and generate the receipt
-  };
+  
 
   return (
     <div>
@@ -122,7 +112,7 @@ const Trans = () => {
               value={selectedAccountName}
               onChange={handleAccountNameChange}
             >
-              <option value="">Select an account name</option>
+              <option value="">Select An Account Name To Receive From</option>
               {userDetails.map((user) => (
                 <option key={user.id} value={user.accountname}>
                   {user.accountname}
