@@ -4,7 +4,9 @@
         "accountno",
         "accounttype",
         "amountpaid",
+        "amounttendered",
         "amounttopay",
+        "incomegroupcode",
         "receiptno"
     ]
 }
