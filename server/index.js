@@ -1,8 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const sequelize = require('./utils/db');
-const Use = require('./models/Use');
 const useRouter = require('./routes/routes');
+const useTransact = require('./routes/transact');
+
 const cors = require("cors");
 
 const app = express();
@@ -13,7 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use the router for the '/user' routes
-app.use('/user', useRouter);
+app.use('/', useRouter);
+app.use('/', useTransact);
+
 
 // Error handling middleware to protect server from crashing //
 app.use((err, req, res, next) => {

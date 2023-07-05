@@ -13,7 +13,7 @@ const Trans = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/user/user-details")
+      .get("http://localhost:3000/user-details")
       .then((response) => {
         setUserDetails(response.data);
         const lastReceiptNumber =
@@ -53,7 +53,7 @@ const Trans = () => {
   
     if (user) {
       axios
-        .get("http://localhost:3000/user/user-details")
+        .get("http://localhost:3000/user-details")
         .then((response) => {
           const latestReceiptNumber = response.data.length + 1;
           const updatedUser = {
@@ -64,7 +64,7 @@ const Trans = () => {
           };
   
           axios
-            .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
+            .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
             .then((response) => {
               console.log("User details updated successfully:", response.data);
   
@@ -78,7 +78,7 @@ const Trans = () => {
   
               // Retrieve the updated user details from the server
               axios
-                .get("http://localhost:3000/user/user-details")
+                .get("http://localhost:3000/user-details")
                 .then((response) => {
                   setUserDetails(response.data);
   
