@@ -27,6 +27,7 @@ router.put('/user-details/:id', async (req, res) => {
     // Update the user's account balance
     const updatedAmount = user.accountbalance - userDetails.amounttopay;
     user.accountbalance = updatedAmount;
+    user.amounttopay = userDetails.amounttopay; // Update the amounttopay field
 
     // Save the updated user
     await user.save();
@@ -51,7 +52,7 @@ router.post('/user-details', async (req, res) => {
     res.status(500).json({ message: 'An error occurred while creating user.' });
   }
 });
-// delete user by id
+
 router.delete('/user-details/:id', async (req, res) => {
   try {
     const { id } = req.params;
