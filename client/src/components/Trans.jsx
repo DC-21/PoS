@@ -53,7 +53,7 @@ const Trans = () => {
       const updatedUser = {
         ...user,
         amounttopay: amountToPay !== "" ? amountToPay : null,
-        accountbalance: customerBalance,
+        accountbalance: customerBalance !== "" ? customerBalance : null,
       };
   
       axios
@@ -63,8 +63,9 @@ const Trans = () => {
   
           // Clear the input fields
           document.getElementById("description3").value = "";
+  
           // Reset the states
-          setAmountToPay(null);
+          setAmountToPay("");
           setCustomerBalance("");
         })
         .catch((error) => {
