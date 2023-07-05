@@ -17,8 +17,8 @@ const Trans = () => {
       .then((response) => {
         setUserDetails(response.data);
         const lastReceiptNumber =
-          response.data[response.data.length - 1]?.receiptNumber || "";
-        setReceiptNumber(lastReceiptNumber);
+          response.data.length > 0 ? response.data.length + 1 : 1;
+        setReceiptNumber(lastReceiptNumber.toString());
       })
       .catch((error) => {
         console.log(error);
@@ -30,7 +30,7 @@ const Trans = () => {
     setSelectedAccountName(accountName);
     const user = userDetails.find((user) => user.accountname === accountName);
 
-    document.getElementById("description0").value = user?.receiptno || "";
+    document.getElementById("description0").value = receiptNumber;
     document.getElementById("description1").value = user?.accounttype || "";
     document.getElementById("description2").value = user?.accountno || "";
     document.getElementById("description3").value = user?.accountname || "";
@@ -52,54 +52,60 @@ const Trans = () => {
     const user = userDetails.find((user) => user.accountname === accountName);
   
     if (user) {
-      const updatedUser = {
-        ...user,
-        amounttopay: amountToPay !== "" ? amountToPay : null,
-        accountbalance: customerBalance !== "" ? customerBalance : null,
-      };
-  
       axios
-        .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
+        .get("http://localhost:3000/user/user-details")
         .then((response) => {
-          console.log("User details updated successfully:", response.data);
+          const latestReceiptNumber = response.data.length + 1;
+          const updatedUser = {
+            ...user,
+            amounttopay: amountToPay !== "" ? amountToPay : null,
+            accountbalance: customerBalance !== "" ? customerBalance : null,
+            receiptno: latestReceiptNumber.toString(),
+          };
   
-          // Clear the input fields
-          document.getElementById("description3").value = "";
-  
-          // Reset the states
-          setAmountToPay("");
-          setCustomerBalance("");
-  
-          // Retrieve the updated user details from the server
           axios
-            .get("http://localhost:3000/user/user-details")
+            .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
             .then((response) => {
-              setUserDetails(response.data);
-              const lastReceiptNumber =
-                response.data[response.data.length - 1]?.receiptNumber || "";
-              setReceiptNumber(lastReceiptNumber);
+              console.log("User details updated successfully:", response.data);
   
-              // Find the updated user details
-              const updatedUserDetails = response.data.find(
-                (user) => user.accountname === accountName
-              );
+              // Clear the input fields
+              document.getElementById("description3").value = "";
   
-              if (updatedUserDetails) {
-                // Update the customer balance state
-                setCustomerBalance(updatedUserDetails.accountbalance || "");
-              }
+              // Reset the states
+              setReceiptNumber(latestReceiptNumber.toString());
+              setAmountToPay("");
+              setCustomerBalance("");
+  
+              // Retrieve the updated user details from the server
+              axios
+                .get("http://localhost:3000/user/user-details")
+                .then((response) => {
+                  setUserDetails(response.data);
+  
+                  // Find the updated user details
+                  const updatedUserDetails = response.data.find(
+                    (user) => user.accountname === accountName
+                  );
+
+                  if (updatedUserDetails) {
+                    // Update the customer balance state
+                    setCustomerBalance(updatedUserDetails.accountbalance || "");
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
             })
             .catch((error) => {
-              console.log(error);
+              console.error("Error updating user details:", error);
+              // Handle the error and display an error message
             });
         })
         .catch((error) => {
-          console.error("Error updating user details:", error);
-          // Handle the error and display an error message
+          console.log(error);
         });
     }
   };
-  
 
   return (
     <div>
@@ -153,7 +159,7 @@ const Trans = () => {
             <input
               type="text"
               id="description1"
-              placeholder="Customer"
+              placeholder="Account Type To Receive From"
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
@@ -164,7 +170,7 @@ const Trans = () => {
             <input
               type="text"
               id="description2"
-              placeholder="Customer"
+              placeholder="Account To Receive From"
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
@@ -175,7 +181,7 @@ const Trans = () => {
             <input
               type="text"
               id="description4"
-              placeholder="Customer"
+              placeholder="Customer Account Balance"
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={customerBalance}
               onChange={(e) => setCustomerBalance(e.target.value)}
@@ -188,7 +194,7 @@ const Trans = () => {
             <input
               type="text"
               id="description5"
-              placeholder="Customer"
+              placeholder="Input Amount To Pay"
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={amountToPay}
               onChange={(e) => setAmountToPay(e.target.value)}
@@ -201,7 +207,7 @@ const Trans = () => {
             <input
               type="text"
               id="description6"
-              placeholder="Customer"
+              placeholder="Amount Tendered"
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
@@ -212,7 +218,7 @@ const Trans = () => {
             <input
               type="text"
               id="description7"
-              placeholder="Customer"
+              placeholder="Change"
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
@@ -223,7 +229,7 @@ const Trans = () => {
             <input
               type="text"
               id="description8"
-              placeholder="Customer"
+              placeholder="Description"
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
@@ -234,7 +240,7 @@ const Trans = () => {
             <input
               type="text"
               id="description9"
-              placeholder="Customer"
+              placeholder="income group"
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
