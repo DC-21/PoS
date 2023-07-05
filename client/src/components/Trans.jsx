@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
-import Receipt from "./Receipt";
 import axios from "axios";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(
-    new Date().toLocaleDateString()
-  );
+  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
   const [receiptNumber, setReceiptNumber] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
+  const [selectedQ, setSelectedQ] = useState(""); 
 
   useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = () => {
     axios
-      .get("http://localhost:3000/user-details")
+      .get("http://localhost:3000/user/user-details")
       .then((response) => {
         setUserDetails(response.data);
-        const lastReceiptNumber =
-          response.data[response.data.length - 1]?.receiptNumber || "";
+        const lastReceiptNumber = response.data[response.data.length - 1]?.receiptNumber || "";
         setReceiptNumber(lastReceiptNumber);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
 
   const handleAccountNameChange = (e) => {
     const accountName = e.target.value;
@@ -38,8 +39,7 @@ const Trans = () => {
       document.getElementById("description6").value = user.amounttendered || "";
       document.getElementById("description7").value = user.change || "";
       document.getElementById("description8").value = user.description || "";
-      document.getElementById("description9").value =
-        user.incomegroupcode || "";
+      document.getElementById("description9").value = user.incomegroupcode || "";
 
       // Set the amountToPay and customerBalance states
       setAmountToPay(user.amounttopay || "");
@@ -49,45 +49,37 @@ const Trans = () => {
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-  
+
     // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
-  
+
     if (user) {
       const updatedUser = {
         ...user,
         amounttopay: amountToPay,
         accountbalance: customerBalance,
       };
-  
+
       axios
-        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+        .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
           // Perform any necessary actions after the update is successful
-  
+
           // Clear the input fields
           document.getElementById("description3").value = "";
           // Reset the states
           setAmountToPay("");
           setCustomerBalance("");
-  
-          // Trigger receipt generator here
-          generateReceipt();
+
+          // Fetch the updated user details again
+          fetchUserDetails();
         })
         .catch((error) => {
           console.error("Error updating user details:", error);
           // Handle the error and display an error message
         });
     }
-  };
-  
-
-  const generateReceipt = () => {
-    // Add your receipt generation logic here
-    // This function will be called when the transaction is successful
-    // You can access the necessary data from the user details and form inputs
-    // Perform any necessary calculations and generate the receipt
   };
 
   return (
@@ -121,14 +113,20 @@ const Trans = () => {
             <label htmlFor="description3" className="w-1/2 text-start">
               Received from Account Name:
             </label>
-            <input
-              type="text"
+            <select
               id="description3"
-              placeholder="Customer"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              onBlur={handleAccountNameChange}
-            />
+              onChange={handleAccountNameChange}
+              value={selectedQ}
+            >
+              <option value="">Select a customer</option>
+              <option value="customer1">Customer 1</option>
+              <option value="customer2">Customer 2</option>
+              <option value="customer3">Customer 3</option>
+              {/* Add more options as needed */}
+            </select>
           </div>
+
           <div className="w-full flex">
             <label htmlFor="description1" className="w-1/2 text-start">
               Received from Account Type:
