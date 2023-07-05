@@ -213,15 +213,16 @@ const Trans = () => {
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
-          <div className="w-full flex">
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
-            >
-              Submit
-            </button>
-          </div>
+          <div className="w-full flex justify-center">
+  <button
+    type="button"
+    onClick={handleSubmit}
+    className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
+  >
+    Submit
+  </button>
+</div>
+
         </form>
       </div>
     </div>
