@@ -3,20 +3,18 @@ import axios from "axios";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(
-    new Date().toLocaleDateString()
-  );
+  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
   const [receiptNumber, setReceiptNumber] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
+  const [selectedAccountName, setSelectedAccountName] = useState("");
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/user/user-details")
       .then((response) => {
         setUserDetails(response.data);
-        const lastReceiptNumber =
-          response.data[response.data.length - 1]?.receiptNumber || "";
+        const lastReceiptNumber = response.data[response.data.length - 1]?.receiptNumber || "";
         setReceiptNumber(lastReceiptNumber);
       })
       .catch((error) => {
@@ -26,6 +24,7 @@ const Trans = () => {
 
   const handleAccountNameChange = (e) => {
     const accountName = e.target.value;
+    setSelectedAccountName(accountName);
     const user = userDetails.find((user) => user.accountname === accountName);
     if (user) {
       document.getElementById("description0").value = user.receiptno || "";
@@ -37,8 +36,7 @@ const Trans = () => {
       document.getElementById("description6").value = user.amounttendered || "";
       document.getElementById("description7").value = user.change || "";
       document.getElementById("description8").value = user.description || "";
-      document.getElementById("description9").value =
-        user.incomegroupcode || "";
+      document.getElementById("description9").value = user.incomegroupcode || "";
 
       // Set the amountToPay and customerBalance states
       setAmountToPay(user.amounttopay || "");
@@ -48,17 +46,17 @@ const Trans = () => {
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-  
+
     // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
-  
+
     if (user) {
       const updatedUser = {
         ...user,
         amounttopay: amountToPay,
         accountbalance: customerBalance,
       };
-  
+
       axios
         .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
         .then((response) => {
@@ -69,7 +67,7 @@ const Trans = () => {
           // Reset the states
           setAmountToPay("");
           setCustomerBalance("");
-  
+
           // Trigger receipt generator here
           generateReceipt();
         })
@@ -79,7 +77,6 @@ const Trans = () => {
         });
     }
   };
-  
 
   const generateReceipt = () => {
     // Add your receipt generation logic here
@@ -119,13 +116,19 @@ const Trans = () => {
             <label htmlFor="description3" className="w-1/2 text-start">
               Received from Account Name:
             </label>
-            <input
-              type="text"
+            <select
               id="description3"
-              placeholder="Customer"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              onBlur={handleAccountNameChange}
-            />
+              value={selectedAccountName}
+              onChange={handleAccountNameChange}
+            >
+              <option value="">Select an account name</option>
+              {userDetails.map((user) => (
+                <option key={user.id} value={user.accountname}>
+                  {user.accountname}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="w-full flex">
             <label htmlFor="description1" className="w-1/2 text-start">
@@ -219,13 +222,15 @@ const Trans = () => {
               className="w-1/2 bg-slate-100 border border-gray-400"
             />
           </div>
-          <button
-            type="button"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
+          <div className="w-full flex">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
