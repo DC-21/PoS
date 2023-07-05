@@ -38,5 +38,18 @@ router.put('/user-details/:id', async (req, res) => {
   }
 });
 
+router.post('/user-details', async (req, res) => {
+  try {
+    const userDetails = req.body;
+
+    // Create a new user
+    const newUser = await Use.create(userDetails);
+
+    res.status(201).json({ message: 'User created successfully.', user: newUser });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'An error occurred while creating user.' });
+  }
+});
 
 module.exports = router;

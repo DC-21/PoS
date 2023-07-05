@@ -16,6 +16,7 @@ const Use = db.define("Use", {
   accounttype: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: false,
   },
   accountno: {
     type: Sequelize.INTEGER,
@@ -31,7 +32,7 @@ const Use = db.define("Use", {
   },
   amounttopay: {
     type: Sequelize.DECIMAL(10, 2),
-    allowNull: false,
+    allowNull: true,
   },
   amounttendered: {
     type: Sequelize.DECIMAL(10, 2),
@@ -51,7 +52,7 @@ const Use = db.define("Use", {
   },
   incomegroupcode: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 });
 

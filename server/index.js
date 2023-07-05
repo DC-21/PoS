@@ -23,16 +23,7 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-app.get('/user-details', async (req, res) => {
-  try {
-    const users = await Use.findAll();
-    console.log(users);
-    res.status(200).json(users);
-  } catch (error) {
-    console.error('Error retrieving users:', error);
-    res.status(500).json({ message: 'An error occurred while retrieving users.' });
-  }
-});
+
 
 
 //section to Test the database connection //
