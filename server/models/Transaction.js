@@ -21,7 +21,7 @@ const Transaction = db.define("Transaction", {
     allowNull: false,
   },
   accounttype: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   accountno: {
@@ -34,7 +34,7 @@ const Transaction = db.define("Transaction", {
   },
   description: {
     type: Sequelize.STRING,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    allowNull: false,
   },
 });
 
