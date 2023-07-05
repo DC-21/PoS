@@ -60,11 +60,10 @@ const Trans = () => {
       };
   
       axios
-        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+        .put(`http://localhost:3000/user/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
-          // Perform any necessary actions after the update is successful
-  
+
           // Clear the input fields
           document.getElementById("description3").value = "";
           // Reset the states
