@@ -3,7 +3,9 @@ import axios from "axios";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toLocaleDateString()
+  );
   const [receiptNumber, setReceiptNumber] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
@@ -14,7 +16,8 @@ const Trans = () => {
       .get("http://localhost:3000/user/user-details")
       .then((response) => {
         setUserDetails(response.data);
-        const lastReceiptNumber = response.data[response.data.length - 1]?.receiptNumber || "";
+        const lastReceiptNumber =
+          response.data[response.data.length - 1]?.receiptNumber || "";
         setReceiptNumber(lastReceiptNumber);
       })
       .catch((error) => {
@@ -26,7 +29,7 @@ const Trans = () => {
     const accountName = e.target.value;
     setSelectedAccountName(accountName);
     const user = userDetails.find((user) => user.accountname === accountName);
-    
+
     document.getElementById("description0").value = user?.receiptno || "";
     document.getElementById("description1").value = user?.accounttype || "";
     document.getElementById("description2").value = user?.accountno || "";
@@ -37,11 +40,10 @@ const Trans = () => {
     document.getElementById("description7").value = user?.change || "";
     document.getElementById("description8").value = user?.description || "";
     document.getElementById("description9").value = user?.incomegroupcode || "";
-  
+
     // Set the customerBalance state
     setCustomerBalance(user?.accountbalance || "");
   };
-  
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
@@ -67,6 +69,29 @@ const Trans = () => {
           // Reset the states
           setAmountToPay("");
           setCustomerBalance("");
+  
+          // Retrieve the updated user details from the server
+          axios
+            .get("http://localhost:3000/user/user-details")
+            .then((response) => {
+              setUserDetails(response.data);
+              const lastReceiptNumber =
+                response.data[response.data.length - 1]?.receiptNumber || "";
+              setReceiptNumber(lastReceiptNumber);
+  
+              // Find the updated user details
+              const updatedUserDetails = response.data.find(
+                (user) => user.accountname === accountName
+              );
+  
+              if (updatedUserDetails) {
+                // Update the customer balance state
+                setCustomerBalance(updatedUserDetails.accountbalance || "");
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           console.error("Error updating user details:", error);
@@ -214,15 +239,14 @@ const Trans = () => {
             />
           </div>
           <div className="w-full flex justify-center">
-  <button
-    type="button"
-    onClick={handleSubmit}
-    className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
-  >
-    Submit
-  </button>
-</div>
-
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>
