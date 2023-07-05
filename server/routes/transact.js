@@ -44,6 +44,17 @@ router.put('/transactions/:id', async (req, res) => {
       return res.status(500).json({ error: 'Internal server error' });
     }
   });
+  router.get('/transactions', async (req, res) => {
+    try {
+      const transactions = await Transaction.findAll();
+      console.log(transactions);
+      res.status(200).json(transactions);
+    } catch (error) {
+      console.error('Error retrieving transactions', error);
+      res.status(500).json({ message: 'An error occurred while retrieving transactions' });
+    }
+  });
+
   router.post('/transactions', async (req, res) => {
     const {
       receiptno,

@@ -45,6 +45,8 @@ const Trans = () => {
     setCustomerBalance(user?.accountbalance || "");
   };
 
+
+
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
   
@@ -62,26 +64,26 @@ const Trans = () => {
             accountbalance: customerBalance !== "" ? customerBalance : null,
             receiptno: latestReceiptNumber.toString(),
           };
-  
+
           axios
             .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
             .then((response) => {
               console.log("User details updated successfully:", response.data);
-  
+
               // Clear the input fields
               document.getElementById("description3").value = "";
-  
+
               // Reset the states
               setReceiptNumber(latestReceiptNumber.toString());
               setAmountToPay("");
               setCustomerBalance("");
-  
+
               // Retrieve the updated user details from the server
               axios
                 .get("http://localhost:3000/user-details")
                 .then((response) => {
                   setUserDetails(response.data);
-  
+
                   // Find the updated user details
                   const updatedUserDetails = response.data.find(
                     (user) => user.accountname === accountName
@@ -95,6 +97,27 @@ const Trans = () => {
                 .catch((error) => {
                   console.log(error);
                 });
+
+              // Create a transaction object
+              const transactionData = {
+                receiptno: latestReceiptNumber.toString(),
+                transaction_date: currentDate,
+                userDetailsId: user.id,
+                amountpaid: amountToPay,
+                description: updatedUser.description,
+              };
+
+              // Send a POST request to store the transaction details in the Transaction table
+              axios
+                .post("http://localhost:3000/transactions", transactionData)
+                .then((response) => {
+                  console.log("Transaction details posted successfully:", response.data);
+                  // Handle the success response if needed
+                })
+                .catch((error) => {
+                  console.error("Error posting transaction details:", error);
+                  // Handle the error and display an error message
+                });
             })
             .catch((error) => {
               console.error("Error updating user details:", error);
@@ -106,6 +129,7 @@ const Trans = () => {
         });
     }
   };
+
 
   return (
     <div>
