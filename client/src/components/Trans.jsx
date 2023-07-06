@@ -114,7 +114,7 @@ const Trans = () => {
                 "Transaction details posted successfully:",
                 response.data
               );
-              setSelectedDescription("");
+              setSelectedDescription("")
               setSelectedIncomeGroup("");
             })
             .catch((error) => {
