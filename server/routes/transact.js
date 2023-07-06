@@ -61,7 +61,8 @@ router.put('/transactions/:id', async (req, res) => {
       transaction_date,
       userDetailsId,
       amountpaid,
-      description
+      description,
+      incomegroupcode,
     } = req.body;
 
     try {

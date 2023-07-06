@@ -36,6 +36,12 @@ const Transaction = db.define("Transaction", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  incomegroupcode: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+}, {
+  timestamps: false,
 });
 
 module.exports = Transaction;
