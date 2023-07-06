@@ -118,7 +118,7 @@ const Trans = () => {
               setSelectedIncomeGroup("");
             })
             .catch((error) => {
-              console.error("Error posting transaction details:", error);
+              console.error("Error posting transaction details:", error)
               // Handle the error and display an error message
             });
         })
