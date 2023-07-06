@@ -114,7 +114,8 @@ const Trans = () => {
                 "Transaction details posted successfully:",
                 response.data
               );
-              // Handle the success response if needed
+              setSelectedDescription("");
+              setSelectedIncomeGroup("");
             })
             .catch((error) => {
               console.error("Error posting transaction details:", error);
@@ -248,10 +249,10 @@ const Trans = () => {
               Description:
             </label>
             <select
-            id="description8"
-            className="w-1/2 bg-slate-100 border border-gray-400"
-            value={selectedDescription}
-            onChange={(e)=> setSelectedDescription(e.target.value)}
+              id="description8"
+              className="w-1/2 bg-slate-100 border border-gray-400"
+              value={selectedDescription}
+              onChange={(e) => setSelectedDescription(e.target.value)}
             >
               <option value="">Description</option>
               <option value="Water">Water</option>
