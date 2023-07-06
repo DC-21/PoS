@@ -269,9 +269,9 @@ const Trans = () => {
               value={selectedIncomeGroup}
               onChange={(e) => setSelectedIncomeGroup(e.target.value)}
             >
-              <option value="">Select an income group</option>
-              <option value="group1">Group 1</option>
-              <option value="group2">Group 2</option>
+              <option value="">Income group</option>
+              <option value="salary">Salary</option>
+              <option value="wage">Wage</option>
               {/* Add more options as needed */}
             </select>
           </div>
