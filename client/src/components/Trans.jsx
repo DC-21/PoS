@@ -250,9 +250,14 @@ const Trans = () => {
             <select
             id="description8"
             className="w-1/2 bg-slate-100 border border-gray-400"
-            value={setSelectedDescription}
+            value={selectedDescription}
             onChange={(e)=> setSelectedDescription(e.target.value)}
-            ></select>
+            >
+              <option value="">Description</option>
+              <option value="Water">Water</option>
+              <option value="Electricity">Electricity</option>
+              <option value="Transport">Transport</option>
+            </select>
           </div>
           <div className="w-full flex">
             <label htmlFor="description9" className="w-1/2 text-start">
