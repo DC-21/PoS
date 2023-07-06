@@ -11,6 +11,7 @@ const Trans = () => {
   const [customerBalance, setCustomerBalance] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState("");
+  const [selectedDescription, setSelectedDescription] = useState("");
 
   useEffect(() => {
     axios
@@ -101,8 +102,8 @@ const Trans = () => {
             transaction_date: currentDate,
             userDetailsId: user.id,
             amountpaid: amountToPay,
-            description: updatedUser.description,
-            incomeGroupCode: selectedIncomeGroup, // Add the selected income group code
+            description: selectedDescription,
+            incomegroupcode: selectedIncomeGroup,
           };
 
           // Send a POST request to store the transaction details in the Transaction table
@@ -246,12 +247,12 @@ const Trans = () => {
             <label htmlFor="description8" className="w-1/2 text-start">
               Description:
             </label>
-            <input
-              type="text"
-              id="description8"
-              placeholder="Description"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-            />
+            <select
+            id="description8"
+            className="w-1/2 bg-slate-100 border border-gray-400"
+            value={setSelectedDescription}
+            onChange={(e)=> setSelectedDescription(e.target.value)}
+            ></select>
           </div>
           <div className="w-full flex">
             <label htmlFor="description9" className="w-1/2 text-start">
