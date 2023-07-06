@@ -36,10 +36,10 @@ const Trans = () => {
     document.getElementById("description3").value = user?.accountname || "";
     document.getElementById("description4").value = user?.accountbalance || "";
     document.getElementById("description5").value = ""; // Set amountToPay to empty
-    document.getElementById("description6").value = user?.amounttendered || "";
-    document.getElementById("description7").value = user?.change || "";
-    document.getElementById("description8").value = user?.description || "";
-    document.getElementById("description9").value = user?.incomegroupcode || "";
+    document.getElementById("description6").value = "";
+    document.getElementById("description7").value = "";
+    document.getElementById("description8").value = "";
+    document.getElementById("description9").value = "";
 
     // Set the customerBalance state
     setCustomerBalance(user?.accountbalance || "");
