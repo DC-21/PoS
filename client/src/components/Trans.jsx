@@ -10,6 +10,7 @@ const Trans = () => {
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
+  const [selectedIncomeGroup, setSelectedIncomeGroup] = useState("");
 
   useEffect(() => {
     axios
@@ -28,6 +29,7 @@ const Trans = () => {
   const handleAccountNameChange = (e) => {
     const accountName = e.target.value;
     setSelectedAccountName(accountName);
+    setSelectedIncomeGroup(""); // Reset selected income group
     const user = userDetails.find((user) => user.accountname === accountName);
 
     document.getElementById("description0").value = receiptNumber;
@@ -35,7 +37,7 @@ const Trans = () => {
     document.getElementById("description2").value = user?.accountno || "";
     document.getElementById("description3").value = user?.accountname || "";
     document.getElementById("description4").value = user?.accountbalance || "";
-    document.getElementById("description5").value = ""; // Set amountToPay to empty
+    document.getElementById("description5").value = "";
     document.getElementById("description6").value = "";
     document.getElementById("description7").value = "";
     document.getElementById("description8").value = "";
@@ -45,91 +47,85 @@ const Trans = () => {
     setCustomerBalance(user?.accountbalance || "");
   };
 
-
-
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-  
+
     // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
-  
+
     if (user) {
+      const latestReceiptNumber = userDetails.length + 1;
+      const updatedUser = {
+        ...user,
+        amounttopay: amountToPay !== "" ? amountToPay : null,
+        accountbalance: customerBalance !== "" ? customerBalance : null,
+        receiptno: latestReceiptNumber.toString(),
+      };
+
       axios
-        .get("http://localhost:3000/user-details")
+        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
         .then((response) => {
-          const latestReceiptNumber = response.data.length + 1;
-          const updatedUser = {
-            ...user,
-            amounttopay: amountToPay !== "" ? amountToPay : null,
-            accountbalance: customerBalance !== "" ? customerBalance : null,
-            receiptno: latestReceiptNumber.toString(),
-          };
+          console.log("User details updated successfully:", response.data);
 
+          // Clear the input fields
+          document.getElementById("description3").value = "";
+
+          // Reset the states
+          setReceiptNumber(latestReceiptNumber.toString());
+          setAmountToPay("");
+          setCustomerBalance("");
+
+          // Retrieve the updated user details from the server
           axios
-            .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+            .get("http://localhost:3000/user-details")
             .then((response) => {
-              console.log("User details updated successfully:", response.data);
+              setUserDetails(response.data);
 
-              // Clear the input fields
-              document.getElementById("description3").value = "";
+              // Find the updated user details
+              const updatedUserDetails = response.data.find(
+                (user) => user.accountname === accountName
+              );
 
-              // Reset the states
-              setReceiptNumber(latestReceiptNumber.toString());
-              setAmountToPay("");
-              setCustomerBalance("");
-
-              // Retrieve the updated user details from the server
-              axios
-                .get("http://localhost:3000/user-details")
-                .then((response) => {
-                  setUserDetails(response.data);
-
-                  // Find the updated user details
-                  const updatedUserDetails = response.data.find(
-                    (user) => user.accountname === accountName
-                  );
-
-                  if (updatedUserDetails) {
-                    // Update the customer balance state
-                    setCustomerBalance(updatedUserDetails.accountbalance || "");
-                  }
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-
-              // Create a transaction object
-              const transactionData = {
-                receiptno: latestReceiptNumber.toString(),
-                transaction_date: currentDate,
-                userDetailsId: user.id,
-                amountpaid: amountToPay,
-                description: updatedUser.description,
-              };
-
-              // Send a POST request to store the transaction details in the Transaction table
-              axios
-                .post("http://localhost:3000/transactions", transactionData)
-                .then((response) => {
-                  console.log("Transaction details posted successfully:", response.data);
-                  // Handle the success response if needed
-                })
-                .catch((error) => {
-                  console.error("Error posting transaction details:", error);
-                  // Handle the error and display an error message
-                });
+              if (updatedUserDetails) {
+                // Update the customer balance state
+                setCustomerBalance(updatedUserDetails.accountbalance || "");
+              }
             })
             .catch((error) => {
-              console.error("Error updating user details:", error);
+              console.log(error);
+            });
+
+          // Create a transaction object
+          const transactionData = {
+            receiptno: latestReceiptNumber.toString(),
+            transaction_date: currentDate,
+            userDetailsId: user.id,
+            amountpaid: amountToPay,
+            description: updatedUser.description,
+            incomeGroupCode: selectedIncomeGroup, // Add the selected income group code
+          };
+
+          // Send a POST request to store the transaction details in the Transaction table
+          axios
+            .post("http://localhost:3000/transactions", transactionData)
+            .then((response) => {
+              console.log(
+                "Transaction details posted successfully:",
+                response.data
+              );
+              // Handle the success response if needed
+            })
+            .catch((error) => {
+              console.error("Error posting transaction details:", error);
               // Handle the error and display an error message
             });
         })
         .catch((error) => {
-          console.log(error);
+          console.error("Error updating user details:", error);
+          // Handle the error and display an error message
         });
     }
   };
-
 
   return (
     <div>
@@ -261,13 +257,19 @@ const Trans = () => {
             <label htmlFor="description9" className="w-1/2 text-start">
               Income Group Code:
             </label>
-            <input
-              type="text"
+            <select
               id="description9"
-              placeholder="income group"
               className="w-1/2 bg-slate-100 border border-gray-400"
-            />
+              value={selectedIncomeGroup}
+              onChange={(e) => setSelectedIncomeGroup(e.target.value)}
+            >
+              <option value="">Select an income group</option>
+              <option value="group1">Group 1</option>
+              <option value="group2">Group 2</option>
+              {/* Add more options as needed */}
+            </select>
           </div>
+
           <div className="w-full flex justify-center">
             <button
               type="button"
