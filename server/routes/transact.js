@@ -35,6 +35,7 @@ router.put('/transactions/:id', async (req, res) => {
       transaction.accountno = userDetails.accountno;
       transaction.amountpaid = amountpaid;
       transaction.description = description;
+      transaction.incomegroupcode = incomegroupcode;
 
       await transaction.save();
 
@@ -81,7 +82,8 @@ router.put('/transactions/:id', async (req, res) => {
         accounttype: userDetails.accounttype,
         accountno: userDetails.accountno,
         amountpaid,
-        description
+        description,
+        incomegroupcode
       });
 
       return res.status(201).json({ message: 'Transaction created successfully', transaction: newTransaction });
