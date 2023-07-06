@@ -123,7 +123,7 @@ const Trans = () => {
             });
         })
         .catch((error) => {
-          console.error("Error updating user details:", error);
+          console.error("Error updating user details:", error)
           // Handle the error and display an error message
         });
     }
