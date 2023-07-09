@@ -6,7 +6,12 @@ const Use = db.define("Use", {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    allowNull: true,
+  },
+  receiptno: {
+    type: Sequelize.STRING,
     allowNull: false,
+    unique: false,
   },
   accounttype: {
     type: Sequelize.STRING,
@@ -29,6 +34,27 @@ const Use = db.define("Use", {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: true,
   },
-});
+  receiptno: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
+  incomegroupcode: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    unique: false,
+  },
+  paymenttype: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
+},
+);
 
 module.exports = Use;

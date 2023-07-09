@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toLocaleDateString()
+  );
   const [receiptNumber, setReceiptNumber] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
@@ -56,16 +55,13 @@ const Trans = () => {
       const latestReceiptNumber = userDetails.length + 1;
       const updatedUser = {
         ...user,
-        amounttopay: amountToPay !== "" ? parseFloat(amountToPay) : null,
-        accountbalance: customerBalance !== "" ? parseFloat(customerBalance) : null,
+        amounttopay: amountToPay !== "" ? amountToPay : null,
+        accountbalance: customerBalance !== "" ? customerBalance : null,
         receiptno: latestReceiptNumber.toString(),
       };
 
       axios
-        .put(
-          `https://pos-server-ptaz.onrender.com/user-details/${user.id}`,
-          updatedUser
-        )
+        .put(`https://pos-server-ptaz.onrender.com/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
 
@@ -102,17 +98,14 @@ const Trans = () => {
             receiptno: latestReceiptNumber.toString(),
             transaction_date: currentDate,
             userDetailsId: user.id,
-            amountpaid: amountToPay !== "" ? parseFloat(amountToPay) : null,
+            amountpaid: amounttopay,
             description: selectedDescription,
             incomegroupcode: selectedIncomeGroup,
           };
 
           // Send a POST request to store the transaction details in the Transaction table
           axios
-            .post(
-              "https://pos-server-ptaz.onrender.com/transactions",
-              transactionData
-            )
+            .post("https://pos-server-ptaz.onrender.com/transactions", transactionData)
             .then((response) => {
               console.log(
                 "Transaction details posted successfully:",
