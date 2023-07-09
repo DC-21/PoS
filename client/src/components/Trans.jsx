@@ -15,7 +15,7 @@ const Trans = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/user-details")
+      .get("https://pos-server-ptaz.onrender.com/user-details")
       .then((response) => {
         setUserDetails(response.data);
         const lastReceiptNumber =
@@ -64,7 +64,7 @@ const Trans = () => {
       };
 
       axios
-        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+        .put(`https://pos-server-ptaz.onrender.com/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
 
@@ -78,7 +78,7 @@ const Trans = () => {
 
           // Retrieve the updated user details from the server
           axios
-            .get("http://localhost:3000/user-details")
+            .get("https://pos-server-ptaz.onrender.com/user-details")
             .then((response) => {
               setUserDetails(response.data);
 
@@ -108,7 +108,7 @@ const Trans = () => {
 
           // Send a POST request to store the transaction details in the Transaction table
           axios
-            .post("http://localhost:3000/transactions", transactionData)
+            .post("https://pos-server-ptaz.onrender.com/transactions", transactionData)
             .then((response) => {
               console.log(
                 "Transaction details posted successfully:",
