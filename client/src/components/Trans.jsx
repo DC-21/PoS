@@ -101,7 +101,7 @@ const Trans = () => {
             receiptno: latestReceiptNumber.toString(),
             transaction_date: currentDate,
             userDetailsId: user.id,
-            amountpaid: amountToPay,
+            amountpaid: amounttopay,
             description: selectedDescription,
             incomegroupcode: selectedIncomeGroup,
           };
