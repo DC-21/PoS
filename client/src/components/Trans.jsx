@@ -3,9 +3,7 @@ import axios from "axios";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(
-    new Date().toLocaleDateString()
-  );
+  const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString());
   const [receiptNumber, setReceiptNumber] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
@@ -58,9 +56,8 @@ const Trans = () => {
       const latestReceiptNumber = userDetails.length + 1;
       const updatedUser = {
         ...user,
-        amounttopay: amountToPay !== "" ? parseFloat(amountToPay) : null, // Convert amountToPay to a numeric value using parseFloat
-        accountbalance:
-          customerBalance !== "" ? parseFloat(customerBalance) : null, // Conv
+        amounttopay: amountToPay !== "" ? parseFloat(amountToPay) : null,
+        accountbalance: customerBalance !== "" ? parseFloat(customerBalance) : null,
         receiptno: latestReceiptNumber.toString(),
       };
 
