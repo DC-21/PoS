@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -50,11 +50,12 @@ const Trans = () => {
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-
+    const amountToPayNumeric = parseFloat(amountToPay);
+  
     // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
-
-    if (user) {
+  
+    if (user && !isNaN(amountToPayNumeric)) {
       const latestReceiptNumber = userDetails.length + 1;
       const updatedUser = {
         ...user,
@@ -62,7 +63,7 @@ const Trans = () => {
         accountbalance: customerBalance !== "" ? customerBalance : null,
         receiptno: latestReceiptNumber.toString(),
       };
-
+  
       axios
         .put(
           `https://pos-server-ptaz.onrender.com/user-details/${user.id}`,
@@ -70,26 +71,26 @@ const Trans = () => {
         )
         .then((response) => {
           console.log("User details updated successfully:", response.data);
-
+  
           // Clear the input fields
           document.getElementById("description3").value = "";
-
+  
           // Reset the states
           setReceiptNumber(latestReceiptNumber.toString());
           setAmountToPay("");
           setCustomerBalance("");
-
+  
           // Retrieve the updated user details from the server
           axios
             .get("https://pos-server-ptaz.onrender.com/user-details")
             .then((response) => {
               setUserDetails(response.data);
-
+  
               // Find the updated user details
               const updatedUserDetails = response.data.find(
                 (user) => user.accountname === accountName
               );
-
+  
               if (updatedUserDetails) {
                 // Update the customer balance state
                 setCustomerBalance(updatedUserDetails.accountbalance || "");
@@ -98,19 +99,17 @@ const Trans = () => {
             .catch((error) => {
               console.log(error);
             });
-
+  
           // Create a transaction object
-          // Create a transaction object
-const transactionData = {
-  receiptno: latestReceiptNumber.toString(),
-  transaction_date: currentDate,
-  userDetailsId: user.id,
-  amountpaid: amountToPay, // Update the property assignment here
-  description: selectedDescription,
-  incomegroupcode: selectedIncomeGroup,
-};
-
-
+          const transactionData = {
+            receiptno: latestReceiptNumber.toString(),
+            transaction_date: currentDate,
+            userDetailsId: user.id,
+            amountpaid: amountToPayNumeric,
+            description: selectedDescription,
+            incomegroupcode: selectedIncomeGroup,
+          };
+  
           // Send a POST request to store the transaction details in the Transaction table
           axios
             .post(
@@ -136,6 +135,7 @@ const transactionData = {
         });
     }
   };
+  
 
   return (
     <div>
