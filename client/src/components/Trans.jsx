@@ -58,13 +58,17 @@ const Trans = () => {
       const latestReceiptNumber = userDetails.length + 1;
       const updatedUser = {
         ...user,
-        amounttopay: amountToPay !== "" ? amountToPay : null,
-        accountbalance: customerBalance !== "" ? customerBalance : null,
+        amounttopay: amountToPay !== "" ? parseFloat(amountToPay) : null, // Convert amountToPay to a numeric value using parseFloat
+        accountbalance:
+          customerBalance !== "" ? parseFloat(customerBalance) : null, // Conv
         receiptno: latestReceiptNumber.toString(),
       };
 
       axios
-        .put(`https://pos-server-ptaz.onrender.com/user-details/${user.id}`, updatedUser)
+        .put(
+          `https://pos-server-ptaz.onrender.com/user-details/${user.id}`,
+          updatedUser
+        )
         .then((response) => {
           console.log("User details updated successfully:", response.data);
 
@@ -101,14 +105,17 @@ const Trans = () => {
             receiptno: latestReceiptNumber.toString(),
             transaction_date: currentDate,
             userDetailsId: user.id,
-            amountpaid: amountToPay,
+            amountpaid: amountToPay !== "" ? parseFloat(amountToPay) : null,
             description: selectedDescription,
             incomegroupcode: selectedIncomeGroup,
           };
 
           // Send a POST request to store the transaction details in the Transaction table
           axios
-            .post("https://pos-server-ptaz.onrender.com/transactions", transactionData)
+            .post(
+              "https://pos-server-ptaz.onrender.com/transactions",
+              transactionData
+            )
             .then((response) => {
               console.log(
                 "Transaction details posted successfully:",
