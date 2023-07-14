@@ -120,6 +120,12 @@ const Trans = () => {
               );
               setSelectedDescription("");
               setSelectedIncomeGroup("");
+              const receiptUrl = `http://localhost:3000/transactions/latest`;
+              const receiptWindow = window.open(receiptUrl, "_blank");
+
+              if (!receiptWindow) {
+                console.error("Failed to open the receipt window.");
+              }
             })
             .catch((error) => {
               console.error("Error posting transaction details:", error);
