@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate, setCurrentDate] = useState(
+  const [currentDate] = useState(
     new Date().toLocaleDateString("en-US", {
       year: "numeric",
       month: "2-digit",
@@ -37,8 +37,8 @@ const Trans = () => {
     setSelectedIncomeGroup(""); // Reset selected income group
     const user = userDetails.find((user) => user.accountname === accountName);
 
-    document.getElementById("description0").value = receiptNumber;
-    document.getElementById("description1").value = user?.accounttype || "";
+    document.getElementById("description0").value = "";
+    document.getElementById("description1").value =  "";
     document.getElementById("description2").value = user?.accountno || "";
     document.getElementById("description3").value = user?.accountname || "";
     document.getElementById("description4").value = user?.accountbalance || "";
@@ -59,12 +59,10 @@ const Trans = () => {
     const user = userDetails.find((user) => user.accountname === accountName);
 
     if (user) {
-      const latestReceiptNumber = userDetails.length + 1;
       const updatedUser = {
         ...user,
         amounttopay: amountToPay !== "" ? amountToPay : null,
         accountbalance: customerBalance !== "" ? customerBalance : null,
-        receiptno: latestReceiptNumber.toString(),
       };
 
       axios
@@ -76,7 +74,6 @@ const Trans = () => {
           document.getElementById("description3").value = "";
 
           // Reset the states
-          setReceiptNumber(latestReceiptNumber.toString());
           setAmountToPay("");
           setCustomerBalance("");
 
@@ -102,7 +99,6 @@ const Trans = () => {
 
           // Create a transaction object
           const transactionData = {
-            receiptno: latestReceiptNumber.toString(),
             transaction_date: currentDate,
             userDetailsId: user.id,
             amountpaid: amountToPay,
@@ -167,6 +163,17 @@ const Trans = () => {
             />
           </div>
           <div className="w-full flex">
+            <label htmlFor="description1" className="w-1/2 text-start">
+              Received from Account Type:
+            </label>
+            <input
+              type="text"
+              id="description1"
+              placeholder="Account Type To Receive From"
+              className="w-1/2 bg-slate-100 border border-gray-400"
+            />
+          </div>
+          <div className="w-full flex">
             <label htmlFor="description3" className="w-1/2 text-start">
               Received from Account Name:
             </label>
@@ -183,17 +190,6 @@ const Trans = () => {
                 </option>
               ))}
             </select>
-          </div>
-          <div className="w-full flex">
-            <label htmlFor="description1" className="w-1/2 text-start">
-              Received from Account Type:
-            </label>
-            <input
-              type="text"
-              id="description1"
-              placeholder="Account Type To Receive From"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-            />
           </div>
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
@@ -283,7 +279,6 @@ const Trans = () => {
               <option value="">Income group</option>
               <option value="salary">Salary</option>
               <option value="wage">Wage</option>
-              {/* Add more options as needed */}
             </select>
           </div>
 
