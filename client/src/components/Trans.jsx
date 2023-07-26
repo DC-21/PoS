@@ -125,12 +125,10 @@ const Trans = () => {
             })
             .catch((error) => {
               console.error("Error posting transaction details:", error);
-              // Handle the error and display an error message
             });
         })
         .catch((error) => {
           console.error("Error updating user details:", error);
-          // Handle the error and display an error message
         });
     }
   };
