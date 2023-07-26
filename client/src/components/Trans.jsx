@@ -4,16 +4,14 @@ import { useState, useEffect } from "react";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate] = useState(
-    moment().format("DD-MM-YY")
-  );
-
+  const [currentDate] = useState(moment().format("DD-MM-YY"));
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
   const [selectedPayment_Type, setSelectedPayment_Type] = useState("");
+  const [nextReceiptNo, setNextReceiptNo] = useState("");
 
   useEffect(() => {
     axios
@@ -23,6 +21,15 @@ const Trans = () => {
       })
       .catch((error) => {
         console.log(error);
+      });
+
+    axios
+      .get("http://localhost:3000/transactions/next-receiptno")
+      .then((response) => {
+        setNextReceiptNo(response.data.receiptno);
+      })
+      .catch((error) => {
+        console.error("Error fetching next receipt number:", error);
       });
   }, []);
 
@@ -136,6 +143,8 @@ const Trans = () => {
               type=""
               id="description0"
               className="w-1/2 bg-slate-100 border border-gray-400"
+              defaultValue={nextReceiptNo}
+              readOnly
             />
           </div>
           <div className="flex items-start w-full">
