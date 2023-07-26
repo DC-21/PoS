@@ -1,31 +1,25 @@
 import axios from "axios";
+import moment from "moment-timezone";
 import { useState, useEffect } from "react";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [currentDate] = useState(
-    new Date().toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
+    moment().format("DD-MM-YY")
   );
 
-  const [receiptNumber, setReceiptNumber] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
   const [selectedPayment_Type, setSelectedPayment_Type] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/user-details")
       .then((response) => {
         setUserDetails(response.data);
-        const lastReceiptNumber =
-          response.data.length > 0 ? response.data.length + 1 : 1;
-        setReceiptNumber(lastReceiptNumber.toString());
       })
       .catch((error) => {
         console.log(error);
@@ -39,7 +33,7 @@ const Trans = () => {
     const user = userDetails.find((user) => user.accountname === accountName);
 
     document.getElementById("description0").value = "";
-    document.getElementById("description1").value =  "";
+    document.getElementById("description1").value = "";
     document.getElementById("description2").value = user?.accountno || "";
     document.getElementById("description3").value = user?.accountname || "";
     document.getElementById("description4").value = user?.accountbalance || "";
@@ -119,12 +113,6 @@ const Trans = () => {
               setSelectedDescription("");
               setSelectedIncomeGroup("");
               setSelectedPayment_Type("");
-              const receiptUrl = `http://localhost:3000/transactions/latest`;
-              const receiptWindow = window.open(receiptUrl, "_blank");
-
-              if (!receiptWindow) {
-                console.error("Failed to open the receipt window.");
-              }
             })
             .catch((error) => {
               console.error("Error posting transaction details:", error);
@@ -148,8 +136,6 @@ const Trans = () => {
               type=""
               id="description0"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              defaultValue={receiptNumber}
-              onChange={(e) => setReceiptNumber(e.target.value)}
             />
           </div>
           <div className="flex items-start w-full">
