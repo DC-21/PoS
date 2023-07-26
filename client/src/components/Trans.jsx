@@ -17,6 +17,7 @@ const Trans = () => {
   const [selectedAccountName, setSelectedAccountName] = useState("");
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
+  const [selectedPayment_Type, setSelectedPayment_Type] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:3000/user-details")
@@ -104,6 +105,7 @@ const Trans = () => {
             amountpaid: amountToPay,
             description: selectedDescription,
             incomegroupcode: selectedIncomeGroup,
+            payment_type: selectedPayment_Type,
           };
 
           // Send a POST request to store the transaction details in the Transaction table
@@ -116,6 +118,7 @@ const Trans = () => {
               );
               setSelectedDescription("");
               setSelectedIncomeGroup("");
+              setSelectedPayment_Type("");
               const receiptUrl = `http://localhost:3000/transactions/latest`;
               const receiptWindow = window.open(receiptUrl, "_blank");
 
@@ -225,6 +228,23 @@ const Trans = () => {
               value={amountToPay}
               onChange={(e) => setAmountToPay(e.target.value)}
             />
+          </div>
+          <div className="w-full flex">
+            <label htmlFor="description8" className="w-1/2 text-start">
+              Payment Type:
+            </label>
+            <select
+              id="description8"
+              className="w-1/2 bg-slate-100 border border-gray-400"
+              value={selectedPayment_Type}
+              onChange={(e) => setSelectedPayment_Type(e.target.value)}
+            >
+              <option value="">Payment Type</option>
+              <option value="cash">Cash</option>
+              <option value="cheque">Cheque</option>
+              <option value="transfer">Transfer</option>
+              <option value="visa">Visa</option>
+            </select>
           </div>
           <div className="w-full flex">
             <label htmlFor="description6" className="w-1/2 text-start">
