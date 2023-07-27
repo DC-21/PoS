@@ -33,13 +33,41 @@ const Trans = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/income-groups")
+      .then((response) => {
+        // Extract the income group codes from the response data
+        const codes = response.data.map((income) => income.incomegroupcode);
+        setSelectedIncomeGroup(codes[0]); // Initialize with the first code, or use a default value
+  
+        // Log the incomeGroups for debugging
+        console.log("Income Groups:", codes);
+      })
+      .catch((error) => {
+        console.error("Error fetching income groups:", error);
+      });
+  }, []);
+
+  // Update receipt number when customerBalance changes
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/transactions/next-receiptno")
+      .then((response) => {
+        setNextReceiptNo(response.data.receiptno);
+      })
+      .catch((error) => {
+        console.error("Error fetching next receipt number:", error);
+      });
+  }, [customerBalance]);
+
   const handleAccountNameChange = (e) => {
     const accountName = e.target.value;
     setSelectedAccountName(accountName);
-    setSelectedIncomeGroup(""); // Reset selected income group
+    setSelectedIncomeGroup(""); // Reset the income group when account name changes
     const user = userDetails.find((user) => user.accountname === accountName);
 
-    document.getElementById("description0").value = "";
+    document.getElementById("description0").value = nextReceiptNo; // Show receipt number on account name change
     document.getElementById("description1").value = "";
     document.getElementById("description2").value = user?.accountno || "";
     document.getElementById("description3").value = user?.accountname || "";
@@ -56,26 +84,23 @@ const Trans = () => {
 
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
-
-    // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
 
     if (user) {
       const updatedUser = {
         ...user,
-        amounttopay: amountToPay !== "" ? amountToPay : null,
-        accountbalance: customerBalance !== "" ? customerBalance : null,
+        amounttopay: amountToPay || null,
+        accountbalance: customerBalance || null,
       };
 
+      // Update user details on the server
       axios
         .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
 
-          // Clear the input fields
-          document.getElementById("description3").value = "";
-
-          // Reset the states
+          // Reset form fields and states
+          setSelectedAccountName("");
           setAmountToPay("");
           setCustomerBalance("");
 
@@ -107,16 +132,14 @@ const Trans = () => {
             description: selectedDescription,
             incomegroupcode: selectedIncomeGroup,
             payment_type: selectedPayment_Type,
+            nextReceiptNo,
           };
 
           // Send a POST request to store the transaction details in the Transaction table
           axios
             .post("http://localhost:3000/transactions", transactionData)
             .then((response) => {
-              console.log(
-                "Transaction details posted successfully:",
-                response.data
-              );
+              console.log("Transaction details posted successfully:", response.data);
               setSelectedDescription("");
               setSelectedIncomeGroup("");
               setSelectedPayment_Type("");
@@ -290,8 +313,11 @@ const Trans = () => {
               onChange={(e) => setSelectedIncomeGroup(e.target.value)}
             >
               <option value="">Income group</option>
-              <option value="salary">Salary</option>
-              <option value="wage">Wage</option>
+              {userDetails.map((user) => (
+                <option key={user.id} value={user.incomegroupcode}>
+                  {user.incomegroupcode}
+                </option>
+              ))}
             </select>
           </div>
 
