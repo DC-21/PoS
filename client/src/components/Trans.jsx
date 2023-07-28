@@ -7,6 +7,7 @@ const Trans = () => {
   const [currentDate] = useState(moment().format("DD-MM-YY"));
   const [amountToPay, setAmountToPay] = useState("");
   const [balanceDueLCY, setBalanceDueLCY] = useState("");
+  const [customerNo, setCustomerNo] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
   const [incomeGroups, setIncomeGroups] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState("");
@@ -55,7 +56,7 @@ const Trans = () => {
 
       if (user) {
         // Update the input fields with the fetched data
-        document.getElementById("description2").value = user.accountNo || "";
+        document.getElementById("description2").value = user.customerNo || "";
         document.getElementById("description4").value = user.balanceDueLCY || "";
         setBalanceDueLCY(user.balance || "");
       } else {
@@ -132,6 +133,8 @@ const Trans = () => {
               id="description2"
               placeholder="Account To Receive From"
               className="w-1/2 bg-slate-100 border border-gray-400"
+              value={customerNo}
+              onChange={(e)=>setCustomerNo(e.target.value)}
             />
           </div>
           <div className="w-full flex">
