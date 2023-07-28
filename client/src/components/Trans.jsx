@@ -8,10 +8,11 @@ const Trans = () => {
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
-  const [IncomeGroup, setIncomeGroup] = useState("");
+  const [incomeGroups, setIncomeGroups] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState("");
-  const [selectedPayment_Type, setSelectedPayment_Type] = useState("");
+  const [selectedPaymentType, setSelectedPaymentType] = useState("");
   const [nextReceiptNo, setNextReceiptNo] = useState("");
+  const [selectedIncomeGroup, setSelectedIncomeGroup] = useState(null);
 
   useEffect(() => {
     axios
@@ -25,13 +26,16 @@ const Trans = () => {
         console.log(error);
       });
 
-    axios.get("http://localhost:3000/income-groupcodes").then((response)=>{
-      const data = response.data;
-      console.log("fetched codes:", data);
-      setIncomeGroup(data.codes);
-    }).catch((error)=>{
-      console.log(error);
-    });
+    axios
+      .get("http://localhost:3000/income-groupcodes")
+      .then((response) => {
+        const data = response.data;
+        console.log("Fetched codes:", data);
+        setIncomeGroups(data.codes);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     axios
       .get("http://localhost:3000/transactions/next-receiptno")
@@ -42,114 +46,26 @@ const Trans = () => {
       .catch((error) => {
         console.error("Error fetching next receipt number:", error);
       });
-  },[]);
+  }, []);
 
-  const handleAccountNameChange = (e) => {
-    const accountName = e.target.value;
-    setSelectedAccountName(accountName);
-    setIncomeGroup(""); // Reset selected income group
+  useEffect(() => {
+    if (selectedAccountName) {
+      // Find the user details based on the selected account name
+      const user = userDetails.find((user) => user.name === selectedAccountName);
 
-    // Find the user details based on the selected account name
-    const user = userDetails.find((user) => user.accountname === accountName);
-
-    if (user) {
-      // Make an API call to fetch the account number and account balance for the selected user
-      axios
-        .get(`http://localhost:3000/customer-details/${user.id}`)
-        .then((response) => {
-          const userData = response.data;
-          // Update the input fields with the fetched data
-          document.getElementById("description2").value = userData.customerNo || "";
-          document.getElementById("description4").value = userData.balanceDueLCY || "";
-          // Set the customerBalance state
-          setCustomerBalance(userData.accountbalance || "");
-        })
-        .catch((error) => {
-          console.error("Error fetching user details:", error);
-        });
-    } else {
-      // If the selected account name is not found in the user details, reset the input fields
-      document.getElementById("description2").value = "";
-      document.getElementById("description4").value = "";
-      setCustomerBalance("");
+      if (user) {
+        // Update the input fields with the fetched data
+        document.getElementById("description2").value = user.accountNo || "";
+        document.getElementById("description4").value = user.balanceDueLCY || "";
+        setCustomerBalance(user.balance || "");
+      } else {
+        // If the selected account name is not found in the user details, reset the input fields
+        document.getElementById("description2").value = "";
+        document.getElementById("description4").value = "";
+        setCustomerBalance("");
+      }
     }
-  };
-  const handleSubmit = () => {
-    const accountName = document.getElementById("description3").value;
-
-    // Find the user details based on the entered account name
-    const user = userDetails.find((user) => user.accountname === accountName);
-
-    if (user) {
-      const updatedUser = {
-        ...user,
-        amounttopay: amountToPay !== "" ? amountToPay : null,
-        accountbalance: customerBalance !== "" ? customerBalance : null,
-      };
-
-      axios
-        .put(`http://localhost:3000/customer-details/${user.id}`, updatedUser)
-        .then((response) => {
-          console.log("User details updated successfully:", response.data);
-
-          // Clear the input fields
-          document.getElementById("description3").value = "";
-
-          // Reset the states
-          setAmountToPay("");
-          setCustomerBalance("");
-
-          // Retrieve the updated user details from the server
-          axios
-            .get("http://localhost:3000/customer-details")
-            .then((response) => {
-              setUserDetails(response.data);
-
-              // Find the updated user details
-              const updatedUserDetails = response.data.find(
-                (user) => user.accountname === accountName
-              );
-
-              if (updatedUserDetails) {
-                // Update the customer balance state
-                setCustomerBalance(updatedUserDetails.accountbalance || "");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-
-          // Create a transaction object
-          const transactionData = {
-            transaction_date: currentDate,
-            userDetailsId: user.id,
-            amountpaid: amountToPay,
-            description: selectedDescription,
-            incomegroupcode: IncomeGroup,
-            payment_type: selectedPayment_Type,
-          };
-
-          // Send a POST request to store the transaction details in the Transaction table
-          axios
-            .post("http://localhost:3000/transactions", transactionData)
-            .then((response) => {
-              console.log(
-                "Transaction details posted successfully:",
-                response.data
-              );
-              setSelectedDescription("");
-              setIncomeGroup("");
-              setSelectedPayment_Type("");
-            })
-            .catch((error) => {
-              console.error("Error posting transaction details:", error);
-            });
-        })
-        .catch((error) => {
-          console.error("Error updating user details:", error);
-        });
-    }
-  };
+  }, [selectedAccountName, userDetails]);
 
   return (
     <div>
@@ -197,7 +113,7 @@ const Trans = () => {
               id="description3"
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={selectedAccountName}
-              onChange={handleAccountNameChange}
+              onChange={(e) => setSelectedAccountName(e.target.value)}
             >
               <option value="">Select An Account Name To Receive From</option>
               {userDetails.map((user) => (
@@ -206,7 +122,6 @@ const Trans = () => {
                 </option>
               ))}
             </select>
-
           </div>
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
@@ -252,8 +167,8 @@ const Trans = () => {
             <select
               id="description8"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={selectedPayment_Type}
-              onChange={(e) => setSelectedPayment_Type(e.target.value)}
+              value={selectedPaymentType}
+              onChange={(e) => setSelectedPaymentType(e.target.value)}
             >
               <option value="">Payment Type</option>
               <option value="cash">Cash</option>
@@ -261,28 +176,6 @@ const Trans = () => {
               <option value="transfer">Transfer</option>
               <option value="visa">Visa</option>
             </select>
-          </div>
-          <div className="w-full flex">
-            <label htmlFor="description6" className="w-1/2 text-start">
-              Amount Tendered:
-            </label>
-            <input
-              type="text"
-              id="description6"
-              placeholder="Amount Tendered"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-            />
-          </div>
-          <div className="w-full flex">
-            <label htmlFor="description7" className="w-1/2 text-start">
-              Change:
-            </label>
-            <input
-              type="text"
-              id="description7"
-              placeholder="Change"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-            />
           </div>
           <div className="w-full flex">
             <label htmlFor="description8" className="w-1/2 text-start">
@@ -305,15 +198,18 @@ const Trans = () => {
               Income Group Code:
             </label>
             <select
-              id="description3"
+              id="description9"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={selectedAccountName}
-              onChange={handleAccountNameChange}
+              value={selectedIncomeGroup ? selectedIncomeGroup.name : ""}
+              onChange={(e) => {
+                const selectedCode = incomeGroups.find((code) => code.name === e.target.value);
+                setSelectedIncomeGroup(selectedCode);
+              }}
             >
-              <option value="">Select An Account Name To Receive From</option>
-              {IncomeGroup.map((user) => (
-                <option key={user.id} value={user.name}>
-                  {user.name}
+              <option value="">Income Group</option>
+              {incomeGroups.map((code) => (
+                <option key={code.id} value={code.name}>
+                  {code.name}
                 </option>
               ))}
             </select>
@@ -322,7 +218,6 @@ const Trans = () => {
           <div className="w-full flex justify-center">
             <button
               type="button"
-              onClick={handleSubmit}
               className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
             >
               Submit
