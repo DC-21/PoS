@@ -8,105 +8,100 @@ const Trans = () => {
   const [amountToPay, setAmountToPay] = useState("");
   const [customerBalance, setCustomerBalance] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
-  const [selectedIncomeGroup, setSelectedIncomeGroup] = useState("");
+  const [IncomeGroup, setIncomeGroup] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
   const [selectedPayment_Type, setSelectedPayment_Type] = useState("");
   const [nextReceiptNo, setNextReceiptNo] = useState("");
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/user-details")
+      .get("http://localhost:3000/customer-details?_limit=1000")
       .then((response) => {
-        setUserDetails(response.data);
+        const data = response.data;
+        console.log("Fetched data:", data);
+        setUserDetails(data.customerData);
       })
       .catch((error) => {
         console.log(error);
       });
 
+    axios.get("http://localhost:3000/income-groupcodes").then((response)=>{
+      const data = response.data;
+      console.log("fetched codes:", data);
+      setIncomeGroup(data.codes);
+    }).catch((error)=>{
+      console.log(error);
+    });
+
     axios
       .get("http://localhost:3000/transactions/next-receiptno")
       .then((response) => {
         setNextReceiptNo(response.data.receiptno);
+        console.log(nextReceiptNo);
       })
       .catch((error) => {
         console.error("Error fetching next receipt number:", error);
       });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/income-groups")
-      .then((response) => {
-        // Extract the income group codes from the response data
-        const codes = response.data.map((income) => income.incomegroupcode);
-        setSelectedIncomeGroup(codes[0]); // Initialize with the first code, or use a default value
-  
-        // Log the incomeGroups for debugging
-        console.log("Income Groups:", codes);
-      })
-      .catch((error) => {
-        console.error("Error fetching income groups:", error);
-      });
-  }, []);
-
-  // Update receipt number when customerBalance changes
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/transactions/next-receiptno")
-      .then((response) => {
-        setNextReceiptNo(response.data.receiptno);
-      })
-      .catch((error) => {
-        console.error("Error fetching next receipt number:", error);
-      });
-  }, [customerBalance]);
+  },[]);
 
   const handleAccountNameChange = (e) => {
     const accountName = e.target.value;
     setSelectedAccountName(accountName);
-    setSelectedIncomeGroup(""); // Reset the income group when account name changes
+    setIncomeGroup(""); // Reset selected income group
+
+    // Find the user details based on the selected account name
     const user = userDetails.find((user) => user.accountname === accountName);
 
-    document.getElementById("description0").value = nextReceiptNo; // Show receipt number on account name change
-    document.getElementById("description1").value = "";
-    document.getElementById("description2").value = user?.accountno || "";
-    document.getElementById("description3").value = user?.accountname || "";
-    document.getElementById("description4").value = user?.accountbalance || "";
-    document.getElementById("description5").value = "";
-    document.getElementById("description6").value = "";
-    document.getElementById("description7").value = "";
-    document.getElementById("description8").value = "";
-    document.getElementById("description9").value = "";
-
-    // Set the customerBalance state
-    setCustomerBalance(user?.accountbalance || "");
+    if (user) {
+      // Make an API call to fetch the account number and account balance for the selected user
+      axios
+        .get(`http://localhost:3000/customer-details/${user.id}`)
+        .then((response) => {
+          const userData = response.data;
+          // Update the input fields with the fetched data
+          document.getElementById("description2").value = userData.customerNo || "";
+          document.getElementById("description4").value = userData.balanceDueLCY || "";
+          // Set the customerBalance state
+          setCustomerBalance(userData.accountbalance || "");
+        })
+        .catch((error) => {
+          console.error("Error fetching user details:", error);
+        });
+    } else {
+      // If the selected account name is not found in the user details, reset the input fields
+      document.getElementById("description2").value = "";
+      document.getElementById("description4").value = "";
+      setCustomerBalance("");
+    }
   };
-
   const handleSubmit = () => {
     const accountName = document.getElementById("description3").value;
+
+    // Find the user details based on the entered account name
     const user = userDetails.find((user) => user.accountname === accountName);
 
     if (user) {
       const updatedUser = {
         ...user,
-        amounttopay: amountToPay || null,
-        accountbalance: customerBalance || null,
+        amounttopay: amountToPay !== "" ? amountToPay : null,
+        accountbalance: customerBalance !== "" ? customerBalance : null,
       };
 
-      // Update user details on the server
       axios
-        .put(`http://localhost:3000/user-details/${user.id}`, updatedUser)
+        .put(`http://localhost:3000/customer-details/${user.id}`, updatedUser)
         .then((response) => {
           console.log("User details updated successfully:", response.data);
 
-          // Reset form fields and states
-          setSelectedAccountName("");
+          // Clear the input fields
+          document.getElementById("description3").value = "";
+
+          // Reset the states
           setAmountToPay("");
           setCustomerBalance("");
 
           // Retrieve the updated user details from the server
           axios
-            .get("http://localhost:3000/user-details")
+            .get("http://localhost:3000/customer-details")
             .then((response) => {
               setUserDetails(response.data);
 
@@ -130,18 +125,20 @@ const Trans = () => {
             userDetailsId: user.id,
             amountpaid: amountToPay,
             description: selectedDescription,
-            incomegroupcode: selectedIncomeGroup,
+            incomegroupcode: IncomeGroup,
             payment_type: selectedPayment_Type,
-            nextReceiptNo,
           };
 
           // Send a POST request to store the transaction details in the Transaction table
           axios
             .post("http://localhost:3000/transactions", transactionData)
             .then((response) => {
-              console.log("Transaction details posted successfully:", response.data);
+              console.log(
+                "Transaction details posted successfully:",
+                response.data
+              );
               setSelectedDescription("");
-              setSelectedIncomeGroup("");
+              setIncomeGroup("");
               setSelectedPayment_Type("");
             })
             .catch((error) => {
@@ -204,11 +201,12 @@ const Trans = () => {
             >
               <option value="">Select An Account Name To Receive From</option>
               {userDetails.map((user) => (
-                <option key={user.id} value={user.accountname}>
-                  {user.accountname}
+                <option key={user.id} value={user.name}>
+                  {user.name}
                 </option>
               ))}
             </select>
+
           </div>
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
@@ -309,15 +307,12 @@ const Trans = () => {
             <select
               id="description9"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={selectedIncomeGroup}
-              onChange={(e) => setSelectedIncomeGroup(e.target.value)}
+              value={IncomeGroup}
+              onChange={(e) => setIncomeGroup(e.target.value)}
             >
               <option value="">Income group</option>
-              {userDetails.map((user) => (
-                <option key={user.id} value={user.incomegroupcode}>
-                  {user.incomegroupcode}
-                </option>
-              ))}
+              <option value="salary">Salary</option>
+              <option value="wage">Wage</option>
             </select>
           </div>
 

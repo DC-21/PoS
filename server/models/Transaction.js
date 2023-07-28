@@ -11,6 +11,7 @@ const Transaction = db.define("Transaction", {
   receiptno: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
   },
   transaction_date: {
     type: Sequelize.DATE,
@@ -22,7 +23,7 @@ const Transaction = db.define("Transaction", {
   },
   accounttype: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   accountno: {
     type: Sequelize.INTEGER,
@@ -30,6 +31,10 @@ const Transaction = db.define("Transaction", {
   },
   amountpaid: {
     type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  payment_type: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
   description: {
