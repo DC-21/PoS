@@ -6,7 +6,7 @@ const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [currentDate] = useState(moment().format("DD-MM-YY"));
   const [amountToPay, setAmountToPay] = useState("");
-  const [customerBalance, setCustomerBalance] = useState("");
+  const [balanceDueLCY, setBalanceDueLCY] = useState("");
   const [selectedAccountName, setSelectedAccountName] = useState("");
   const [incomeGroups, setIncomeGroups] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState("");
@@ -57,12 +57,12 @@ const Trans = () => {
         // Update the input fields with the fetched data
         document.getElementById("description2").value = user.accountNo || "";
         document.getElementById("description4").value = user.balanceDueLCY || "";
-        setCustomerBalance(user.balance || "");
+        setBalanceDueLCY(user.balance || "");
       } else {
         // If the selected account name is not found in the user details, reset the input fields
         document.getElementById("description2").value = "";
         document.getElementById("description4").value = "";
-        setCustomerBalance("");
+        setBalanceDueLCY("");
       }
     }
   }, [selectedAccountName, userDetails]);
@@ -143,8 +143,8 @@ const Trans = () => {
               id="description4"
               placeholder="Customer Account Balance"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={customerBalance}
-              onChange={(e) => setCustomerBalance(e.target.value)}
+              value={balanceDueLCY}
+              onChange={(e) => setBalanceDueLCY(e.target.value)}
             />
           </div>
           <div className="w-full flex">
