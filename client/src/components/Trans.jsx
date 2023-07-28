@@ -14,6 +14,8 @@ const Trans = () => {
   const [selectedPaymentType, setSelectedPaymentType] = useState("");
   const [nextReceiptNo, setNextReceiptNo] = useState("");
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState(null);
+  const [amountTendered, setAmountTendered] = useState("");
+  const [change, setChange] = useState("00.00"); // Default value is "00.00"
 
   useEffect(() => {
     axios
@@ -56,17 +58,39 @@ const Trans = () => {
 
       if (user) {
         // Update the input fields with the fetched data
-        document.getElementById("description2").value = user.customerNo || "";
-        document.getElementById("description4").value = user.balanceDueLCY || "";
-        setBalanceDueLCY(user.balance || "");
+        setCustomerNo(user.customerNo || "");
+        setBalanceDueLCY(user.balanceDueLCY || "");
       } else {
         // If the selected account name is not found in the user details, reset the input fields
-        document.getElementById("description2").value = "";
-        document.getElementById("description4").value = "";
+        setCustomerNo("");
         setBalanceDueLCY("");
       }
     }
   }, [selectedAccountName, userDetails]);
+
+  // Handle change for Amount Tendered
+  const handleAmountTenderedChange = (e) => {
+    const amountTenderedValue = e.target.value;
+    setAmountTendered(amountTenderedValue);
+  };
+
+  // Recalculate change whenever amountToPay or amountTendered changes
+  useEffect(() => {
+    // Parse float values from input fields
+    const amountToPayValue = parseFloat(amountToPay) || 0;
+    const amountTenderedNum = parseFloat(amountTendered) || 0;
+
+    // Calculate change only if both amountToPay and amountTendered have valid values
+    if (!isNaN(amountToPayValue) && !isNaN(amountTenderedNum)) {
+      const calculatedChange = amountTenderedNum - amountToPayValue;
+      setChange(calculatedChange.toFixed(2));
+    } else {
+      // Otherwise, set the Change field to display two zeroes
+      setChange("00.00");
+    }
+  }, [amountToPay, amountTendered]);
+
+
 
   return (
     <div>
@@ -134,7 +158,7 @@ const Trans = () => {
               placeholder="Account To Receive From"
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={customerNo}
-              onChange={(e)=>setCustomerNo(e.target.value)}
+              onChange={(e) => setCustomerNo(e.target.value)}
             />
           </div>
           <div className="w-full flex">
@@ -172,6 +196,8 @@ const Trans = () => {
               id="description6"
               placeholder="Amount Tendered"
               className="w-1/2 bg-slate-100 border border-gray-400"
+              value={amountTendered}
+              onChange={handleAmountTenderedChange}
             />
           </div>
           <div className="w-full flex">
@@ -183,6 +209,8 @@ const Trans = () => {
               id="description7"
               placeholder="Change"
               className="w-1/2 bg-slate-100 border border-gray-400"
+              value={change}
+              readOnly
             />
           </div>
           <div className="w-full flex">
