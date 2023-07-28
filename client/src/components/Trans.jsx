@@ -305,14 +305,17 @@ const Trans = () => {
               Income Group Code:
             </label>
             <select
-              id="description9"
+              id="description3"
               className="w-1/2 bg-slate-100 border border-gray-400"
-              value={IncomeGroup}
-              onChange={(e) => setIncomeGroup(e.target.value)}
+              value={selectedAccountName}
+              onChange={handleAccountNameChange}
             >
-              <option value="">Income group</option>
-              <option value="salary">Salary</option>
-              <option value="wage">Wage</option>
+              <option value="">Select An Account Name To Receive From</option>
+              {IncomeGroup.map((user) => (
+                <option key={user.id} value={user.name}>
+                  {user.name}
+                </option>
+              ))}
             </select>
           </div>
 
