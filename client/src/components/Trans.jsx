@@ -164,6 +164,28 @@ const Trans = () => {
             />
           </div>
           <div className="w-full flex">
+            <label htmlFor="description6" className="w-1/2 text-start">
+              Amount Tendered:
+            </label>
+            <input
+              type="text"
+              id="description6"
+              placeholder="Amount Tendered"
+              className="w-1/2 bg-slate-100 border border-gray-400"
+            />
+          </div>
+          <div className="w-full flex">
+            <label htmlFor="description7" className="w-1/2 text-start">
+              Change:
+            </label>
+            <input
+              type="text"
+              id="description7"
+              placeholder="Change"
+              className="w-1/2 bg-slate-100 border border-gray-400"
+            />
+          </div>
+          <div className="w-full flex">
             <label htmlFor="description8" className="w-1/2 text-start">
               Payment Type:
             </label>
