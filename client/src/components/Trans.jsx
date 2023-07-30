@@ -1,6 +1,7 @@
 import axios from "axios";
 import moment from "moment-timezone";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -113,6 +114,17 @@ const Trans = () => {
         console.log("Error creating transaction:", error);
       });
   };
+  const navigate = useNavigate(); // Use useNavigate to create the navigate function
+
+  // Function to handle logout
+  const handleLogout = () => {
+    console.log("Logging out...");
+    // Clear the login state from local storage upon logout
+    localStorage.removeItem("isLoggedIn");
+    // Navigate to the login page after logout
+    navigate("/login"); // Use the navigate function to navigate to the login page
+  };
+
 
   return (
     <div>
@@ -300,7 +312,7 @@ const Trans = () => {
             </button>
           </div>
         </form>
-        <button className="bg-blue-300 p-2 rounded">Log Out</button>
+        <button onClick={handleLogout} className="bg-blue-300 p-2 rounded">Log Out</button>
       </div>
     </div>
   );
