@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -8,6 +8,11 @@ const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
   const [loginMessage, setLoginMessage] = useState("");
   const navigation = useNavigate();
+
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+  }, [loading]);
 
   const handleLogin = async () => {
     try {
@@ -71,6 +76,7 @@ const Login = ({ onLogin }) => {
               type="text"
               id="email"
               placeholder="email"
+              value={email}
               onChange={handleEmailChange}
               className="p-2 mb-4 mt-4 rounded"
             />
@@ -83,6 +89,7 @@ const Login = ({ onLogin }) => {
               type="password"
               id="password"
               placeholder="password"
+              value={password}
               onChange={handlePasswordChange}
               className="p-2 mb-4 mt-4 rounded bg-white"
             />
@@ -113,6 +120,7 @@ const Login = ({ onLogin }) => {
     </div>
   );
 };
+
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
 };
