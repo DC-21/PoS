@@ -114,15 +114,11 @@ const Trans = () => {
         console.log("Error creating transaction:", error);
       });
   };
-  const navigate = useNavigate(); // Use useNavigate to create the navigate function
-
-  // Function to handle logout
+  const navigate = useNavigate();
   const handleLogout = () => {
     console.log("Logging out...");
-    // Clear the login state from local storage upon logout
     localStorage.removeItem("isLoggedIn");
-    // Navigate to the login page after logout
-    navigate("/login"); // Use the navigate function to navigate to the login page
+    navigate("/login");
   };
 
 

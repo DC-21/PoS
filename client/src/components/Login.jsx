@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -26,32 +27,27 @@ const Login = ({ onLogin }) => {
       console.log("Sending login request to:", "http://localhost:3006/login");
       console.log("Request data:", { email, password });
 
-      // Simulate login request and delay for 2 seconds
-      setTimeout(async () => {
+      const response = await axios.post("http://localhost:3006/login", {
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        // Login successful
         setLoading(false);
         setLoginMessage("Successful login!");
-
-        // Call the onLogin function to indicate successful login
         onLogin();
-
-        // Set the login state in sessionStorage
         sessionStorage.setItem("isLoggedIn", "true");
-
-        // Navigate to the Home page upon successful login
         navigation("/");
-      }, 2000);
+      } else {
+        // Login failed
+        setLoading(false);
+        setLoginMessage(response.data.message);
+      }
     } catch (error) {
       console.error("Error in login request:", error);
-
-      if (error.response) {
-        // Error with response data from the server
-        setLoginMessage(error.response.data.message || "An error occurred.");
-      } else {
-        // Other errors (e.g., network errors)
-        setLoginMessage("An error occurred while processing your request.");
-      }
-
       setLoading(false);
+      setLoginMessage("invalid credentials.");
     }
   };
 
@@ -65,7 +61,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      <div className="items-center mx-auto justify-center bg-gray-100 border-2 border-bg-blue-400 rounded-[10px] w-[400px] h-[500px]">
+      <div className="items-center mx-auto justify-center bg-gray-100 border-2 border-bg-blue-400 rounded-[10px] w-[400px] h-[450px]">
         <p className="mt-5 text-center text-2xl">Login Please</p>
         <div className="w-full flex flex-col items-center justify-center h-auto">
           <div className="w-full flex flex-col justify-center items-center">
@@ -99,12 +95,12 @@ const Login = ({ onLogin }) => {
               <p>{loginMessage}</p>
             </div>
           )}
-          <div className="text-center pt-6">
+          <div className="text-center">
             {loading ? (
               <p>loading...</p>
             ) : (
               <button
-                className="px-10 py-3 bg-[#00a536] rounded mt-8"
+                className="px-8 py-2 bg-[#829ae7] text-white rounded mt-8"
                 onClick={handleLogin}
               >
                 Login
