@@ -116,8 +116,8 @@ const Trans = () => {
 
   return (
     <div>
-      <div className="px-8 py-8">
-        <form className="flex flex-col gap-4 w-full h-screen text-center">
+      <div className="px-8 py-8 w-full h-screen">
+        <form className="flex flex-col gap-4 w-full text-center">
           <div className="flex items-start w-full">
             <label htmlFor="no" className="w-1/2 text-start">
               Receipt No:
@@ -300,6 +300,7 @@ const Trans = () => {
             </button>
           </div>
         </form>
+        <button className="bg-blue-300 p-2 rounded">Log Out</button>
       </div>
     </div>
   );
