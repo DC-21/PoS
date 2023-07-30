@@ -15,7 +15,7 @@ const Trans = () => {
   const [nextReceiptNo, setNextReceiptNo] = useState("");
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState(null);
   const [amountTendered, setAmountTendered] = useState("");
-  const [change, setChange] = useState("00.00"); // Default value is "00.00"
+  const [change, setChange] = useState("00.00");
 
   useEffect(() => {
     axios
@@ -51,24 +51,22 @@ const Trans = () => {
       });
   }, []);
 
+  //this section makes a request to find customer details based on the selected name.
   useEffect(() => {
     if (selectedAccountName) {
-      // Find the user details based on the selected account name
       const user = userDetails.find((user) => user.name === selectedAccountName);
 
       if (user) {
-        // Update the input fields with the fetched data
         setCustomerNo(user.customerNo || "");
         setBalanceDueLCY(user.balanceDueLCY || "");
       } else {
-        // If the selected account name is not found in the user details, reset the input fields
         setCustomerNo("");
         setBalanceDueLCY("");
       }
     }
   }, [selectedAccountName, userDetails]);
 
-  // Handle change for Amount Tendered
+  // this section is responsible for calculating the change by taking the amount tendered minus amount to pay.
   const handleAmountTenderedChange = (e) => {
     const amountTenderedValue = e.target.value;
     setAmountTendered(amountTenderedValue);
@@ -76,21 +74,45 @@ const Trans = () => {
 
   // Recalculate change whenever amountToPay or amountTendered changes
   useEffect(() => {
-    // Parse float values from input fields
     const amountToPayValue = parseFloat(amountToPay) || 0;
     const amountTenderedNum = parseFloat(amountTendered) || 0;
 
-    // Calculate change only if both amountToPay and amountTendered have valid values
+    // this ensures calculation of change only when both fields have been assigned values
     if (!isNaN(amountToPayValue) && !isNaN(amountTenderedNum)) {
       const calculatedChange = amountTenderedNum - amountToPayValue;
       setChange(calculatedChange.toFixed(2));
     } else {
-      // Otherwise, set the Change field to display two zeroes
       setChange("00.00");
     }
   }, [amountToPay, amountTendered]);
 
+  const handleSubmit = () => {
+    // Prepare the data to be sent in the request body
+    const data = {
+      rcptno: nextReceiptNo,
+      date: currentDate,
+      name: selectedAccountName,
+      customer_no: customerNo,
+      opn_bal: balanceDueLCY,
+      clsn_bal: balanceDueLCY,
+      amount: amountToPay,
+      amt_tnd: amountTendered,
+      change: change,
+      pymt_type: selectedPaymentType,
+      desc: selectedDescription,
+      code: selectedIncomeGroup ? selectedIncomeGroup.name : "",
+    };
 
+    // Make the POST request using Axios
+    axios.post("http://localhost:3000/transactions", data)
+      .then((response) => {
+        // Handle the response if needed
+        console.log("Transaction created successfully:", response.data);
+      })
+      .catch((error) => {
+        console.log("Error creating transaction:", error);
+      });
+  };
 
   return (
     <div>
@@ -272,6 +294,7 @@ const Trans = () => {
             <button
               type="button"
               className="w-1/2 bg-indigo-500 text-white rounded-md py-2"
+              onClick={handleSubmit}
             >
               Submit
             </button>
