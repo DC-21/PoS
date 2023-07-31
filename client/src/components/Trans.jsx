@@ -112,9 +112,10 @@ const Trans = () => {
       });
 
     // Prepare the data to be sent in the POST request to create the transaction
+    const formattedDate = moment(currentDate, 'DD-MM-YY').format('YYYY-MM-DD');
     const transactionData = {
       rcptno: nextReceiptNo,
-      date: currentDate,
+      date: formattedDate,
       name: selectedAccountName,
       customer_no: customerNo,
       opn_bal: balanceDueLCY,
