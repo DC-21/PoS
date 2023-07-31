@@ -55,7 +55,9 @@ const Trans = () => {
   //this section makes a request to find customer details based on the selected name.
   useEffect(() => {
     if (selectedAccountName) {
-      const user = userDetails.find((user) => user.name === selectedAccountName);
+      const user = userDetails.find(
+        (user) => user.name === selectedAccountName
+      );
 
       if (user) {
         setCustomerNo(user.customerNo || "");
@@ -88,14 +90,35 @@ const Trans = () => {
   }, [amountToPay, amountTendered]);
 
   const handleSubmit = () => {
-    // Prepare the data to be sent in the request body
-    const data = {
+    // Calculate the new balance after deducting the amountToPay from the balanceDueLCY
+    const newBalanceDueLCY =
+      parseFloat(balanceDueLCY) - parseFloat(amountToPay);
+    setBalanceDueLCY(newBalanceDueLCY.toFixed(2));
+
+    // Prepare the data to be sent in the PUT request to update customer's balanceDueLCY
+    const customerUpdateData = {
+      newBalanceDueLCY: newBalanceDueLCY,
+    };
+
+    // Make the PUT request using Axios to update the customer's balanceDueLCY
+    axios
+      .put(`http://localhost:3000/customer-details/${customerNo}`, customerUpdateData)
+      .then((response) => {
+        // Handle the response if needed
+        console.log("Customer balance updated successfully:", response.data);
+      })
+      .catch((error) => {
+        console.log("Error updating customer balance:", error);
+      });
+
+    // Prepare the data to be sent in the POST request to create the transaction
+    const transactionData = {
       rcptno: nextReceiptNo,
       date: currentDate,
       name: selectedAccountName,
       customer_no: customerNo,
       opn_bal: balanceDueLCY,
-      clsn_bal: balanceDueLCY,
+      clsn_bal: newBalanceDueLCY.toFixed(2), // Use the new balance as the closing balance
       amount: amountToPay,
       amt_tnd: amountTendered,
       change: change,
@@ -104,8 +127,9 @@ const Trans = () => {
       code: selectedIncomeGroup ? selectedIncomeGroup.name : "",
     };
 
-    // Make the POST request using Axios
-    axios.post("http://localhost:3000/transactions", data)
+    // Make the POST request using Axios to create the transaction
+    axios
+      .post("http://localhost:3000/transactions", transactionData)
       .then((response) => {
         // Handle the response if needed
         console.log("Transaction created successfully:", response.data);
@@ -114,13 +138,13 @@ const Trans = () => {
         console.log("Error creating transaction:", error);
       });
   };
+
   const navigate = useNavigate();
   const handleLogout = () => {
     console.log("Logging out...");
     localStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
-
 
   return (
     <div>
@@ -135,7 +159,6 @@ const Trans = () => {
               id="description0"
               className="w-1/2 bg-slate-100 border border-gray-400"
               defaultValue={nextReceiptNo}
-              readOnly
             />
           </div>
           <div className="flex items-start w-full">
@@ -285,7 +308,9 @@ const Trans = () => {
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={selectedIncomeGroup ? selectedIncomeGroup.name : ""}
               onChange={(e) => {
-                const selectedCode = incomeGroups.find((code) => code.name === e.target.value);
+                const selectedCode = incomeGroups.find(
+                  (code) => code.name === e.target.value
+                );
                 setSelectedIncomeGroup(selectedCode);
               }}
             >
@@ -308,7 +333,9 @@ const Trans = () => {
             </button>
           </div>
         </form>
-        <button onClick={handleLogout} className="bg-blue-300 p-2 rounded">Log Out</button>
+        <button onClick={handleLogout} className="bg-blue-300 p-2 rounded">
+          Log Out
+        </button>
       </div>
     </div>
   );
