@@ -6,7 +6,9 @@ const Navbar = () => {
             <a>
                 <img className='w-[200px] h-[80px] rounded' src={logo} alt='logo'/>
             </a>
-            <a>Transactions</a>
+            <a>
+                <p className='text-lg hover:bg-slate-200 py-2 px-2 rounded'>Transactions</p>
+            </a>
         </div>
     </div>
   )
