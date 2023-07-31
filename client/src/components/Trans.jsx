@@ -40,19 +40,9 @@ const Trans = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    axios
-      .get("http://localhost:3000/transactions/next-receiptno")
-      .then((response) => {
-        setNextReceiptNo(response.data.receiptno);
-        console.log(nextReceiptNo);
-      })
-      .catch((error) => {
-        console.error("Error fetching next receipt number:", error);
-      });
   }, []);
 
-  //this section makes a request to find customer details based on the selected name.
+  //this section makes a request to find customer details based on the selected name. //
   useEffect(() => {
     if (selectedAccountName) {
       const user = userDetails.find(
@@ -75,12 +65,10 @@ const Trans = () => {
     setAmountTendered(amountTenderedValue);
   };
 
-  // Recalculate change whenever amountToPay or amountTendered changes
   useEffect(() => {
     const amountToPayValue = parseFloat(amountToPay) || 0;
     const amountTenderedNum = parseFloat(amountTendered) || 0;
 
-    // this ensures calculation of change only when both fields have been assigned values
     if (!isNaN(amountToPayValue) && !isNaN(amountTenderedNum)) {
       const calculatedChange = amountTenderedNum - amountToPayValue;
       setChange(calculatedChange.toFixed(2));
@@ -89,37 +77,39 @@ const Trans = () => {
     }
   }, [amountToPay, amountTendered]);
 
+  //this section of code triggers the put and post request to provided endpoints when i or another user clicks the submit button //
   const handleSubmit = () => {
-    // Calculate the new balance after deducting the amountToPay from the balanceDueLCY
+    //this section calculates the new balance after deducting the amountToPay from the balanceDueLCY
     const newBalanceDueLCY =
       parseFloat(balanceDueLCY) - parseFloat(amountToPay);
     setBalanceDueLCY(newBalanceDueLCY.toFixed(2));
 
-    // Prepare the data to be sent in the PUT request to update customer's balanceDueLCY
+    // this section prepares the data to be sent in the PUT request to update customer's balanceDueLCY and then make a put request //
     const customerUpdateData = {
       newBalanceDueLCY: newBalanceDueLCY,
     };
 
-    // Make the PUT request using Axios to update the customer's balanceDueLCY
     axios
-      .put(`http://localhost:3000/customer-details/${customerNo}`, customerUpdateData)
+      .put(
+        `http://localhost:3000/customer-details/${customerNo}`,
+        customerUpdateData
+      )
       .then((response) => {
-        // Handle the response if needed
         console.log("Customer balance updated successfully:", response.data);
       })
       .catch((error) => {
         console.log("Error updating customer balance:", error);
       });
 
-    // Prepare the data to be sent in the POST request to create the transaction
-    const formattedDate = moment(currentDate, 'DD-MM-YY').format('YYYY-MM-DD');
+    // this section prepares the data to be sent in the POST request to create the transaction //
+    const formattedDate = moment(currentDate, "DD-MM-YY").format("YYYY-MM-DD");
     const transactionData = {
       rcptno: nextReceiptNo,
       date: formattedDate,
       name: selectedAccountName,
       customer_no: customerNo,
       opn_bal: balanceDueLCY,
-      clsn_bal: newBalanceDueLCY.toFixed(2), // Use the new balance as the closing balance
+      clsn_bal: newBalanceDueLCY.toFixed(2),
       amount: amountToPay,
       amt_tnd: amountTendered,
       change: change,
@@ -128,11 +118,9 @@ const Trans = () => {
       code: selectedIncomeGroup ? selectedIncomeGroup.name : "",
     };
 
-    // Make the POST request using Axios to create the transaction
     axios
       .post("http://localhost:3000/transactions", transactionData)
       .then((response) => {
-        // Handle the response if needed
         console.log("Transaction created successfully:", response.data);
       })
       .catch((error) => {
