@@ -27,8 +27,12 @@ const Transaction = () => {
             {transactions.map((transaction) => (
               <li key={transaction.id}>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Receipt No:</p>
-                  <p>{transaction.rcptno}</p>
+                  <p className="text-start flex-1">Receipt No:</p>
+                  <p className="text-start flex-1">{transaction.rcptno}</p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Date:</p>
+                  <p>{transaction.date}</p>
                 </div>
                 <div className="w-full flex justify-between">
                   <p className="text-center">Customer No:</p>
@@ -58,28 +62,18 @@ const Transaction = () => {
                   <p className="text-center">Closing Balance:</p>
                   <p>K{transaction.clsn_bal}</p>
                 </div>
-                <p className="text-center">
-                  Customer No: {transaction.customer_no}
-                </p>
-                <p className="text-center">Name: {transaction.name}</p>
-                <p className="text-center">
-                  Opening Balance:{transaction.opn_bal}
-                </p>
-                <p className="text-center">Amount Paid:{transaction.amount}</p>
-                <p className="text-center">
-                  Amount Tendered:{transaction.amt_tnd}
-                </p>
-                <p className="text-center">Change:{transaction.change}</p>
-                <p className="text-center">
-                  Closing Balance:{transaction.clsn_bal}
-                </p>
-                <p className="text-center">
-                  Payment Type: {transaction.pymt_type}
-                </p>
-                <p className="text-center">
-                  Income Group Code:{transaction.code}
-                </p>
-                <p className="text-center">Description: {transaction.desc}</p>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Description</p>
+                  <p>{transaction.desc}</p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Payment Type</p>
+                  <p>{transaction.pymt_type}</p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Income Group Code</p>
+                  <p>{transaction.code}</p>
+                </div>
               </li>
             ))}
           </ul>
