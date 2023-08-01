@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
+  const location = useLocation();
+  const updated = new URLSearchParams(location.search).get("updated");
 
   useEffect(() => {
     axios
@@ -24,7 +27,10 @@ const Transaction = () => {
         <div className="px-4 py-2 bg-slate-200 rounded-md w-full h-auto pb-6 pt-6 flex items-center justify-center">
           <ul className="w-full">
             {transactions.map((transaction) => (
-              <li className="flex flex-col py-6 mt-6 w-full justify-center bg-white rounded" key={transaction.id}>
+              <li
+                className="flex flex-col py-6 mt-6 w-full justify-center bg-white rounded"
+                key={transaction.id}
+              >
                 <div className="w-full flex justify-between px-4">
                   <p className="text-start flex-1">Transaction ID:</p>
                   <p className="text-start flex-1">{transaction.id}</p>

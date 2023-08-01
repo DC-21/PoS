@@ -47,7 +47,7 @@ const Footer = () => {
         </button>
       </div>
       {isDataUpdated && (
-        <div className="mt-2 text-black justify-center items-center w-full absolute flex">
+        <div className="mt-4 text-black justify-center items-center w-full flex absolute">
           Customer data updated successfully.
         </div>
       )}
