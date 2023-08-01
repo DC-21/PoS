@@ -29,8 +29,8 @@ const Trans = () => {
         console.log(error);
       });
 
-      axios
-      .get('http://localhost:3000/receiptno')
+    axios
+      .get("http://localhost:3000/receiptno")
       .then((response) => {
         const { receiptNumber } = response.data;
         setNextReceiptNo(receiptNumber);
@@ -87,6 +87,7 @@ const Trans = () => {
   }, [amountToPay, amountTendered]);
 
   //this section of code triggers the put and post request to provided endpoints when i or another user clicks the submit button //
+
   const handleSubmit = () => {
     //this section calculates the new balance after deducting the amountToPay from the balanceDueLCY
     const newBalanceDueLCY =
@@ -136,6 +137,7 @@ const Trans = () => {
         console.log("Error creating transaction:", error);
       });
   };
+  
 
   return (
     <div>
@@ -197,7 +199,7 @@ const Trans = () => {
               Received from Account No:
             </label>
             <input
-              type="text"
+              type="number"
               id="description2"
               placeholder="Account To Receive From"
               className="w-1/2 bg-slate-100 border border-gray-400"
@@ -210,7 +212,7 @@ const Trans = () => {
               Customer Account Balance:
             </label>
             <input
-              type="text"
+              type="number"
               id="description4"
               placeholder="Customer Account Balance"
               className="w-1/2 bg-slate-100 border border-gray-400"
@@ -223,7 +225,7 @@ const Trans = () => {
               Amount To Pay:
             </label>
             <input
-              type="text"
+              type="number"
               id="description5"
               placeholder="Input Amount To Pay"
               className="w-1/2 bg-slate-100 border border-gray-400"
@@ -236,7 +238,7 @@ const Trans = () => {
               Amount Tendered:
             </label>
             <input
-              type="text"
+              type="number"
               id="description6"
               placeholder="Amount Tendered"
               className="w-1/2 bg-slate-100 border border-gray-400"
@@ -249,7 +251,7 @@ const Trans = () => {
               Change:
             </label>
             <input
-              type="text"
+              type="number"
               id="description7"
               placeholder="Change"
               className="w-1/2 bg-slate-100 border border-gray-400"
