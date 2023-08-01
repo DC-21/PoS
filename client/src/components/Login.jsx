@@ -97,7 +97,7 @@ const Login = ({ onLogin }) => {
           )}
           <div className="text-center">
             {loading ? (
-              <p>loading...</p>
+              <p>logging...</p>
             ) : (
               <button
                 className="px-8 py-2 bg-[#829ae7] text-white rounded mt-8"
