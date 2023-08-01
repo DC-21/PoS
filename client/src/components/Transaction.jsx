@@ -31,12 +31,12 @@ const Transaction = () => {
                   <p className="text-start flex-1">{transaction.rcptno}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Date:</p>
-                  <p>{transaction.date}</p>
+                  <p className="text-start flex-1">Date:</p>
+                  <p className="text-start flex-1">{transaction.date}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Customer No:</p>
-                  <p>{transaction.customer_no}</p>
+                  <p className="text-start flex-1">Customer No:</p>
+                  <p className="text-start flex-1">{transaction.customer_no}</p>
                 </div>
                 <div className="w-full flex justify-between">
                   <p className="text-center">Customer Name:</p>
