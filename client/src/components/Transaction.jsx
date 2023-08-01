@@ -39,16 +39,16 @@ const Transaction = () => {
                   <p className="text-start flex-1">{transaction.customer_no}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Customer Name:</p>
-                  <p>{transaction.name}</p>
+                  <p className="text-start flex-1">Customer Name:</p>
+                  <p className="text-start flex-1">{transaction.name}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Opening Balance:</p>
-                  <p>K{transaction.opn_bal}</p>
+                  <p className="text-start flex-1">Opening Balance:</p>
+                  <p className="text-start flex-1">K{transaction.opn_bal}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Amount:</p>
-                  <p>K{transaction.amount}</p>
+                  <p className="text-start flex-1">Amount:</p>
+                  <p className="text-start flex-1">K{transaction.amount}</p>
                 </div>
                 <div className="w-full flex justify-between">
                   <p className="text-center">Amount Tendered</p>
