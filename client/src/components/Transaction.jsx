@@ -27,6 +27,10 @@ const Transaction = () => {
             {transactions.map((transaction) => (
               <li key={transaction.id}>
                 <div className="w-full flex justify-between">
+                  <p className="text-start flex-1">Transaction ID:</p>
+                  <p className="text-start flex-1">{transaction.id}</p>
+                </div>
+                <div className="w-full flex justify-between">
                   <p className="text-start flex-1">Receipt No:</p>
                   <p className="text-start flex-1">{transaction.rcptno}</p>
                 </div>
