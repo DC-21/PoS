@@ -27,33 +27,35 @@ const Transaction = () => {
             {transactions.map((transaction) => (
               <li key={transaction.id}>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">
-                    Receipt No:
-                  </p>
+                  <p className="text-center">Receipt No:</p>
                   <p>{transaction.rcptno}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">
-                    Customer No:
-                  </p>
+                  <p className="text-center">Customer No:</p>
                   <p>{transaction.customer_no}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">
-                    Customer Name:
-                  </p>
+                  <p className="text-center">Customer Name:</p>
                   <p>{transaction.name}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">
-                    Opening Balance:
-                  </p>
+                  <p className="text-center">Opening Balance:</p>
                   <p>K{transaction.opn_bal}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">
-                    Closing Balance:
-                  </p>
+                  <p className="text-center">Amount:</p>
+                  <p>K{transaction.amount}</p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Amount Tendered</p>
+                  <p>K{transaction.amt_tnd}</p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Change</p>
+                  <p>K{transaction.change}</p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <p className="text-center">Closing Balance:</p>
                   <p>K{transaction.clsn_bal}</p>
                 </div>
                 <p className="text-center">
