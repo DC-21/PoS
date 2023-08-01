@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment-timezone";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -126,13 +125,6 @@ const Trans = () => {
       .catch((error) => {
         console.log("Error creating transaction:", error);
       });
-  };
-
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    console.log("Logging out...");
-    localStorage.removeItem("isLoggedIn");
-    navigate("/login");
   };
 
   return (
@@ -322,9 +314,6 @@ const Trans = () => {
             </button>
           </div>
         </form>
-        <button onClick={handleLogout} className="bg-blue-300 p-2 rounded">
-          Log Out
-        </button>
       </div>
     </div>
   );
