@@ -51,28 +51,28 @@ const Transaction = () => {
                   <p className="text-start flex-1">K{transaction.amount}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Amount Tendered</p>
-                  <p>K{transaction.amt_tnd}</p>
+                  <p className="text-start flex-1">Amount Tendered</p>
+                  <p className="text-start flex-1">K{transaction.amt_tnd}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Change</p>
-                  <p>K{transaction.change}</p>
+                  <p className="text-start flex-1">Change</p>
+                  <p className="text-start flex-1">K{transaction.change}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Closing Balance:</p>
-                  <p>K{transaction.clsn_bal}</p>
+                  <p className="text-start flex-1">Closing Balance:</p>
+                  <p className="text-start flex-1">K{transaction.clsn_bal}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Description</p>
-                  <p>{transaction.desc}</p>
+                  <p className="text-start flex-1">Description</p>
+                  <p className="text-start flex-1">{transaction.desc}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Payment Type</p>
-                  <p>{transaction.pymt_type}</p>
+                  <p className="text-start flex-1">Payment Type</p>
+                  <p className="text-start flex-1">{transaction.pymt_type}</p>
                 </div>
                 <div className="w-full flex justify-between">
-                  <p className="text-center">Income Group Code</p>
-                  <p>{transaction.code}</p>
+                  <p className="text-start flex-1">Income Group Code</p>
+                  <p className="text-start flex-1">{transaction.code}</p>
                 </div>
               </li>
             ))}
