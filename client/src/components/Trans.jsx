@@ -29,6 +29,16 @@ const Trans = () => {
         console.log(error);
       });
 
+      axios
+      .get('http://localhost:3000/receiptno')
+      .then((response) => {
+        const { receiptNumber } = response.data;
+        setNextReceiptNo(receiptNumber);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     axios
       .get("http://localhost:3000/income-groupcodes")
       .then((response) => {

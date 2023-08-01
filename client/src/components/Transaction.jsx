@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
-  const location = useLocation();
-  const updated = new URLSearchParams(location.search).get("updated");
 
   useEffect(() => {
     axios
