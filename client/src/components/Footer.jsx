@@ -1,8 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
 
   const handleLogout = () => {
     console.log("Logging out...");
@@ -12,13 +14,17 @@ const Footer = () => {
 
   const handleUpdate = async () => {
     try {
-      // Send a GET request to fetch the latest customer data from the server
       const response = await axios.get("http://localhost:3000/customers");
       const data = response.data;
-
-      // Send a PUT request to update customer data
       await axios.put("http://localhost:3000/customers", data);
       console.log("Customer data updated successfully.");
+
+      setIsDataUpdated(true);
+
+      // Set a timer to hide the message after 5 seconds
+      setTimeout(() => {
+        setIsDataUpdated(false);
+      }, 5000);
     } catch (error) {
       console.error("Error updating customer data:", error);
     }
@@ -40,6 +46,11 @@ const Footer = () => {
           Update
         </button>
       </div>
+      {isDataUpdated && (
+        <div className="mt-2 text-black justify-center items-center w-full absolute flex">
+          Customer data updated successfully.
+        </div>
+      )}
     </div>
   );
 };
