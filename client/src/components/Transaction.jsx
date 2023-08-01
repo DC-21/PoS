@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Transaction = () => {
-  // Define Transactions state variable and its setter function
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -12,7 +11,7 @@ const Transaction = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         const transactionsArray = data.Trans || [];
-        setTransactions(transactionsArray);
+        setTransactions(transactionsArray.reverse());
       })
       .catch((error) => {
         console.log(error);
@@ -23,9 +22,9 @@ const Transaction = () => {
     <div className="w-full py-2 px-4 flex justify-center">
       {transactions.length > 0 ? (
         <div className="px-4 py-2 bg-slate-200 rounded-md w-full h-auto pb-6 pt-6 flex items-center justify-center">
-          <ul className="flex flex-col mt-6 gap-6 w-[450px] justify-center bg-white rounded">
+          <ul>
             {transactions.map((transaction) => (
-              <li key={transaction.id}>
+              <li className="flex flex-col mt-6 w-[450px] justify-center bg-white rounded" key={transaction.id}>
                 <div className="w-full flex justify-between px-4">
                   <p className="text-start flex-1">Transaction ID:</p>
                   <p className="text-start flex-1">{transaction.id}</p>
