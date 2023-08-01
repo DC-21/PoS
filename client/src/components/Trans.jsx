@@ -137,7 +137,6 @@ const Trans = () => {
         console.log("Error creating transaction:", error);
       });
   };
-  
 
   return (
     <div>
