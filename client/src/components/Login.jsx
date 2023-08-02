@@ -61,11 +61,11 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      <div className="items-center mx-auto justify-center bg-gray-100 border-2 border-bg-blue-400 rounded-[10px] w-[400px] h-[450px]">
-        <p className="mt-5 text-center text-2xl">Login Please</p>
+      <div className="items-center mx-auto justify-center bg-blue-300 border-2 border-bg-blue-400 rounded-[20px] w-[400px] h-[450px]">
+        <p className="mt-5 text-center text-white font-bold text-2xl">Login Please</p>
         <div className="w-full flex flex-col items-center justify-center h-auto">
           <div className="w-full flex flex-col justify-center items-center">
-            <label className="mt-4" htmlFor="email">
+            <label className="mt-4 text-white font-bold" htmlFor="email">
               Email
             </label>
             <input
@@ -78,7 +78,7 @@ const Login = ({ onLogin }) => {
             />
           </div>
           <div className="w-full flex flex-col justify-center items-center">
-            <label className="mt-4" htmlFor="password">
+            <label className="mt-4 text-white font-bold" htmlFor="password">
               Password
             </label>
             <input
@@ -100,13 +100,13 @@ const Login = ({ onLogin }) => {
               <p>logging...</p>
             ) : (
               <button
-                className="px-8 py-2 bg-[#829ae7] text-white rounded mt-8"
+                className="px-8 py-2 bg-[#829ae7] text-white font-bold rounded mt-8 hover:bg-blue-600"
                 onClick={handleLogin}
               >
                 Login
               </button>
             )}
-            <div className="w-full flex gap-4 mt-3 mb-3 justify-center">
+            <div className="w-full flex text-white gap-4 mt-3 mb-3 justify-center">
               <p>Forgot Password?</p>
               <p>Create account</p>
             </div>
