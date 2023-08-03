@@ -46,7 +46,7 @@ const SignUp = () => {
 
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      <div className="items-center mx-auto justify-center bg-blue-300 border-2 border-blue-400 rounded-lg w-96 p-8">
+      <div className="items-center mx-auto justify-center bg-[#260c65] rounded-lg w-96 p-8">
         <p className="text-center text-white font-bold text-2xl mb-4">Sign Up</p>
         <div className="flex flex-col space-y-4 w-full justify-center items-center">
           <label className="text-white font-bold" htmlFor="full-name">
@@ -98,7 +98,7 @@ const SignUp = () => {
           />
 
           {signupMessage && (
-            <div className="text-red-500">{signupMessage}</div>
+            <div className="text-white">{signupMessage}</div>
           )}
 
           <div className="text-center">
@@ -106,7 +106,7 @@ const SignUp = () => {
               <p>Creating your account...</p>
             ) : (
               <button
-                className="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600"
+                className="px-4 py-2 bg-[#fe8267] hover:bg-[#ee3d16] text-white font-bold rounded"
                 onClick={handleSignUp}
               >
                 Sign Up

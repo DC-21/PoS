@@ -61,7 +61,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      <div className="items-center mx-auto justify-center bg-blue-300 border-2 border-bg-blue-400 rounded-[20px] w-[400px] h-[450px]">
+      <div className="items-center mx-auto justify-center bg-[#260c65] rounded-[20px] w-[400px] h-[450px]">
         <p className="mt-5 text-center text-white font-bold text-2xl">Login Please</p>
         <div className="w-full flex flex-col items-center justify-center h-auto">
           <div className="w-full flex flex-col justify-center items-center">
@@ -95,12 +95,12 @@ const Login = ({ onLogin }) => {
               <p>{loginMessage}</p>
             </div>
           )}
-          <div className="text-center">
+          <div className="text-center text-white">
             {loading ? (
               <p>logging...</p>
             ) : (
               <button
-                className="px-8 py-2 bg-[#829ae7] text-white font-bold rounded mt-8 hover:bg-blue-600"
+                className="px-8 py-2 bg-[#fe8267] hover:bg-[#ee3d16] text-white font-bold rounded mt-8"
                 onClick={handleLogin}
               >
                 Login
