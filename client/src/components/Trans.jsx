@@ -154,6 +154,19 @@ const Trans = () => {
       resetFields();
   };
 
+
+  const updateReceiptNumber = () => {
+    axios
+      .get("http://localhost:3000/receiptno")
+      .then((response) => {
+        const { receiptNumber } = response.data;
+        setNextReceiptNo(receiptNumber);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <div className="px-8 py-8 w-full h-screen">
@@ -339,6 +352,14 @@ const Trans = () => {
             >
               Submit
             </button>
+            <button
+          type="button"
+          className="w-1/2 bg-blue-500 text-white rounded-md py-2 ml-4"
+          onClick={updateReceiptNumber}
+        >
+          New
+        </button>
+
           </div>
         </form>
       </div>
