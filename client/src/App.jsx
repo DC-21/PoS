@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './components/Login';
 import Home from './pages/Home';
+import Transact from './pages/Transact';
 import Transactions from './pages/Transactions';
 import SignUp from "./components/Signup";
 
@@ -55,6 +56,7 @@ const App = () => {
           path="/signup"
           element={<SignUp onSignUp={handleSignUp} />}
         />
+        <Route path="/transact" element={<Transact/>}/>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/transactions" element={<Transactions />} />
       </Routes>
