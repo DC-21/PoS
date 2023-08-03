@@ -98,10 +98,10 @@ const TransactionsTable = () => {
                     {transactions.clsn_bal}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {transactions.description}
+                    {transactions.desc}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {transactions.paymentType}
+                    {transactions.pymt_type}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {transactions.code}
