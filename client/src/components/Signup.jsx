@@ -50,7 +50,7 @@ const SignUp = ({ onSignUp }) => {
     <div className="w-full flex justify-center items-center h-screen">
       <div className="items-center mx-auto justify-center bg-blue-300 border-2 border-blue-400 rounded-lg w-96 p-8">
         <p className="text-center text-white font-bold text-2xl mb-4">Sign Up</p>
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 w-full justify-center items-center">
           <label className="text-white font-bold" htmlFor="full-name">
             Full Name
           </label>
@@ -69,7 +69,7 @@ const SignUp = ({ onSignUp }) => {
           <input
             type="email"
             id="email"
-            placeholder="e.g., john@example.com"
+            placeholder="e.g., chola@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="p-2 rounded"
@@ -116,7 +116,7 @@ const SignUp = ({ onSignUp }) => {
             )}
           </div>
           <div className="w-full flex text-white gap-4 mt-3 mb-3 justify-center">
-              <Link to='/signup'>Create account</Link>
+              <Link to='/login'>Login</Link>
             </div>
         </div>
       </div>
