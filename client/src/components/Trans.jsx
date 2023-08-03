@@ -86,6 +86,20 @@ const Trans = () => {
     }
   }, [amountToPay, amountTendered]);
 
+
+  const resetFields = () => {
+    setAmountToPay("");
+    setBalanceDueLCY("");
+    setCustomerNo("");
+    setSelectedAccountName("");
+    setSelectedDescription("");
+    setSelectedPaymentType("");
+    setNextReceiptNo("");
+    setSelectedIncomeGroup(null);
+    setAmountTendered("");
+    setChange("00.00");
+  };
+
   //this section of code triggers the put and post request to provided endpoints when i or another user clicks the submit button //
 
   const handleSubmit = () => {
@@ -136,6 +150,8 @@ const Trans = () => {
       .catch((error) => {
         console.log("Error creating transaction:", error);
       });
+
+      resetFields();
   };
 
   return (
