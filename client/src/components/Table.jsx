@@ -24,8 +24,9 @@ const TransactionsTable = () => {
 
   return (
     <div className="mt-4 justify-center flex flex-col w-full">
+      <div className="flex w-full gap-6 justify-center items-baseline mb-2">
       <h2 className="text-lg font-semibold mb-2 text-center">Transaction History</h2>
-      <div className="mt-4 text-center">
+      <div className="mt-4 text-center items-center bg-blue-900 py-3 px-2 rounded text-white">
         <ReactHTMLTableToExcel
           id="export-button"
           className="btn btn-primary"
@@ -34,6 +35,7 @@ const TransactionsTable = () => {
           sheet="sheet1"
           buttonText="Export to Excel"
         />
+      </div>
       </div>
       <div className="overflow-x-auto">
         <table id="transactions-table" className="w-screen table-auto border-collapse border border-gray-300">
