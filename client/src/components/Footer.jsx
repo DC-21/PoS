@@ -18,11 +18,11 @@ const Footer = () => {
           Log Out
         </button>
         <p
-          className="text-lg hover:bg-slate-200 py-2 px-2 rounded text-white"
+          className="text-lg rounded text-white"
         >
          Mulonga Water and Sewage Co. © 2023
         </p>
-        <p className="text-lg hover:bg-slate-200 py-2 px-2 rounded text-white">All Rights Reserved.</p>
+        <p className="text-lg rounded text-white">All Rights Reserved.</p>
       </div>
     </div>
   );
