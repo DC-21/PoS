@@ -25,7 +25,7 @@ const Landing = () => {
     <div className="flex w-full justify-center items-center">
       <div className="bg-[#f5f6fa] h-screen flex flex-col w-full justify-center items-center">
         {isDataUpdated && (
-          <div className="mt-4 text-black justify-center items-center w-full flex absolute">
+          <div className="text-red-600 mb-[300px] font-bold text-2xl justify-center items-center w-full flex absolute">
             Customer data updated successfully.
           </div>
         )}
@@ -37,13 +37,13 @@ const Landing = () => {
           <div className="justify-center gap-8 w-full flex">
             <Link
               to="/transact"
-              className="px-6 py-4 w-[200px] bg-blue-900 rounded text-white"
+              className="px-6 py-4 w-[200px] bg-blue-900 hover:bg-blue-700 rounded text-white"
             >
               Make New Transaction
             </Link>
             <Link
-              to="/transactions"
-              className="px-6 py-4 w-[200px] bg-[#fe8267] rounded text-white"
+              to="/table"
+              className="px-6 py-4 w-[200px] bg-[#fe8267] hover:bg-[#fda18c] rounded text-white"
             >
               View All Transactions
             </Link>
@@ -51,21 +51,21 @@ const Landing = () => {
           <div className="justify-center gap-8 w-full flex">
             <button
               onClick={handleUpdate}
-              className="px-6 py-4 w-[200px] bg-[#e74723] rounded text-white"
+              className="px-6 py-4 w-[200px] bg-[#e74723] hover:bg-[#e7785f] rounded text-white"
             >
               Update Customers
             </button>
-            <button className="px-6 py-4 w-[200px] bg-[#260c65] rounded text-white">
+            <button className="px-6 py-4 w-[200px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white">
               Update Income Group codes
             </button>
           </div>
           <div className="justify-center gap-8 w-full flex">
-            <button className="px-6 py-4 w-[200px] bg-[#984dd6] rounded text-white">
+            <button className="px-6 py-4 w-[200px] bg-[#8927da] hover:bg-[#9c72be] rounded text-white">
               Update G/L Accounts
             </button>
             <Link
               to="/signup"
-              className="px-6 py-4 w-[200px] bg-[#2b9c14] rounded text-white"
+              className="px-6 py-4 w-[200px] bg-[#2b9c14] hover:bg-[#71c760] rounded text-white"
             >
               Add New User Account
             </Link>
