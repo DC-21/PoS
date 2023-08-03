@@ -29,8 +29,8 @@ const Footer = () => {
   };
 
   return (
-    <div className="w-full py-2 px-4 sticky top-0 flex justify-center">
-      <div className="px-4 py-2 bg-[#260c65] rounded-md w-full flex items-center justify-between">
+    <div className="w-full mt-4 sticky top-0 flex justify-center">
+      <div className="px-4 py-2 bg-[#260c65] w-full flex items-center justify-between">
         <button
           onClick={handleLogout}
           className="text-lg bg-[#fe8267] hover:bg-[#ee3d16] py-2 px-2 rounded text-white"
