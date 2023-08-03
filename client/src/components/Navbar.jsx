@@ -13,12 +13,12 @@ const Navbar = () => {
         </Link>
         <div className="flex gap-6">
           <Link to="/transactions">
-            <p className="text-lg bg-slate-600 hover:bg-slate-200 py-2 px-2 rounded text-white hover:text-black">
+            <p className="text-lg bg-[#fe8267] hover:bg-[#ee3d16] py-2 px-2 rounded text-white">
               Transactions
             </p>
           </Link>
           <Link to="/">
-            <p className="text-lg bg-slate-600 hover:bg-slate-200 py-2 px-2 rounded text-white hover:text-black">
+            <p className="text-lg bg-[#fe8267] hover:bg-[#ee3d16] py-2 px-2 rounded text-white">
               Home
             </p>
           </Link>
