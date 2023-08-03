@@ -25,7 +25,7 @@ const TransactionsTable = () => {
     <div className="mt-4">
       <h2 className="text-lg font-semibold mb-2">Transaction History</h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full table-auto border-collapse border border-gray-300">
+        <table className="w-screen table-auto border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-200">
               <th className="border border-gray-300 px-4 py-2">

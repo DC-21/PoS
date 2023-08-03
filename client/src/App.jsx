@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Transact from './pages/Transact';
 import Transactions from './pages/Transactions';
 import SignUp from "./components/Signup";
-import Table from "./components/Table";
+import TransactionsTable from "./pages/TransactionsTable";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,7 +60,7 @@ const App = () => {
         <Route path="/transact" element={<Transact/>}/>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/transactions" element={<Transactions />} />
-        <Route path="/table" element={<Table/>}/>
+        <Route path="/table" element={<TransactionsTable/>}/>
       </Routes>
     </Router>
   );
