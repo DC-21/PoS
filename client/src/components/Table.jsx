@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 const TransactionsTable = () => {
-    const [transactions, setTransactions] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        axios
-          .get("http://localhost:3000/transactions")
-          .then((response) => {
-            const data = response.data;
-            console.log("Fetched data:", data);
-            const transactionsArray = data.Trans || [];
-            setTransactions(transactionsArray.reverse());
-            setLoading(false); // Set loading to false once data is fetched
-          })
-          .catch((error) => {
-            console.error("Error fetching transaction data:", error);
-            setLoading(false); // Set loading to false even if an error occurs
-          });
-      }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/transactions")
+      .then((response) => {
+        const data = response.data;
+        console.log("Fetched data:", data);
+        const transactionsArray = data.Trans || [];
+        setTransactions(transactionsArray.reverse());
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching transaction data:", error);
+        setLoading(false);
+      });
+  }, []);
 
   return (
-    <div className="mt-4">
-      <h2 className="text-lg font-semibold mb-2">Transaction History</h2>
+    <div className="mt-4 justify-center flex flex-col w-full">
+      <h2 className="text-lg font-semibold mb-2 text-center">Transaction History</h2>
       <div className="overflow-x-auto">
         <table className="w-screen table-auto border-collapse border border-gray-300">
           <thead>
