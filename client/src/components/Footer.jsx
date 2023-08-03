@@ -20,8 +20,6 @@ const Footer = () => {
       console.log("Customer data updated successfully.");
 
       setIsDataUpdated(true);
-
-      // Set a timer to hide the message after 5 seconds
       setTimeout(() => {
         setIsDataUpdated(false);
       }, 5000);
@@ -35,7 +33,7 @@ const Footer = () => {
       <div className="px-4 py-2 bg-[#260c65] rounded-md w-full flex items-center justify-between">
         <button
           onClick={handleLogout}
-          className="text-lg hover:bg-slate-200 py-2 px-2 rounded text-white bg-slate-600 hover:text-black"
+          className="text-lg bg-[#fe8267] hover:bg-[#ee3d16] py-2 px-2 rounded text-white"
         >
           Log Out
         </button>
