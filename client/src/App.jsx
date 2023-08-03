@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './components/Login';
 import Home from './pages/Home';
 import Transactions from './pages/Transactions'
+import SignUp from "./components/Signup";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +47,7 @@ const App = () => {
             )
           }
         />
+        <Route path="/signup" element={<SignUp/>}/>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/transactions" element={<Transactions/>}/>
       </Routes>

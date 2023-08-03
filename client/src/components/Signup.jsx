@@ -1,109 +1,117 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-const Login = ({ onLogin }) => {
+const SignUp = ({ onSignUp }) => {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loginMessage, setLoginMessage] = useState("");
+  const [signupMessage, setSignupMessage] = useState("");
   const navigation = useNavigate();
 
-  useEffect(() => {
-    setEmail("");
-    setPassword("");
-  }, [loading]);
-
-  const handleLogin = async () => {
+  const handleSignUp = async () => {
     try {
       setLoading(true);
-      if (email === "" || password === "") {
-        setLoginMessage("Please fill in the form");
+
+      if (!fullName || !email || !phoneNumber || !password) {
+        setSignupMessage("Please fill in all fields");
         setLoading(false);
         return;
       }
 
-      console.log("Sending login request to:", "http://localhost:3006/login");
-      console.log("Request data:", { email, password });
-
-      const response = await axios.post("http://localhost:3006/login", {
+      const response = await axios.post("http://localhost:3006/signup", {
+        fullName,
         email,
+        phoneNumber,
         password,
       });
 
-      if (response.status === 200) {
-        // Login successful
+      if (response.status === 201) {
         setLoading(false);
-        setLoginMessage("Successful login!");
-        onLogin();
+        setSignupMessage("Sign up successful!");
+        onSignUp();
         sessionStorage.setItem("isLoggedIn", "true");
         navigation("/");
       } else {
-        // Login failed
         setLoading(false);
-        setLoginMessage(response.data.message);
+        setSignupMessage("Sign up failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error in login request:", error);
+      console.error("Error in signup request:", error);
       setLoading(false);
-      setLoginMessage("invalid credentials.");
+      setSignupMessage("An error occurred. Please try again later.");
     }
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
   };
 
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      <div className="items-center mx-auto justify-center bg-blue-300 border-2 border-bg-blue-400 rounded-[20px] w-[400px] h-[450px]">
-        <p className="mt-5 text-center text-white font-bold text-2xl">Login Please</p>
-        <div className="w-full flex flex-col items-center justify-center h-auto">
-          <div className="w-full flex flex-col justify-center items-center">
-            <label className="mt-4 text-white font-bold" htmlFor="email">
-              Email
-            </label>
-            <input
-              type="text"
-              id="email"
-              placeholder="email"
-              value={email}
-              onChange={handleEmailChange}
-              className="p-2 mb-4 mt-4 rounded"
-            />
-          </div>
-          <div className="w-full flex flex-col justify-center items-center">
-            <label className="mt-4 text-white font-bold" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="password"
-              value={password}
-              onChange={handlePasswordChange}
-              className="p-2 mb-4 mt-4 rounded bg-white"
-            />
-          </div>
-          {loginMessage && (
-            <div className="text-center pt-4 text-red-500">
-              <p>{loginMessage}</p>
-            </div>
+      <div className="items-center mx-auto justify-center bg-blue-300 border-2 border-blue-400 rounded-lg w-96 p-8">
+        <p className="text-center text-white font-bold text-2xl mb-4">Sign Up</p>
+        <div className="flex flex-col space-y-4">
+          <label className="text-white font-bold" htmlFor="full-name">
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="full-name"
+            placeholder="Enter your full name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="p-2 rounded"
+          />
+
+          <label className="text-white font-bold" htmlFor="email">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="e.g., john@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-2 rounded"
+          />
+
+          <label className="text-white font-bold" htmlFor="phone-number">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phone-number"
+            placeholder="Enter your phone number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="p-2 rounded"
+          />
+
+          <label className="text-white font-bold" htmlFor="password">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Choose a password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="p-2 rounded"
+          />
+
+          {signupMessage && (
+            <div className="text-red-500">{signupMessage}</div>
           )}
+
           <div className="text-center">
             {loading ? (
-              <p>logging...</p>
+              <p>Creating your account...</p>
             ) : (
               <button
-                className="px-8 py-2 bg-[#829ae7] text-white font-bold rounded mt-8 hover:bg-blue-600"
-                onClick={handleLogin}
+                className="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600"
+                onClick={handleSignUp}
               >
-                Login
+                Sign Up
               </button>
             )}
           </div>
@@ -113,8 +121,8 @@ const Login = ({ onLogin }) => {
   );
 };
 
-Login.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+SignUp.propTypes = {
+  onSignUp: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default SignUp;
