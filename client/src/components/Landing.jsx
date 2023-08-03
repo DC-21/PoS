@@ -17,7 +17,7 @@ const Landing = () => {
                 </div>
                 <div className="justify-center gap-8 w-full flex">
                     <button className="px-6 py-4 w-[200px] bg-[#984dd6] rounded text-white">Update G/L Accounts</button>
-                    <Link to='/signup' className="px-6 py-4 w-[200px] bg-[#2b9c14] rounded text-white">Create New User</Link>
+                    <Link to='/signup' className="px-6 py-4 w-[200px] bg-[#2b9c14] rounded text-white">Add New User Account</Link>
                 </div>
             </div>
         </div>
