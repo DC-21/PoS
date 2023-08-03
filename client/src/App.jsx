@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from './components/Login';
 import Home from './pages/Home';
 import Transactions from './pages/Transactions'
@@ -16,6 +16,10 @@ const App = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
+  };
+
+  const handleSignUp = () => {
+    setIsLoggedIn(true); // Update state after successful signup
   };
 
   useEffect(() => {
@@ -47,9 +51,9 @@ const App = () => {
             )
           }
         />
-        <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/signup" element={<SignUp onSignUp={handleSignUp} />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/transactions" element={<Transactions/>}/>
+        <Route path="/transactions" element={<Transactions />} />
       </Routes>
     </Router>
   );

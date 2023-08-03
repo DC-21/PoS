@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import axios from "axios";
 
-const SignUp = ({ onSignUp }) => {
-  const [fullName, setFullName] = useState("");
+const SignUp = () => {
+  const [full_name, setFull_name] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone_number, setPhone_number] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [signupMessage, setSignupMessage] = useState("");
@@ -16,23 +15,22 @@ const SignUp = ({ onSignUp }) => {
     try {
       setLoading(true);
 
-      if (!fullName || !email || !phoneNumber || !password) {
+      if (!full_name || !email || !phone_number || !password) {
         setSignupMessage("Please fill in all fields");
         setLoading(false);
         return;
       }
 
       const response = await axios.post("http://localhost:3006/signup", {
-        fullName,
+        full_name,
         email,
-        phoneNumber,
+        phone_number,
         password,
       });
 
       if (response.status === 201) {
         setLoading(false);
         setSignupMessage("Sign up successful!");
-        onSignUp();
         sessionStorage.setItem("isLoggedIn", "true");
         navigation("/");
       } else {
@@ -56,10 +54,10 @@ const SignUp = ({ onSignUp }) => {
           </label>
           <input
             type="text"
-            id="full-name"
+            id="full_name"
             placeholder="Enter your full name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            value={full_name}
+            onChange={(e) => setFull_name(e.target.value)}
             className="p-2 rounded"
           />
 
@@ -80,10 +78,10 @@ const SignUp = ({ onSignUp }) => {
           </label>
           <input
             type="tel"
-            id="phone-number"
+            id="phone_number"
             placeholder="Enter your phone number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={phone_number}
+            onChange={(e) => setPhone_number(e.target.value)}
             className="p-2 rounded"
           />
 
@@ -122,10 +120,6 @@ const SignUp = ({ onSignUp }) => {
       </div>
     </div>
   );
-};
-
-SignUp.propTypes = {
-  onSignUp: PropTypes.func.isRequired,
 };
 
 export default SignUp;
