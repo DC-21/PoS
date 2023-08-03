@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [currentDate] = useState(moment().format("DD-MM-YY"));
+  const [selectedAccountType, setSelectedAccountType]= useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [balanceDueLCY, setBalanceDueLCY] = useState("");
   const [customerNo, setCustomerNo] = useState("");
@@ -86,7 +87,6 @@ const Trans = () => {
     }
   }, [amountToPay, amountTendered]);
 
-
   const resetFields = () => {
     setAmountToPay("");
     setBalanceDueLCY("");
@@ -151,9 +151,8 @@ const Trans = () => {
         console.log("Error creating transaction:", error);
       });
 
-      resetFields();
+    resetFields();
   };
-
 
   const updateReceiptNumber = () => {
     axios
@@ -197,12 +196,16 @@ const Trans = () => {
             <label htmlFor="description1" className="w-1/2 text-start">
               Received from Account Type:
             </label>
-            <input
-              type="text"
-              id="description1"
-              placeholder="Account Type To Receive From"
+            <select
+              id="description"
               className="w-1/2 bg-slate-100 border border-gray-400"
-            />
+              value={selectedAccountType}
+              onChange={(e) => setSelectedAccountType(e.target.value)}
+            >
+              <option value="">Account Type</option>
+              <option value="cash">Customer</option>
+              <option value="cheque">G/L Accounts</option>
+            </select>
           </div>
           <div className="w-full flex">
             <label htmlFor="description3" className="w-1/2 text-start">
@@ -353,13 +356,12 @@ const Trans = () => {
               Submit
             </button>
             <button
-          type="button"
-          className="w-1/2 bg-blue-500 text-white rounded-md py-2 ml-4"
-          onClick={updateReceiptNumber}
-        >
-          New
-        </button>
-
+              type="button"
+              className="w-1/2 bg-blue-500 text-white rounded-md py-2 ml-4"
+              onClick={updateReceiptNumber}
+            >
+              New
+            </button>
           </div>
         </form>
       </div>
