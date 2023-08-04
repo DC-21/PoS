@@ -6,11 +6,43 @@ import { useState } from "react";
 const Landing = () => {
   const [isDataUpdated, setIsDataUpdated] = useState(false);
 
-  const handleUpdate = async () => {
+  const handleCustomersUpdate = async () => {
     try {
       const response = await axios.get("http://localhost:3000/customers");
       const data = response.data;
       await axios.put("http://localhost:3000/customers", data);
+      console.log("Customer data updated successfully.");
+
+      setIsDataUpdated(true);
+      setTimeout(() => {
+        setIsDataUpdated(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error updating customer data:", error);
+    }
+  };
+
+  const handleIncomeGroupCodesUpdate = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/income-group-codes");
+      const data = response.data;
+      await axios.put("http://localhost:3000/income-group-codes", data);
+      console.log("Customer data updated successfully.");
+
+      setIsDataUpdated(true);
+      setTimeout(() => {
+        setIsDataUpdated(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error updating customer data:", error);
+    }
+  };
+
+  const handleGLAccountsUpdate = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/gl-accounts");
+      const data = response.data;
+      await axios.put("http://localhost:3000/gl-accounts", data);
       console.log("Customer data updated successfully.");
 
       setIsDataUpdated(true);
@@ -50,17 +82,17 @@ const Landing = () => {
           </div>
           <div className="justify-center gap-8 w-full flex">
             <button
-              onClick={handleUpdate}
+              onClick={handleCustomersUpdate}
               className="px-6 py-4 w-[200px] bg-[#e74723] hover:bg-[#e7785f] rounded text-white"
             >
               Update Customers
             </button>
-            <button className="px-6 py-4 w-[200px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white">
+            <button onClick={handleIncomeGroupCodesUpdate} className="px-6 py-4 w-[200px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white">
               Update Income Group codes
             </button>
           </div>
           <div className="justify-center gap-8 w-full flex">
-            <button className="px-6 py-4 w-[200px] bg-[#8927da] hover:bg-[#9c72be] rounded text-white">
+            <button onClick={handleGLAccountsUpdate} className="px-6 py-4 w-[200px] bg-[#8927da] hover:bg-[#9c72be] rounded text-white">
               Update G/L Accounts
             </button>
             <Link

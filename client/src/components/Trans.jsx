@@ -17,6 +17,7 @@ const Trans = () => {
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState(null);
   const [amountTendered, setAmountTendered] = useState("");
   const [change, setChange] = useState("00.00");
+  const [glaccounts, setGlaccounts] = useState("");
 
   useEffect(() => {
     axios
@@ -25,6 +26,17 @@ const Trans = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         setUserDetails(data.customerData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      axios
+      .get("http://localhost:3000/gl-accounts")
+      .then((response) => {
+        const data = response.data;
+        console.log("Fetched data:", data);
+        setGlaccounts(data.accounts);
       })
       .catch((error) => {
         console.log(error);
@@ -193,8 +205,8 @@ const Trans = () => {
               onChange={(e) => setSelectedAccountType(e.target.value)}
             >
               <option value="">Account Type</option>
-              <option value="cash">Customer</option>
-              <option value="cheque">G/L Accounts</option>
+              <option value="customer">Customer</option>
+              <option value="accounts">G/L Accounts</option>
             </select>
           </div>
           <div className="w-full flex">
