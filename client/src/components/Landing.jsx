@@ -69,38 +69,38 @@ const Landing = () => {
           <div className="justify-center gap-8 w-full flex">
             <Link
               to="/transact"
-              className="px-6 py-4 w-[200px] bg-blue-900 hover:bg-blue-700 rounded text-white"
+              className="px-6 py-4 w-[200px] h-[80px] bg-blue-900 hover:bg-blue-700 rounded text-white"
             >
-              Make New Transaction
+              Issue A New Receipt
             </Link>
             <Link
               to="/table"
-              className="px-6 py-4 w-[200px] bg-[#fe8267] hover:bg-[#fda18c] rounded text-white"
+              className="px-6 py-4 w-[200px] h-[80px] bg-[#fe8267] hover:bg-[#fda18c] rounded text-white"
             >
-              View All Transactions
+              View All Open Receipts
             </Link>
           </div>
           <div className="justify-center gap-8 w-full flex">
             <button
               onClick={handleCustomersUpdate}
-              className="px-6 py-4 w-[200px] bg-[#e74723] hover:bg-[#e7785f] rounded text-white"
+              className="px-6 py-4 w-[200px] h-[80px] bg-[#e74723] hover:bg-[#e7785f] rounded text-white"
             >
               Update Customers
             </button>
-            <button onClick={handleIncomeGroupCodesUpdate} className="px-6 py-4 w-[200px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white">
-              Update Income Group codes
-            </button>
-          </div>
-          <div className="justify-center gap-8 w-full flex">
-            <button onClick={handleGLAccountsUpdate} className="px-6 py-4 w-[200px] bg-[#8927da] hover:bg-[#9c72be] rounded text-white">
-              Update G/L Accounts
-            </button>
             <Link
               to="/signup"
-              className="px-6 py-4 w-[200px] bg-[#2b9c14] hover:bg-[#71c760] rounded text-white"
+              className="px-6 py-4 w-[200px] h-[80px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white"
             >
-              Add New User Account
+              View All Closed Receipts
             </Link>
+          </div>
+          <div className="justify-center gap-8 w-full flex">
+            <button onClick={handleGLAccountsUpdate} className="px-6 py-4 w-[200px] h-[80px] bg-[#8927da] hover:bg-[#9c72be] rounded text-white">
+              Update G/L Accounts
+            </button>
+            <button onClick={handleIncomeGroupCodesUpdate} className="px-6 py-4 w-[200px] h-[80px] bg-[#2b9c14] hover:bg-[#71c760] rounded text-white">
+              Update Income Group codes
+            </button>
           </div>
         </div>
       </div>
