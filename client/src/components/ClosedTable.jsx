@@ -114,7 +114,7 @@ const TransactionsTable = () => {
               </tr>
             ) : (
               transactions
-                .filter((transaction) => !transaction.Post) // Only show transactions with Post state of true
+                .filter((transaction) => transaction.Post) // Only show transactions with Post state of true
                 .map((transaction, index) => (
                 <tr
                   key={index}
