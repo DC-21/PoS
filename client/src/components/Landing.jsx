@@ -88,7 +88,7 @@ const Landing = () => {
               Update Customers
             </button>
             <Link
-              to="/signup"
+              to="/table"
               className="px-6 py-4 w-[200px] h-[80px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white"
             >
               View All Closed Receipts
