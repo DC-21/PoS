@@ -1,12 +1,12 @@
 import Navbar from '../components/Navbar'
-import Table from '../components/Table'
+import OpenReceipts from '../components/OpenReceipts'
 import Footer from '../components/Footer'
 
 const OpenTransactionsTable = () => {
   return (
     <div>
         <Navbar/>
-        <Table/>
+        <OpenReceipts/>
         <Footer/>
     </div>
   )

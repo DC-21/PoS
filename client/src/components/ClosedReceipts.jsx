@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import useTransactionStore from "../Store";
 
-const TransactionsTable = () => {
+const ClosedReceipts = () => {
   const transactions = useTransactionStore((state) => state.transactions);
   const updateClosedStatusInDB = useTransactionStore(
     (state) => state.updateClosedStatusInDB
@@ -175,4 +175,4 @@ const TransactionsTable = () => {
   );
 };
 
-export default TransactionsTable;
+export default ClosedReceipts;

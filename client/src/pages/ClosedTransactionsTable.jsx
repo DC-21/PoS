@@ -1,12 +1,12 @@
 import Navbar from '../components/Navbar';
-import ClosedTable from '../components/ClosedTable'
 import Footer from '../components/Footer';
+import ClosedReceipts from '../components/ClosedReceipts';
 
 const ClosedTransactionsTable = () => {
   return (
     <div>
         <Navbar />
-        <ClosedTable/>
+        <ClosedReceipts/>
         <Footer />
     </div>
   )

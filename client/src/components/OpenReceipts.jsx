@@ -64,7 +64,7 @@ const TransactionsTable = () => {
     <div className="mt-4 justify-center flex flex-col w-full">
       <div className="flex w-full gap-6 justify-center items-baseline mb-2">
         <h2 className="text-lg font-semibold mb-2 text-center">
-          Transaction History
+          Open Receipts
         </h2>
         <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
           <ReactHTMLTableToExcel
@@ -76,7 +76,7 @@ const TransactionsTable = () => {
             buttonText="Export to Excel"
           />
         </div>
-        <button onClick={handleMarkAndSubmit}>Mark Selected and Submit</button>
+        <button className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white" onClick={handleMarkAndSubmit}>Submit Select</button>
       </div>
       <div className="overflow-x-auto">
         <table
