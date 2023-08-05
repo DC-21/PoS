@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar'
 import Table from '../components/Table'
 import Footer from '../components/Footer'
 
-const TransactionsTable = () => {
+const OpenTransactionsTable = () => {
   return (
     <div>
         <Navbar/>
@@ -12,4 +12,4 @@ const TransactionsTable = () => {
   )
 }
 
-export default TransactionsTable
+export default OpenTransactionsTable

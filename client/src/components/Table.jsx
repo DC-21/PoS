@@ -13,21 +13,26 @@ const TransactionsTable = () => {
   const [loading, setLoading] = useState(true);
 
   const handleCheckboxChange = (transactionId) => {
-    setSelectedTransactions((prevSelected) =>
-      prevSelected.includes(transactionId)
-        ? prevSelected.filter((id) => id !== transactionId)
-        : [...prevSelected, transactionId]
-    );
+    if (typeof transactionId === "number") {
+      setSelectedTransactions((prevSelected) =>
+        prevSelected.includes(transactionId)
+          ? prevSelected.filter((id) => id !== transactionId)
+          : [...prevSelected, transactionId]
+      );
+    }
   };
 
   const handleMarkAndSubmit = async () => {
-    for (const transactionId of selectedTransactions) {
+    const numericSelectedTransactions = selectedTransactions.filter(
+      (id) => typeof id === "number"
+    );
+
+    for (const transactionId of numericSelectedTransactions) {
       await updateClosedStatusInDB(transactionId);
     }
 
-    // Update the local state of transactions
     const updatedTransactions = transactions.filter(
-      (transaction) => !selectedTransactions.includes(transaction.id)
+      (transaction) => !numericSelectedTransactions.includes(transaction.id)
     );
 
     useTransactionStore.setState({
@@ -36,6 +41,7 @@ const TransactionsTable = () => {
 
     setSelectedTransactions([]);
   };
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/transactions")
@@ -116,57 +122,57 @@ const TransactionsTable = () => {
               transactions
                 .filter((transaction) => !transaction.Post) // Only show transactions with Post state of true
                 .map((transaction, index) => (
-                <tr
-                  key={index}
-                  className={index % 2 === 0 ? "bg-gray-100" : ""}
-                >
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.id}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.rcptno}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.date}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.customer_no}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.name}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.opn_bal}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.amount}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.amt_tnd}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.change}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.clsn_bal}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.desc}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.pymt_type}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {transaction.code}
-                  </td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      onChange={() => handleCheckboxChange(transactions.id)}
-                    />
-                  </td>
-                </tr>
-              ))
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? "bg-gray-100" : ""}
+                  >
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.id}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.rcptno}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.date}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.customer_no}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.name}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.opn_bal}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.amount}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.amt_tnd}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.change}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.clsn_bal}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.desc}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.pymt_type}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {transaction.code}
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        onChange={() => handleCheckboxChange(transaction.id)}
+                      />
+                    </td>
+                  </tr>
+                ))
             )}
           </tbody>
         </table>

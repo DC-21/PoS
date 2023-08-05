@@ -74,7 +74,7 @@ const Landing = () => {
               Issue A New Receipt
             </Link>
             <Link
-              to="/table"
+              to="/open"
               className="px-6 py-4 w-[200px] h-[80px] bg-[#fe8267] hover:bg-[#fda18c] rounded text-white"
             >
               View All Open Receipts
@@ -88,7 +88,7 @@ const Landing = () => {
               Update Customers
             </button>
             <Link
-              to="/table"
+              to="/closed"
               className="px-6 py-4 w-[200px] h-[80px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white"
             >
               View All Closed Receipts
