@@ -5,37 +5,9 @@ import useTransactionStore from "../Store";
 
 const ClosedReceipts = () => {
   const transactions = useTransactionStore((state) => state.transactions);
-  const updateClosedStatusInDB = useTransactionStore(
-    (state) => state.updateClosedStatusInDB
-  );
 
-  const [selectedTransactions, setSelectedTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const handleCheckboxChange = (transactionId) => {
-    setSelectedTransactions((prevSelected) =>
-      prevSelected.includes(transactionId)
-        ? prevSelected.filter((id) => id !== transactionId)
-        : [...prevSelected, transactionId]
-    );
-  };
-
-  const handleMarkAndSubmit = async () => {
-    for (const transactionId of selectedTransactions) {
-      await updateClosedStatusInDB(transactionId);
-    }
-
-    // Update the local state of transactions
-    const updatedTransactions = transactions.filter(
-      (transaction) => !selectedTransactions.includes(transaction.id)
-    );
-
-    useTransactionStore.setState({
-      transactions: updatedTransactions,
-    });
-
-    setSelectedTransactions([]);
-  };
   useEffect(() => {
     axios
       .get("http://localhost:3000/transactions")
@@ -70,7 +42,6 @@ const ClosedReceipts = () => {
             buttonText="Export to Excel"
           />
         </div>
-        <button onClick={handleMarkAndSubmit}>Mark Selected and Submit</button>
       </div>
       <div className="overflow-x-auto">
         <table
@@ -158,12 +129,6 @@ const ClosedReceipts = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {transaction.code}
-                  </td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      onChange={() => handleCheckboxChange(transactions.id)}
-                    />
                   </td>
                 </tr>
               ))
