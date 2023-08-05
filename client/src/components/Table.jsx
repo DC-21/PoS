@@ -25,16 +25,17 @@ const TransactionsTable = () => {
       await updateClosedStatusInDB(transactionId);
     }
 
-    // Remove selected transactions from the local state
-    useTransactionStore.setState((state) => ({
-      transactions: state.transactions.filter(
-        (t) => !selectedTransactions.includes(t.id)
-      ),
-    }));
+    // Update the local state of transactions
+    const updatedTransactions = transactions.filter(
+      (transaction) => !selectedTransactions.includes(transaction.id)
+    );
+
+    useTransactionStore.setState({
+      transactions: updatedTransactions,
+    });
 
     setSelectedTransactions([]);
   };
-
   useEffect(() => {
     axios
       .get("http://localhost:3000/transactions")
@@ -112,7 +113,8 @@ const TransactionsTable = () => {
                 </td>
               </tr>
             ) : (
-              transactions.map((transactions, index) => (
+              transactions.filter((transaction) => transaction.Post === 0)
+              .map((transactions, index) => (
                 <tr
                   key={index}
                   className={index % 2 === 0 ? "bg-gray-100" : ""}
