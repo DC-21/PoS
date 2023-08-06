@@ -24,25 +24,31 @@ const Login = ({ onLogin }) => {
         return;
       }
 
-      const response = await axios.post('http://localhost:3006/login', {
+      const response = await axios.post("http://localhost:3006/login", {
         email,
         password,
       });
 
       if (response.status === 200) {
         setLoading(false);
-        setLoginMessage('Successful login!');
-        onLogin(response.data); // Pass the entire response data to the parent component
-        sessionStorage.setItem('isLoggedIn', 'true');
-        navigation('/');
+        setLoginMessage("Successful login!");
+        onLogin(response.data);
+        sessionStorage.setItem("isLoggedIn", "true");
+
+        // Redirect based on user role
+        if (response.data.role === "admin") {
+          navigation("/admin");
+        } else {
+          navigation("/user");
+        }
       } else {
         setLoading(false);
-        setLoginMessage('Invalid credentials.');
+        setLoginMessage("Invalid credentials.");
       }
     } catch (error) {
-      console.error('Error in login request:', error);
+      console.error("Error in login request:", error);
       setLoading(false);
-      setLoginMessage('An error occurred.');
+      setLoginMessage("An error occurred.");
     }
   };
 
