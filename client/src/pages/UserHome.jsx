@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar';
+import Navbar from '../components/AdminNavbar';
 import Footer from '../components/Footer';
 import UserLanding from '../components/UserLanding';
 

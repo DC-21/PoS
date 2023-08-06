@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar'
+import Navbar from '../components/AdminNavbar'
 import Trans from '../components/Trans'
 import Footer from '../components/Footer'
 

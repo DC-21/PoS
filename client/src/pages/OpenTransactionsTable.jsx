@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar'
+import Navbar from '../components/AdminNavbar'
 import OpenReceipts from '../components/OpenReceipts'
 import Footer from '../components/Footer'
 
