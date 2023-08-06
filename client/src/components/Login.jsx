@@ -35,10 +35,14 @@ const Login = ({ onLogin }) => {
         onLogin(response.data);
         sessionStorage.setItem("isLoggedIn", "true");
 
-        // Redirect based on user role
-        if (response.data.role === "admin") {
+        const userRole = response.data.role;
+        console.log("User role:", userRole); // Log the user role
+
+        if (userRole === "admin") {
+          console.log("Redirecting to admin"); // Log the redirection
           navigation("/admin");
         } else {
+          console.log("Redirecting to user"); // Log the redirection
           navigation("/user");
         }
       } else {

@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './components/Login';
-import Home from './pages/Home';
-import Transact from './pages/Transact';
-import Transactions from './pages/Transactions';
+import Login from "./components/Login";
+import AdminHome from "./pages/AdminHome";
+import Transact from "./pages/Transact";
+import Transactions from "./pages/Transactions";
 import SignUp from "./components/Signup";
 import ClosedTransactionsTable from "./pages/ClosedTransactionsTable";
 import OpenTransactionsTable from "./pages/OpenTransactionsTable";
+import Landing from "./components/Landing";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [userRole, setUserRole] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = (userData) => {
     setIsLoggedIn(true);
+    setUserRole(userData.role);
   };
 
   const handleLogout = () => {
@@ -45,24 +48,31 @@ const App = () => {
     <Router>
       <Routes>
         <Route
-          path="/"
+          path="/admin"
           element={
-            isLoggedIn ? (
-              <Home onLogout={handleLogout} />
+            isLoggedIn && userRole === "admin" ? (
+              <AdminHome onLogout={handleLogout} />
             ) : (
               <Login onLogin={handleLogin} />
             )
           }
         />
         <Route
-          path="/signup"
-          element={<SignUp onSignUp={handleSignUp} />}
+          path="/user"
+          element={
+            isLoggedIn && userRole === "user" ? (
+              <Landing />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )
+          }
         />
-        <Route path="/transact" element={<Transact/>}/>
+        <Route path="/signup" element={<SignUp onSignUp={handleSignUp} />} />
+        <Route path="/transact" element={<Transact />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/transactions" element={<Transactions />} />
-        <Route path="/open" element={<OpenTransactionsTable/>}/>
-        <Route path="/closed" element={<ClosedTransactionsTable/>}/>
+        <Route path="/open" element={<OpenTransactionsTable />} />
+        <Route path="/closed" element={<ClosedTransactionsTable />} />
       </Routes>
     </Router>
   );
