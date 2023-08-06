@@ -7,7 +7,7 @@ import Transactions from "./pages/Transactions";
 import SignUp from "./components/Signup";
 import ClosedTransactionsTable from "./pages/ClosedTransactionsTable";
 import OpenTransactionsTable from "./pages/OpenTransactionsTable";
-import Landing from "./components/Landing";
+import UserHome from './pages/UserHome'
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,7 +61,7 @@ const App = () => {
           path="/user"
           element={
             isLoggedIn && userRole === "user" ? (
-              <Landing />
+              <UserHome />
             ) : (
               <Login onLogin={handleLogin} />
             )
