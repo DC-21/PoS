@@ -24,30 +24,25 @@ const Login = ({ onLogin }) => {
         return;
       }
 
-      console.log("Sending login request to:", "http://localhost:3006/login");
-      console.log("Request data:", { email, password });
-
-      const response = await axios.post("http://localhost:3006/login", {
+      const response = await axios.post('http://localhost:3006/login', {
         email,
         password,
       });
 
       if (response.status === 200) {
-        // Login successful
         setLoading(false);
-        setLoginMessage("Successful login!");
-        onLogin();
-        sessionStorage.setItem("isLoggedIn", "true");
-        navigation("/");
+        setLoginMessage('Successful login!');
+        onLogin(response.data); // Pass the entire response data to the parent component
+        sessionStorage.setItem('isLoggedIn', 'true');
+        navigation('/');
       } else {
-        // Login failed
         setLoading(false);
-        setLoginMessage(response.data.message);
+        setLoginMessage('Invalid credentials.');
       }
     } catch (error) {
-      console.error("Error in login request:", error);
+      console.error('Error in login request:', error);
       setLoading(false);
-      setLoginMessage("invalid credentials.");
+      setLoginMessage('An error occurred.');
     }
   };
 
@@ -62,7 +57,9 @@ const Login = ({ onLogin }) => {
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="items-center mx-auto justify-center bg-[#260c65] rounded-[20px] w-[400px] h-[450px]">
-        <p className="mt-5 text-center text-white font-bold text-2xl">Login Please</p>
+        <p className="mt-5 text-center text-white font-bold text-2xl">
+          Login Please
+        </p>
         <div className="w-full flex flex-col items-center justify-center h-auto">
           <div className="w-full flex flex-col justify-center items-center">
             <label className="mt-4 text-white font-bold" htmlFor="email">
@@ -107,7 +104,7 @@ const Login = ({ onLogin }) => {
               </button>
             )}
             <div className="w-full flex text-white gap-4 mt-3 mb-3 justify-center">
-              <Link to='/signup'>Create account</Link>
+              <Link to="/signup">Create account</Link>
             </div>
           </div>
         </div>
