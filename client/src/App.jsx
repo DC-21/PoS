@@ -8,6 +8,7 @@ import SignUp from "./components/Signup";
 import ClosedTransactionsTable from "./pages/ClosedTransactionsTable";
 import OpenTransactionsTable from "./pages/OpenTransactionsTable";
 import UserHome from './pages/UserHome'
+import AdminProfile from "./pages/AdminProfile";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,6 +74,7 @@ const App = () => {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/open" element={<OpenTransactionsTable />} />
         <Route path="/closed" element={<ClosedTransactionsTable />} />
+        <Route path="/profile" element={<AdminProfile/>}/>
       </Routes>
     </Router>
   );
