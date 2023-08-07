@@ -122,7 +122,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="w-full">
             {showButtons && (
               <div className="w-full flex justify-center items-center gap-8">
                 <button
@@ -138,7 +138,25 @@ const Profile = () => {
             )}
 
             {!showButtons &&
-            (<div>Hello</div>)}
+            (<div className="w-full flex items-center py-6 mt-4 justify-between">
+              <div className="w-full rounded bg-white flex flex-col justify-center items-center">
+                  <p>Fill in the form below</p>
+                  <div className="w-full flex justify-center gap-4">
+                    <div className="w-full flex flex-1">
+                      <label className="w-full flex-1">Fullname:</label>
+                      <input
+                      className="flex-1 w-full"
+                      placeholder="fullname"/>
+                    </div>
+                    <div className="w-full flex flex-1">
+                      <label className="w-full flex-1">Email:</label>
+                      <input
+                      className="flex-1 w-full"
+                      placeholder="Email"/>
+                    </div>
+                  </div>
+                </div>
+            </div>)}
           </div>
         </div>
       </div>
