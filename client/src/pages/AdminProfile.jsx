@@ -4,11 +4,11 @@ import Sidebar from '../components/Sidebar'
 
 const AdminProfile = () => {
   return (
-    <>
+    <div className='w-full h-screen'>
     <AdminNavbar/>
     <Sidebar/>
     <Footer/>
-    </>
+    </div>
   )
 }
 
