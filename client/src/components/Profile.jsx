@@ -6,40 +6,43 @@ const Profile = () => {
       <div className="w-full flex flex-col px-4 items-center">
         <p className="text-xl">Profiles Settings</p>
         <div className="w-full flex items-center px-4 py-6 rounded justify-between bg-[#27105e]">
-          <div className="rounded-full overflow-hidden flex">
+          <div className="rounded-full bg-[#0b051a] overflow-hidden flex">
             <img className="w-[150px] h-[150px]" src={own} alt="own" />
           </div>
-          <div className="bg-white h-[200px] rounded flex flex-col justify-center">
-            <div className="flex gap-4">
-              <p className="text-white">Name:</p>
-              <p className="text-white">Chola Kuboko</p>
+          <div className="bg-[#0b051a] w-[450px] h-[200px] rounded flex flex-col items-center justify-center">
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Name:</p>
+              <p className="flex-1 text-start text-white">Chola Kuboko</p>
             </div>
-            <div className="flex gap-4">
-              <p className="text-white">Username:</p>
-              <p className="text-white">Cholah</p>
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Username:</p>
+              <p className="flex-1 text-start text-white">Cholah</p>
             </div>
-            <div className="flex gap-4">
-              <p className="text-white">Contact:</p>
-              <p className="text-white">0979054417</p>
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Contact:</p>
+              <p className="flex-1 text-start text-white">0979054417</p>
             </div>
-            <div className="flex gap-4">
-              <p className="text-white">Email:</p>
-              <p className="text-white">cholahKuboko@gmail.com</p>
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Email:</p>
+              <p className="flex-1 text-start text-white">cholahKuboko@gmail.com</p>
             </div>
           </div>
-          <div>
-            <div className="flex gap-4">
-              <p className="text-white">Name</p>
-              <p>Chola Kuboko</p>
+          <div className="bg-[#0b051a] w-[450px] h-[200px] rounded flex flex-col items-center justify-center">
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Name:</p>
+              <p className="flex-1 text-start text-white">Chola Kuboko</p>
             </div>
-            <div>
-              <p className="text-white">Name</p>
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Username:</p>
+              <p className="flex-1 text-start text-white">Cholah</p>
             </div>
-            <div>
-              <p className="text-white">Name</p>
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Contact:</p>
+              <p className="flex-1 text-start text-white">0979054417</p>
             </div>
-            <div>
-              <p className="text-white">Name</p>
+            <div className="flex gap-4 w-full py-2 px-4">
+              <p className="flex-1 text-start text-white">Email:</p>
+              <p className="flex-1 text-start text-white">cholahKuboko@gmail.com</p>
             </div>
           </div>
         </div>
