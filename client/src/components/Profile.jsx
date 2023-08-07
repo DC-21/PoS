@@ -1,4 +1,4 @@
-import own from "../images/own.png";
+import own from "../images/images.jpeg";
 
 const Profile = () => {
   return (
@@ -6,7 +6,7 @@ const Profile = () => {
       <div className="w-full flex flex-col px-4 items-center">
         <p className="text-xl">Profiles Settings</p>
         <div className="w-full flex items-center mt-4 py-6 rounded bg-[#27105e]">
-          <div className="rounded-full bg-white overflow-hidden">
+          <div className="ml-6 rounded-full overflow-hidden">
             <img
               className="w-[150px] h-[150px]"
               src={own}
