@@ -139,32 +139,32 @@ const Profile = () => {
 
             {!showButtons && (
               <div className="w-full flex items-center py-6 mt-4 justify-center">
-                <div className="w-[400px] rounded bg-white p-6">
-                  <p className="mb-4 text-lg font-semibold">Add User</p>
+                <div className="w-full flex flex-col justify-center items-center rounded bg-white p-6">
+                  <p className="mb-4 text-lg font-semibold text-center">Add User</p>
                   <div className="w-full flex flex-col gap-4">
                     <div className="flex w-full">
-                      <label className="w-[100px]">Fullname:</label>
+                      <label className="w-[100px] flex-1">Fullname:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
-                        placeholder="Fullname"
+                        placeholder="fullname"
                       />
                     </div>
                     <div className="flex w-full">
-                      <label className="w-[100px]">Email:</label>
+                      <label className="w-[100px] flex-1">Email:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
                         placeholder="Email"
                       />
                     </div>
                     <div className="flex w-full">
-                      <label className="w-[100px]">Username:</label>
+                      <label className="w-[100px] flex-1">Username:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
                         placeholder="Username"
                       />
                     </div>
                     <div className="flex w-full">
-                      <label className="w-[100px]">Password:</label>
+                      <label className="w-[100px] flex-1">Password:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
                         type="password"
