@@ -52,60 +52,70 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e] gap-4">
-          <div className="flex flex-1 w-full justify-between bg-white rounded">
-            <div className="h-[200px] w-[250px] ml-4 justify-center rounded items-center overflow-hidden flex">
-              <img
-                className="w-[180px] h-[180px] rounded-full"
-                src={own}
-                alt="own"
-              />
+        <div className="w-full flex flex-col items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e] gap-4">
+          <div className="w-full flex gap-4">
+            <div className="flex flex-1 w-full justify-between bg-white rounded">
+              <div className="h-[200px] w-[250px] ml-4 justify-center rounded items-center overflow-hidden flex">
+                <img
+                  className="w-[180px] h-[180px] rounded-full"
+                  src={own}
+                  alt="own"
+                />
+              </div>
+              <div className="flex flex-col w-full mr-4 justify-center">
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Name:</div>
+                  <div className="flex-1 w-[50%] ">Tamani Phiri</div>
+                </div>
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Proffesion:</div>
+                  <div className="flex-1 w-[50%] ">Software Engineer</div>
+                </div>
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Role:</div>
+                  <div className="flex-1 w-[50%] ">User</div>
+                </div>
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Email</div>
+                  <div className="flex-1 w-[50%] ">
+                    Tamanigabriel0@gmail.com
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col w-full mr-4 justify-center">
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Name:</div>
-                <div className="flex-1 w-[50%] ">Tamani Phiri</div>
+            <div className="flex flex-1 w-full justify-between bg-white rounded">
+              <div className="h-[200px] w-[250px] ml-4 justify-center rounded items-center overflow-hidden flex">
+                <img
+                  className="w-[180px] h-[180px] rounded-full"
+                  src={own}
+                  alt="own"
+                />
               </div>
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Proffesion:</div>
-                <div className="flex-1 w-[50%] ">Software Engineer</div>
-              </div>
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Role:</div>
-                <div className="flex-1 w-[50%] ">User</div>
-              </div>
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Email</div>
-                <div className="flex-1 w-[50%] ">Tamanigabriel0@gmail.com</div>
+              <div className="flex flex-col w-full mr-4 justify-center">
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Name:</div>
+                  <div className="flex-1 w-[50%] ">Tamani Phiri</div>
+                </div>
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Proffesion:</div>
+                  <div className="flex-1 w-[50%] ">Software Engineer</div>
+                </div>
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Role:</div>
+                  <div className="flex-1 w-[50%] ">User</div>
+                </div>
+                <div className="flex w-full p-2">
+                  <div className="flex-1 w-[50%] ">Email</div>
+                  <div className="flex-1 w-[50%] ">
+                    Tamanigabriel0@gmail.com
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-1 w-full justify-between bg-white rounded">
-            <div className="h-[200px] w-[250px] ml-4 justify-center rounded items-center overflow-hidden flex">
-              <img
-                className="w-[180px] h-[180px] rounded-full"
-                src={own}
-                alt="own"
-              />
-            </div>
-            <div className="flex flex-col w-full mr-4 justify-center">
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Name:</div>
-                <div className="flex-1 w-[50%] ">Tamani Phiri</div>
-              </div>
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Proffesion:</div>
-                <div className="flex-1 w-[50%] ">Software Engineer</div>
-              </div>
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Role:</div>
-                <div className="flex-1 w-[50%] ">User</div>
-              </div>
-              <div className="flex w-full p-2">
-                <div className="flex-1 w-[50%] ">Email</div>
-                <div className="flex-1 w-[50%] ">Tamanigabriel0@gmail.com</div>
-              </div>
-            </div>
+          <div className="w-full flex justify-center items-center gap-8">
+            <button>Add User</button>
+            <button>Remove User</button>
           </div>
         </div>
       </div>
