@@ -1,6 +1,14 @@
+import { useState } from "react";
+import SignUp from "./Signup";
 import own from "../images/images.jpeg";
 
 const Profile = () => {
+  const [showButtons, setShowButtons] = useState(true);
+
+  const handleAddUserClick = () => {
+    setShowButtons(false);
+  };
+
   return (
     <div className="w-full h-screen justify-center items-center flex">
       <div className="w-full flex flex-col px-4 items-center">
@@ -53,6 +61,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="w-full flex flex-col items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e] gap-4">
+          <p className="py-2 px-3 bg-white rounded">Our Team</p>
           <div className="w-full flex gap-4">
             <div className="flex flex-1 w-full justify-between bg-white rounded">
               <div className="h-[200px] w-[250px] ml-4 justify-center rounded items-center overflow-hidden flex">
@@ -113,9 +122,23 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-center items-center gap-8">
-            <button>Add User</button>
-            <button>Remove User</button>
+          <div>
+            {showButtons && (
+              <div className="w-full flex justify-center items-center gap-8">
+                <button
+                  className="bg-white py-2 px-3 rounded"
+                  onClick={handleAddUserClick}
+                >
+                  Add User
+                </button>
+                <button className="bg-white py-2 px-3 rounded">
+                  Remove User
+                </button>
+              </div>
+            )}
+
+            {!showButtons &&
+            (<div>Hello</div>)}
           </div>
         </div>
       </div>
