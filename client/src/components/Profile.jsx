@@ -1,9 +1,50 @@
 import { useState } from "react";
 import own from "../images/images.jpeg";
-import Footer from './Footer'
+import Footer from "./Footer";
+import axios from "axios";
 
 const Profile = () => {
   const [showButtons, setShowButtons] = useState(true);
+  const [full_name, setFull_name] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [role, setRole] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [signupMessage, setSignupMessage] = useState("");
+
+  const handleSignUp = async () => {
+    try {
+      setLoading(true);
+
+      if (!full_name || !email || !phone_number ||!role || !password) {
+        setSignupMessage("Please fill in all fields");
+        setLoading(false);
+        return;
+      }
+
+      const response = await axios.post("http://localhost:3006/signup", {
+        full_name,
+        email,
+        phone_number,
+        role,
+        password,
+      });
+
+      if (response.status === 201) {
+        setLoading(false);
+        setSignupMessage("Sign up successful!");
+        sessionStorage.setItem("isLoggedIn", "true");
+      } else {
+        setLoading(false);
+        setSignupMessage("Sign up failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error in signup request:", error);
+      setLoading(false);
+      setSignupMessage("An error occurred. Please try again later.");
+    }
+  };
 
   const handleAddUserClick = () => {
     setShowButtons(false);
@@ -11,7 +52,7 @@ const Profile = () => {
 
   return (
     <div className="w-full h-screen justify-center items-center flex">
-      <div className="w-full flex flex-col px-4 items-center">
+      <div className="w-full flex flex-col px-4 items-center pt-[120px]">
         <p className="text-xl">Profiles Settings</p>
         <div className="w-full flex items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e]">
           <div className="bg-white h-[200px] w-[200px] justify-center rounded items-center overflow-hidden flex">
@@ -140,27 +181,51 @@ const Profile = () => {
             {!showButtons && (
               <div className="w-full flex items-center py-6 mt-4 justify-center">
                 <div className="w-full flex flex-col justify-center items-center rounded bg-white p-6">
-                  <p className="mb-4 text-lg font-semibold text-center">Add User</p>
+                  <p className="mb-4 text-lg font-semibold text-center">
+                    Add User
+                  </p>
                   <div className="w-full flex flex-col gap-4">
                     <div className="flex w-full">
                       <label className="w-[100px] flex-1">Fullname:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
-                        placeholder="fullname"
+                        type="text"
+                        id="full_name"
+                        placeholder="Enter your full name"
+                        value={full_name}
+                        onChange={(e) => setFull_name(e.target.value)}
                       />
                     </div>
                     <div className="flex w-full">
                       <label className="w-[100px] flex-1">Email:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
-                        placeholder="Email"
+                        type="email"
+                        id="email"
+                        placeholder="e.g., chola@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <div className="flex w-full">
-                      <label className="w-[100px] flex-1">Username:</label>
+                      <label className="w-[100px] flex-1">Contact:</label>
                       <input
                         className="flex-1 px-2 py-1 rounded border"
-                        placeholder="Username"
+                        type="tel"
+                        id="phone_number"
+                        placeholder="Enter your phone number"
+                        value={phone_number}
+                        onChange={(e) => setPhone_number(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex w-full">
+                      <label className="w-[100px] flex-1">Role:</label>
+                      <input
+                        className="flex-1 px-2 py-1 rounded border"
+                        type="text"
+                        placeholder="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
                       />
                     </div>
                     <div className="flex w-full">
@@ -168,19 +233,24 @@ const Profile = () => {
                       <input
                         className="flex-1 px-2 py-1 rounded border"
                         type="password"
-                        placeholder="Password"
+                        id="password"
+                        placeholder="Choose a password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
-                    <button className="bg-blue-500 text-white py-2 px-4 rounded">
-                      Add User
-                    </button>
+                    <div className="w-full flex justify-center">
+                      <button onClick={handleSignUp} className="bg-blue-500 text-white py-2 px-4 rounded">
+                        Add User
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );
