@@ -1,25 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import own from "../images/images.jpeg";
 import Footer from "./Footer";
 import axios from "axios";
 
 const Profile = () => {
+  const[users, setUsers]=useState([]);
   const [showButtons, setShowButtons] = useState(true);
   const [full_name, setFull_name] = useState("");
   const [email, setEmail] = useState("");
   const [phone_number, setPhone_number] = useState("");
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [signupMessage, setSignupMessage] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleSignUp = async () => {
     try {
-      setLoading(true);
-
-      if (!full_name || !email || !phone_number ||!role || !password) {
-        setSignupMessage("Please fill in all fields");
-        setLoading(false);
+      if (!full_name || !email || !phone_number || !role || !password) {
+        console.error("Please fill in all fields");
         return;
       }
 
@@ -32,23 +30,48 @@ const Profile = () => {
       });
 
       if (response.status === 201) {
-        setLoading(false);
-        setSignupMessage("Sign up successful!");
+        setFull_name("");
+        setEmail("");
+        setPhone_number("");
+        setRole("");
+        setPassword("");
+        setShowForm(false);
+        setShowButtons(true);
+        setShowSuccessMessage(true);
         sessionStorage.setItem("isLoggedIn", "true");
       } else {
-        setLoading(false);
-        setSignupMessage("Sign up failed. Please try again.");
+        console.error("Sign up failed. Please try again.");
       }
     } catch (error) {
       console.error("Error in signup request:", error);
-      setLoading(false);
-      setSignupMessage("An error occurred. Please try again later.");
+      console.error("An error occurred. Please try again later.");
     }
   };
 
+  useEffect(()=>{
+    axios.get("http://localhost:3006/signUp").then((response)=>{
+      const users = response.data.Users;
+      console.log("Fetched data:", users);
+      setUsers(users);
+    }).catch((error)=>
+    console.log(error))
+  },[]);
+
   const handleAddUserClick = () => {
     setShowButtons(false);
+    setShowForm(true);
+    setShowSuccessMessage(false);
   };
+
+  useEffect(() => {
+    if (showSuccessMessage) {
+      const timer = setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessMessage]);
 
   return (
     <div className="w-full h-screen justify-center items-center flex">
@@ -164,90 +187,101 @@ const Profile = () => {
             </div>
           </div>
           <div className="w-full">
-            {showButtons && (
-              <div className="w-full flex justify-center items-center gap-8">
-                <button
-                  className="bg-white py-2 px-3 rounded"
-                  onClick={handleAddUserClick}
-                >
-                  Add User
-                </button>
-                <button className="bg-white py-2 px-3 rounded">
-                  Remove User
-                </button>
-              </div>
-            )}
+          {showButtons && (
+  <div className="w-full flex justify-center items-center gap-8">
+    <button
+      className="bg-white py-2 px-3 rounded"
+      onClick={handleAddUserClick}
+    >
+      Add User
+    </button>
+    <button className="bg-white py-2 px-3 rounded">Remove User</button>
+  </div>
+)}
 
-            {!showButtons && (
-              <div className="w-full flex items-center py-6 mt-4 justify-center">
-                <div className="w-full flex flex-col justify-center items-center rounded bg-white p-6">
-                  <p className="mb-4 text-lg font-semibold text-center">
-                    Add User
-                  </p>
-                  <div className="w-full flex flex-col gap-4">
-                    <div className="flex w-full">
-                      <label className="w-[100px] flex-1">Fullname:</label>
-                      <input
-                        className="flex-1 px-2 py-1 rounded border"
-                        type="text"
-                        id="full_name"
-                        placeholder="Enter your full name"
-                        value={full_name}
-                        onChange={(e) => setFull_name(e.target.value)}
-                      />
-                    </div>
-                    <div className="flex w-full">
-                      <label className="w-[100px] flex-1">Email:</label>
-                      <input
-                        className="flex-1 px-2 py-1 rounded border"
-                        type="email"
-                        id="email"
-                        placeholder="e.g., chola@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                    <div className="flex w-full">
-                      <label className="w-[100px] flex-1">Contact:</label>
-                      <input
-                        className="flex-1 px-2 py-1 rounded border"
-                        type="tel"
-                        id="phone_number"
-                        placeholder="Enter your phone number"
-                        value={phone_number}
-                        onChange={(e) => setPhone_number(e.target.value)}
-                      />
-                    </div>
-                    <div className="flex w-full">
-                      <label className="w-[100px] flex-1">Role:</label>
-                      <input
-                        className="flex-1 px-2 py-1 rounded border"
-                        type="text"
-                        placeholder="role"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                      />
-                    </div>
-                    <div className="flex w-full">
-                      <label className="w-[100px] flex-1">Password:</label>
-                      <input
-                        className="flex-1 px-2 py-1 rounded border"
-                        type="password"
-                        id="password"
-                        placeholder="Choose a password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                    <div className="w-full flex justify-center">
-                      <button onClick={handleSignUp} className="bg-blue-500 text-white py-2 px-4 rounded">
-                        Add User
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+{showForm && (
+  <div className="w-full flex items-center py-6 mt-4 justify-center">
+    <div className="w-full flex flex-col justify-center items-center rounded bg-white p-6">
+      <p className="mb-4 text-lg font-semibold text-center">Add User</p>
+      <div className="w-full flex flex-col gap-4">
+        <div className="flex w-full">
+          <label className="w-[100px] flex-1">Fullname:</label>
+          <input
+            className="flex-1 px-2 py-1 rounded border"
+            type="text"
+            id="full_name"
+            placeholder="Enter your full name"
+            value={full_name}
+            onChange={(e) => setFull_name(e.target.value)}
+          />
+        </div>
+        <div className="flex w-full">
+          <label className="w-[100px] flex-1">Email:</label>
+          <input
+            className="flex-1 px-2 py-1 rounded border"
+            type="email"
+            id="email"
+            placeholder="e.g., chola@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="flex w-full">
+          <label className="w-[100px] flex-1">Contact:</label>
+          <input
+            className="flex-1 px-2 py-1 rounded border"
+            type="tel"
+            id="phone_number"
+            placeholder="Enter your phone number"
+            value={phone_number}
+            onChange={(e) => setPhone_number(e.target.value)}
+          />
+        </div>
+        <div className="flex w-full">
+          <label className="w-[100px] flex-1">Role:</label>
+          <input
+            className="flex-1 px-2 py-1 rounded border"
+            type="text"
+            placeholder="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          />
+        </div>
+        <div className="flex w-full">
+          <label className="w-[100px] flex-1">Password:</label>
+          <input
+            className="flex-1 px-2 py-1 rounded border"
+            type="password"
+            id="password"
+            placeholder="Choose a password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="w-full flex justify-center">
+          <button
+            onClick={handleSignUp}
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Add User
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+{showSuccessMessage && (
+  <div className="w-full flex items-center py-6 mt-4 justify-center">
+    <div className="w-full flex flex-col justify-center items-center rounded bg-white p-6">
+      <p className="mb-4 text-lg font-semibold text-center text-green-500">
+        User added successfully!
+      </p>
+      {/* Additional success message UI */}
+    </div>
+  </div>
+)}
+
           </div>
         </div>
         <Footer />
