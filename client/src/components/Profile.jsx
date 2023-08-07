@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SignUp from "./Signup";
 import own from "../images/images.jpeg";
+import Footer from './Footer'
 
 const Profile = () => {
   const [showButtons, setShowButtons] = useState(true);
@@ -137,28 +137,50 @@ const Profile = () => {
               </div>
             )}
 
-            {!showButtons &&
-            (<div className="w-full flex items-center py-6 mt-4 justify-between">
-              <div className="w-full rounded bg-white flex flex-col justify-center items-center">
-                  <p>Fill in the form below</p>
-                  <div className="w-full flex justify-center gap-4">
-                    <div className="w-full flex flex-1">
-                      <label className="w-full flex-1">Fullname:</label>
+            {!showButtons && (
+              <div className="w-full flex items-center py-6 mt-4 justify-center">
+                <div className="w-[400px] rounded bg-white p-6">
+                  <p className="mb-4 text-lg font-semibold">Add User</p>
+                  <div className="w-full flex flex-col gap-4">
+                    <div className="flex w-full">
+                      <label className="w-[100px]">Fullname:</label>
                       <input
-                      className="flex-1 w-full"
-                      placeholder="fullname"/>
+                        className="flex-1 px-2 py-1 rounded border"
+                        placeholder="Fullname"
+                      />
                     </div>
-                    <div className="w-full flex flex-1">
-                      <label className="w-full flex-1">Email:</label>
+                    <div className="flex w-full">
+                      <label className="w-[100px]">Email:</label>
                       <input
-                      className="flex-1 w-full"
-                      placeholder="Email"/>
+                        className="flex-1 px-2 py-1 rounded border"
+                        placeholder="Email"
+                      />
                     </div>
+                    <div className="flex w-full">
+                      <label className="w-[100px]">Username:</label>
+                      <input
+                        className="flex-1 px-2 py-1 rounded border"
+                        placeholder="Username"
+                      />
+                    </div>
+                    <div className="flex w-full">
+                      <label className="w-[100px]">Password:</label>
+                      <input
+                        className="flex-1 px-2 py-1 rounded border"
+                        type="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <button className="bg-blue-500 text-white py-2 px-4 rounded">
+                      Add User
+                    </button>
                   </div>
                 </div>
-            </div>)}
+              </div>
+            )}
           </div>
         </div>
+        <Footer/>
       </div>
     </div>
   );
