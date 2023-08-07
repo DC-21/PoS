@@ -1,12 +1,12 @@
 import AdminNavbar from '../components/AdminNavbar'
 import Footer from '../components/Footer'
-import Profile from '../components/Profile'
+import Sidebar from '../components/Sidebar'
 
 const AdminProfile = () => {
   return (
     <>
     <AdminNavbar/>
-    <Profile/>
+    <Sidebar/>
     <Footer/>
     </>
   )
