@@ -6,8 +6,8 @@ const Profile = () => {
       <div className="w-full flex flex-col px-4 items-center">
         <p className="text-xl">Profiles Settings</p>
         <div className="w-full flex items-center px-4 py-6 rounded justify-between bg-[#27105e]">
-          <div className="rounded-full bg-[#0b051a] overflow-hidden flex">
-            <img className="w-[150px] h-[150px]" src={own} alt="own" />
+          <div className="bg-[#0b051a] h-[200px] w-[200px] justify-center rounded items-center overflow-hidden flex">
+            <img className="w-[180px] h-[180px] rounded-full" src={own} alt="own" />
           </div>
           <div className="bg-[#0b051a] w-[450px] h-[200px] rounded flex flex-col items-center justify-center">
             <div className="flex gap-4 w-full py-2 px-4">
