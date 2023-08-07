@@ -41,7 +41,7 @@ const App = () => {
   }, [isLoggedIn]);
 
   if (isLoading) {
-    return <p>Logging...</p>;
+    return <p>Loading...</p>;
   }
 
   return (
