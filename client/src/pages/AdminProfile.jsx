@@ -1,12 +1,12 @@
 import AdminNavbar from '../components/AdminNavbar'
 import Footer from '../components/Footer'
-import Sidebar from '../components/Sidebar'
+import Profile from '../components/Profile'
 
 const AdminProfile = () => {
   return (
     <div className='w-full h-screen'>
     <AdminNavbar/>
-    <Sidebar/>
+    <Profile/>
     <Footer/>
     </div>
   )

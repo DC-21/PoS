@@ -9,6 +9,7 @@ import ClosedTransactionsTable from "./pages/ClosedTransactionsTable";
 import OpenTransactionsTable from "./pages/OpenTransactionsTable";
 import UserHome from './pages/UserHome'
 import AdminProfile from "./pages/AdminProfile";
+import Profile from "./components/Profile";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

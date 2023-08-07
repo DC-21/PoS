@@ -7,7 +7,11 @@ const Profile = () => {
         <p className="text-xl">Profiles Settings</p>
         <div className="w-full flex items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e]">
           <div className="bg-[#0b051a] h-[200px] w-[200px] justify-center rounded items-center overflow-hidden flex">
-            <img className="w-[180px] h-[180px] rounded-full" src={own} alt="own" />
+            <img
+              className="w-[180px] h-[180px] rounded-full"
+              src={own}
+              alt="own"
+            />
           </div>
           <div className="bg-[#0b051a] w-[450px] h-[200px] rounded flex flex-col items-center justify-center">
             <div className="flex gap-4 w-full py-2 px-4">
@@ -24,7 +28,9 @@ const Profile = () => {
             </div>
             <div className="flex gap-4 w-full py-2 px-4">
               <p className="flex-1 text-start text-white">Email:</p>
-              <p className="flex-1 text-start text-white">cholahKuboko@gmail.com</p>
+              <p className="flex-1 text-start text-white">
+                cholahKuboko@gmail.com
+              </p>
             </div>
           </div>
           <div className="bg-[#0b051a] w-[450px] h-[200px] rounded flex flex-col items-center justify-center">
@@ -46,7 +52,62 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e]"></div>
+        <div className="w-full flex items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e] gap-4">
+          <div className="flex flex-1 w-full justify-between bg-[#0b051a] rounded">
+            <div className="h-[200px] w-[200px] justify-center rounded items-center overflow-hidden flex">
+              <img
+                className="w-[180px] h-[180px] rounded-full"
+                src={own}
+                alt="own"
+              />
+            </div>
+            <div className="flex flex-col w-full">
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Name:</div>
+                <div className="flex-1 w-[50%] ">Tamani Phiri</div>
+              </div>
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Proffesion:</div>
+                <div className="flex-1 w-[50%] ">Software Engineer</div>
+              </div>
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Role:</div>
+                <div className="flex-1 w-[50%] ">User</div>
+              </div>
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Email</div>
+                <div className="flex-1 w-[50%] ">Tamanigabriel0@gmail.com</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-1 w-full justify-between bg-[#0b051a]">
+            <div className="h-[200px] w-[200px] justify-center rounded items-center overflow-hidden flex">
+              <img
+                className="w-[180px] h-[180px] rounded-full"
+                src={own}
+                alt="own"
+              />
+            </div>
+            <div className="flex flex-col w-full">
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Name:</div>
+                <div className="flex-1 w-[50%] ">Tamani Phiri</div>
+              </div>
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Proffesion:</div>
+                <div className="flex-1 w-[50%] ">Software Engineer</div>
+              </div>
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Role:</div>
+                <div className="flex-1 w-[50%] ">User</div>
+              </div>
+              <div className="flex w-full p-2">
+                <div className="flex-1 w-[50%] ">Email</div>
+                <div className="flex-1 w-[50%] ">Tamanigabriel0@gmail.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
