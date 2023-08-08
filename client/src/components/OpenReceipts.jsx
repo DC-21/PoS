@@ -67,6 +67,9 @@ const generatePDF = (transaction) => {
   pdf.text(`Amount: ${transaction.amount}`, 130, 13);
   pdf.text(`Being: ${transaction.desc}`, 10,18);
   pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 18);
+  pdf.text(`Reference No: ${transaction.desc}`, 10,23);
+  pdf.text(`Account No: ${transaction.customer_no}`, 70,23);
+  pdf.text(`Bill No: ${transaction.desc}`, 130,23);
   pdf.save("transaction.pdf");
 };
 
