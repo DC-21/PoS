@@ -44,43 +44,57 @@ const TransactionsTable = () => {
     setSelectedTransactions([]);
   };
 
-const generatePDF = (transaction) => {
-  const pdf = new jsPDF();
-  const formattedAmountInWords = numberToWords.toWords(transaction.amount);
-  const capitalizedAmountInWords = formattedAmountInWords
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const generatePDF = (transaction) => {
+    const pdf = new jsPDF();
+    const formattedAmountInWords = numberToWords.toWords(transaction.amount);
+    const capitalizedAmountInWords = formattedAmountInWords
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
 
-  const currentDate = new Date();
-  const formattedDate = `${currentDate.getFullYear()}-${
-    currentDate.getMonth() + 1
-  }-${currentDate.getDate()}`;
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${
+      currentDate.getMonth() + 1
+    }-${currentDate.getDate()}`;
 
-  pdf.setFont("helvetica");
-  pdf.setFontSize(10);
+    pdf.setFont("helvetica");
+    pdf.setFontSize(10);
 
-  pdf.line(10, 2, 200, 2);
-  pdf.text(`Received: ${transaction.name}`, 10, 14);
-  pdf.text(`Date: ${formattedDate}`, 130, 14);
-  pdf.text(`Sum Of: ${capitalizedAmountInWords} Kwacha Only.`, 10,22);
-  pdf.text(`Amount: ${transaction.amount}`, 130, 22);
-  pdf.text(`Being: ${transaction.desc}`, 10,30);
-  pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 30);
-  pdf.text(`Reference No: ${transaction.desc}`, 10,38);
-  pdf.text(`Account No: ${transaction.customer_no}`, 70,38);
-  pdf.text(`Bill No: ${transaction.desc}`, 130,38);
-  pdf.text(`Opening Balance: ${transaction.opn_bal}`, 10,46);
-  pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70,46);
-  pdf.text(`Time: ${transaction.date}`, 130,46);
-  pdf.text(`Issued By: ${transaction.desc}`, 10,54);
-  pdf.text(`Signature: ${transaction.desc}`, 10,62);
-  pdf.text(`Customers Signature: ${transaction.desc}`, 10,70);
-  pdf.rect(144, 54, 36, 20);
-  pdf.text("Official Stamp", 150, 64);
-  pdf.save("transaction.pdf");
-};
+    pdf.line(10, 2, 200, 2);
+    pdf.text(`Received: ${transaction.name}`, 10, 14);
+    pdf.text(`Date: ${formattedDate}`, 130, 14);
+    pdf.text(`Sum Of: ${capitalizedAmountInWords} Kwacha Only.`, 10, 22);
+    pdf.text(`Amount: ${transaction.amount}`, 130, 22);
+    pdf.text(`Being: ${transaction.desc}`, 10, 30);
+    pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 30);
+    pdf.text(`Reference No: ${transaction.desc}`, 10, 38);
+    pdf.text(`Account No: ${transaction.customer_no}`, 70, 38);
+    pdf.text(`Bill No: ${transaction.desc}`, 130, 38);
+    pdf.text(`Opening Balance: ${transaction.opn_bal}`, 10, 46);
+    pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70, 46);
+    pdf.text(`Time: ${transaction.date}`, 130, 46);
 
+
+    pdf.text("Issued By:", 10, 54);
+    pdf.setDrawColor(0);
+    pdf.setLineDashPattern([1, 1]);
+    pdf.line(30, 54, 100, 54);
+  
+    // Create dotted lines for Signature
+    pdf.text("Signature:", 10, 62);
+    pdf.setDrawColor(0);
+    pdf.setLineDashPattern([1, 1]);
+    pdf.line(30, 62, 100, 62);
+
+    pdf.text("Customers Signature:", 10, 70);
+    pdf.setDrawColor(0);
+    pdf.setLineDashPattern([1, 1]);
+    pdf.line(50, 70, 100, 70);
+
+    pdf.rect(144, 54, 36, 20);
+    pdf.text("Official Stamp", 150, 64);
+    pdf.save("transaction.pdf");
+  };
 
   useEffect(() => {
     axios
@@ -128,7 +142,12 @@ const generatePDF = (transaction) => {
             buttonText="Export to Excel"
           />
         </div>
-        <button className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white" onClick={handleMarkAndSubmit}>Submit Select</button>
+        <button
+          className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
+          onClick={handleMarkAndSubmit}
+        >
+          Submit Select
+        </button>
       </div>
       <div className="overflow-x-auto">
         <table
@@ -224,13 +243,13 @@ const generatePDF = (transaction) => {
                       />
                     </td>
                     <td>
-        <button
-          onClick={() => generatePDF(transaction)}
-          className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-2 px-2 rounded text-white"
-        >
-          Generate PDF
-        </button>
-      </td>
+                      <button
+                        onClick={() => generatePDF(transaction)}
+                        className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-2 px-2 rounded text-white"
+                      >
+                        Generate PDF
+                      </button>
+                    </td>
                   </tr>
                 ))
             )}
