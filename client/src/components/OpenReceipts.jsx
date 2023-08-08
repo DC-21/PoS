@@ -58,43 +58,50 @@ const TransactionsTable = () => {
     }-${currentDate.getDate()}`;
 
     pdf.setFont("helvetica");
+
+    pdf.line(30, 70, 170, 70);
+
+    pdf.setFontSize(8);
+    pdf.text(`Received:`, 30, 80);
     pdf.setFontSize(10);
+    pdf.text(`${transaction.name}`, 60, 80);
 
-    pdf.line(10, 2, 200, 2);
-    pdf.text(`Received:`, 10, 14);
-    pdf.text(`${transaction.name}`, 40, 14);
-    pdf.text(`Sum Of:`, 10, 22);
-    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 40, 22);
-    pdf.text(`Being:`, 10, 30);
-    pdf.text(`${transaction.desc}`, 40, 30);
-    pdf.text(`Date: ${formattedDate}`, 130, 14);
-    pdf.text(`Amount: ${transaction.amount}`, 130, 22);
-    pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 30);
+    pdf.setFontSize(8);
+    pdf.text(`Sum Of:`, 30, 88);
+    pdf.setFontSize(10);
+    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 60, 88);
 
-    pdf.text(`Reference No:`, 10, 38);
-    pdf.text(`${transaction.desc}`, 40, 38);
+    pdf.setFontSize(8);
+    pdf.text(`Being:`, 30, 94);
+    pdf.text(`${transaction.desc}`, 60, 94);
+    pdf.text(`Date: ${formattedDate}`, 130, 80);
+    pdf.text(`Amount: ${transaction.amount}`, 130, 88);
+    pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 94);
 
-    pdf.text(`Account No: ${transaction.customer_no}`, 70, 38);
-    pdf.text(`Bill No: ${transaction.desc}`, 130, 38);
+    pdf.text(`Reference No:`, 30, 102);
+    pdf.text(`${transaction.desc}`, 60, 102);
 
-    pdf.text(`Opening Balance:`, 10, 46);
-    pdf.text(`${transaction.opn_bal}`, 40, 46);
+    pdf.text(`Account No: ${transaction.customer_no}`, 70, 102);
+    pdf.text(`Bill No: ${transaction.desc}`, 130, 102);
 
-    pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70, 46);
-    pdf.text(`Time: ${transaction.date}`, 130, 46);
+    pdf.text(`Opening Balance:`, 30, 110);
+    pdf.text(`${transaction.opn_bal}`, 60, 110);
 
-    pdf.text("Issued By:", 10, 54);
+    pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 110);
+    pdf.text(`Time: ${transaction.date}`, 130, 110);
+
+    pdf.text("Issued By:", 30, 86);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(30, 54, 100, 54);
 
     // Create dotted lines for Signature
-    pdf.text("Signature:", 10, 62);
+    pdf.text("Signature:", 30, 86);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(30, 62, 100, 62);
 
-    pdf.text("Customers Signature:", 10, 70);
+    pdf.text("Customers Signature:", 30, 102);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(50, 70, 100, 70);
