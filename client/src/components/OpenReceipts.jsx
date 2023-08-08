@@ -80,20 +80,21 @@ const TransactionsTable = () => {
 
     pdf.setLineWidth(0.4);
     pdf.line(30, 56, 170, 56);
-    pdf.text(`Received:`, 30, 80);
+    pdf.text(`Received:`, 30, 70);
     pdf.setFontSize(10);
-    pdf.text(`${transaction.name}`, 60, 80);
+    pdf.text(`${transaction.name}`, 60, 70);
+    pdf.text(`Date: ${formattedDate}`, 130, 70);
 
     pdf.setFontSize(8);
-    pdf.text(`Sum Of:`, 30, 88);
+    pdf.text(`Sum Of:`, 30, 78);
     pdf.setFontSize(10);
-    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 60, 88);
+    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 60, 78);
+    pdf.setFontSize(8);
+    pdf.text(`Amount: ${transaction.amount}`, 130, 78);
 
     pdf.setFontSize(8);
     pdf.text(`Being:`, 30, 94);
     pdf.text(`${transaction.desc}`, 60, 94);
-    pdf.text(`Date: ${formattedDate}`, 130, 80);
-    pdf.text(`Amount: ${transaction.amount}`, 130, 88);
     pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 94);
 
     pdf.text(`Reference No:`, 30, 102);
