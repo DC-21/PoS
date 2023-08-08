@@ -86,33 +86,33 @@ const TransactionsTable = () => {
     pdf.text(`Date: ${formattedDate}`, 130, 70);
 
     pdf.setFontSize(8);
-    pdf.text(`Sum Of:`, 30, 78);
+    pdf.text(`Sum Of:`, 30, 77);
     pdf.setFontSize(10);
-    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 60, 78);
+    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 60, 77);
     pdf.setFontSize(8);
-    pdf.text(`Amount: ${transaction.amount}`, 130, 78);
+    pdf.text(`Amount: ${transaction.amount}`, 130, 77);
 
     pdf.setFontSize(8);
-    pdf.text(`Being:`, 30, 94);
-    pdf.text(`${transaction.desc}`, 60, 94);
-    pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 94);
+    pdf.text(`Being:`, 30, 85);
+    pdf.text(`${transaction.desc}`, 60, 85);
+    pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 85);
 
-    pdf.text(`Reference No:`, 30, 102);
-    pdf.text(`${transaction.desc}`, 60, 102);
+    pdf.text(`Reference No:`, 30, 93);
+    pdf.text(`${transaction.desc}`, 60, 93);
 
-    pdf.text(`Account No: ${transaction.customer_no}`, 90, 102);
-    pdf.text(`Bill No: ${transaction.desc}`, 130, 102);
+    pdf.text(`Account No: ${transaction.customer_no}`, 90, 93);
+    pdf.text(`Bill No: ${transaction.desc}`, 130, 93);
 
-    pdf.text(`Opening Balance:`, 30, 110);
-    pdf.text(`${transaction.opn_bal}`, 60, 110);
+    pdf.text(`Opening Balance:`, 30, 100);
+    pdf.text(`${transaction.opn_bal}`, 60, 100);
 
-    pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 110);
-    pdf.text(`Time: ${transaction.date}`, 130, 110);
+    pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 100);
+    pdf.text(`Time: ${transaction.date}`, 130, 100);
 
-    pdf.text("Issued By:", 30, 118);
+    pdf.text("Issued By:", 30, 107);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
-    pdf.line(50, 118, 100, 118);
+    pdf.line(50, 118, 100, 107);
 
     // Create dotted lines for Signature
     pdf.text("Signature:", 30, 126);
