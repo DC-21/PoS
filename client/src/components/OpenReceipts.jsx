@@ -13,6 +13,7 @@ const TransactionsTable = () => {
 
   const [selectedTransactions, setSelectedTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [companyData, setCompanyData] = useState({});
 
   const handleCheckboxChange = (transactionId) => {
     if (typeof transactionId === "number") {
@@ -59,9 +60,19 @@ const TransactionsTable = () => {
 
     pdf.setFont("helvetica");
     pdf.setLineWidth(0.4);
-    pdf.line(30, 70, 170, 70);
 
     pdf.setFontSize(8);
+    const company = companyData[0];
+
+    pdf.setFontSize(12);
+    pdf.text(`${company.Name}`, 30, 30);
+    pdf.text(`${company.Address}`, 50, 38);
+    pdf.setFontSize(8);
+    pdf.text(`Email: ${company.Email}`, 110, 46);
+    pdf.text(`Tel: +260${company.Telephone}`, 60, 46);
+    pdf.text(`Post Address: ${company.Post_Address}`, 30, 62);
+
+    pdf.line(30, 70, 170, 70);
     pdf.text(`Received:`, 30, 80);
     pdf.setFontSize(10);
     pdf.text(`${transaction.name}`, 60, 80);
@@ -140,6 +151,7 @@ const TransactionsTable = () => {
       .then((response) => {
         const data = response.data;
         console.log("company data:", data);
+        setCompanyData(data); 
       })
       .catch((error) => {
         console.error("Error fetching transaction data:", error);
@@ -166,13 +178,13 @@ const TransactionsTable = () => {
           className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
           onClick={handleMarkAndSubmit}
         >
-          Submit Select
+          Submit Selected
         </button>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-full flex">
         <table
           id="transactions-table"
-          className="w-screen h-auto table-auto border-collapse border border-gray-300"
+          className="w-full h-auto table-auto border-collapse border border-gray-300"
         >
           <thead>
             <tr className="bg-gray-200">

@@ -1,10 +1,11 @@
 import axios from "axios";
-import moment from "moment-timezone";
+import { format } from "date-fns";
 import { useState, useEffect } from "react";
+import moment from 'moment-timezone'
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate] = useState(moment().format("DD-MM-YY"));
+  const [currentDate] = useState(moment().format("DD/MM/YY"));
   const [selectedAccountType, setSelectedAccountType]= useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [balanceDueLCY, setBalanceDueLCY] = useState("");
@@ -128,7 +129,12 @@ const Trans = () => {
       });
 
     // this section prepares the data to be sent in the POST request to create the transaction //
-    const formattedDate = moment(currentDate, "DD-MM-YY").format("YYYY-MM-DD");
+    const currentTime = new Date(); // Assuming this is your current date object
+  const lusakaTimezone = "Africa/Lusaka";
+  const formattedDate = format(currentTime, "EEEE, MMMM d, yyyy h:mm:ss a", {
+    timeZone: lusakaTimezone,
+  });
+
     const transactionData = {
       rcptno: nextReceiptNo,
       date: formattedDate,
