@@ -106,8 +106,12 @@ const TransactionsTable = () => {
     pdf.setLineDashPattern([1, 1]);
     pdf.line(60, 134, 100, 134);
 
+    pdf.setLineDashPattern([]);
+
     pdf.rect(130, 116, 36, 20);
     pdf.text("Official Stamp", 139, 127);
+
+    pdf.line(30, 140, 170, 140);
     pdf.save("transaction.pdf");
   };
 
