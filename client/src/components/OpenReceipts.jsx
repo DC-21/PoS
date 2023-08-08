@@ -59,20 +59,26 @@ const TransactionsTable = () => {
     }/${currentDate.getFullYear()}`;
 
     pdf.setFont("helvetica");
-    pdf.setLineWidth(0.4);
 
     pdf.setFontSize(8);
     const company = companyData[0];
 
+    pdf.setLineWidth(0.2);
+    pdf.line(30, 26, 170, 26);
     pdf.setFontSize(11);
     pdf.text(`${company.Name}`, 52, 30);
     pdf.setFontSize(8);
-    pdf.text(`${company.Address}`, 72, 38);
-    pdf.text(`Post Address: ${company.Post_Address}`, 73, 42);
+    pdf.text(`${company.Address}`, 72, 34);
+    pdf.text(`Post Address: ${company.Post_Address}`, 73, 40);
     pdf.text(`Email: ${company.Email}`, 110, 46);
     pdf.text(`Fax: ${company.Fax}`, 95, 46);
     pdf.text(`Tel: +260${company.Telephone}`, 55, 46);
+    pdf.setFontSize(11);
+    pdf.text(`OFFICIAL RECEIPT(DUPLICATE)`, 70, 53);
+    pdf.setFontSize(11);
+    pdf.text(`${transaction.rcptno}`, 145, 53);
 
+    pdf.setLineWidth(0.4);
     pdf.line(30, 70, 170, 70);
     pdf.text(`Received:`, 30, 80);
     pdf.setFontSize(10);
