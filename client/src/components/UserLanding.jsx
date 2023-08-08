@@ -12,13 +12,13 @@ const Landing = () => {
         <div className="mt-6 flex flex-col gap-6">
           <div className="justify-center gap-8 w-full flex">
             <Link
-              to="/transact"
+              to="/user-transact"
               className="px-6 py-4 w-[200px] h-[80px] bg-blue-900 hover:bg-blue-700 rounded text-white"
             >
               Issue A New Receipt
             </Link>
             <Link
-              to="/open"
+              to="/user-open"
               className="px-6 py-4 w-[200px] h-[80px] bg-[#fe8267] hover:bg-[#fda18c] rounded text-white"
             >
               View All Open Receipts
@@ -26,7 +26,7 @@ const Landing = () => {
           </div>
           <div className="justify-center gap-8 w-full flex">
             <Link
-              to="/closed"
+              to="/user-closed"
               className="px-6 py-4 w-[200px] h-[80px] bg-[#260c65] hover:bg-[#5938a7] rounded text-white"
             >
               View All Closed Receipts

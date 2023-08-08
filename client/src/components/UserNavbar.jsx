@@ -12,7 +12,7 @@ const UserNavbar = () => {
           />
         </Link>
         <div className="flex gap-6">
-          <Link to="/transactions">
+          <Link to="/user-transaction">
             <p className="text-lg bg-[#fe8267] hover:bg-[#ee3d16] py-2 px-2 rounded text-white">
               Transactions
             </p>
