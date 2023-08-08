@@ -70,10 +70,16 @@ const TransactionsTable = () => {
     pdf.text(`Date: ${formattedDate}`, 130, 14);
     pdf.text(`Amount: ${transaction.amount}`, 130, 22);
     pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 30);
-    pdf.text(`Reference No: ${transaction.desc}`, 10, 38);
+
+    pdf.text(`Reference No:`, 10, 38);
+    pdf.text(`${transaction.desc}`, 40, 38);
+
     pdf.text(`Account No: ${transaction.customer_no}`, 70, 38);
     pdf.text(`Bill No: ${transaction.desc}`, 130, 38);
-    pdf.text(`Opening Balance: ${transaction.opn_bal}`, 10, 46);
+
+    pdf.text(`Opening Balance:`, 10, 46);
+    pdf.text(`${transaction.opn_bal}`, 40, 46);
+
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70, 46);
     pdf.text(`Time: ${transaction.date}`, 130, 46);
 
