@@ -77,7 +77,7 @@ const generatePDF = (transaction) => {
   pdf.text(`Signature: ${transaction.desc}`, 10,62);
   pdf.text(`Customers Signature: ${transaction.desc}`, 10,70);
   pdf.rect(144, 54, 36, 20);
-  pdf.text("Official Stamp", 157, 62);
+  pdf.text("Official Stamp", 150, 64);
   pdf.save("transaction.pdf");
 };
 
