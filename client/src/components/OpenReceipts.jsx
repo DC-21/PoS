@@ -53,9 +53,9 @@ const TransactionsTable = () => {
       .join(" ");
 
     const currentDate = new Date();
-    const formattedDate = `${currentDate.getFullYear()}/${
+    const formattedDate = `${currentDate.getDate()}/${
       currentDate.getMonth() + 1
-    }/${currentDate.getDate()}`;
+    }/${currentDate.getFullYear()}`;
 
     pdf.setFont("helvetica");
     pdf.setLineWidth(0.4);
