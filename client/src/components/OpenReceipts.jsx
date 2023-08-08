@@ -58,7 +58,7 @@ const TransactionsTable = () => {
     }-${currentDate.getDate()}`;
 
     pdf.setFont("helvetica");
-
+    pdf.setLineWidth(0.4);
     pdf.line(30, 70, 170, 70);
 
     pdf.setFontSize(8);
@@ -108,6 +108,7 @@ const TransactionsTable = () => {
 
     pdf.setLineDashPattern([]);
 
+    pdf.setLineWidth(0.4);
     pdf.rect(130, 116, 36, 20);
     pdf.text("Official Stamp", 139, 127);
 
