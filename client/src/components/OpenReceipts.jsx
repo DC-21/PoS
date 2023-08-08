@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import useTransactionStore from "../Store";
+import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
 
 const TransactionsTable = () => {
@@ -45,18 +46,27 @@ const TransactionsTable = () => {
 
 const generatePDF = (transaction) => {
   const pdf = new jsPDF();
+  const formattedAmountInWords = numberToWords.toWords(transaction.amount);
+  const capitalizedAmountInWords = formattedAmountInWords
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   const currentDate = new Date();
   const formattedDate = `${currentDate.getFullYear()}-${
     currentDate.getMonth() + 1
   }-${currentDate.getDate()}`;
 
-  pdf.text(`Received: ${transaction.name}`, 10, 10);
-  pdf.text(`Date: ${formattedDate}`, 80, 10);
-  pdf.text(`Sum Of: ${transaction.rcptno}`, 10,20);
-  pdf.text(`Amount: ${transaction.amount}`, 80, 20);
-  pdf.text(`Being: ${transaction.desc}`, 10,30);
-  pdf.text(`Payment Type: ${transaction.pymt_type}`, 80, 30);
+  pdf.setFont("helvetica");
+  pdf.setFontSize(10);
+
+  pdf.line(10, 2, 200, 2);
+  pdf.text(`Received: ${transaction.name}`, 10, 8);
+  pdf.text(`Date: ${formattedDate}`, 130, 8);
+  pdf.text(`Sum Of: ${capitalizedAmountInWords} Kwacha only`, 10,13);
+  pdf.text(`Amount: ${transaction.amount}`, 130, 13);
+  pdf.text(`Being: ${transaction.desc}`, 10,18);
+  pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 18);
   pdf.save("transaction.pdf");
 };
 
