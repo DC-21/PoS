@@ -53,7 +53,10 @@ const generatePDF = (transaction) => {
 
   pdf.text(`Received: ${transaction.name}`, 10, 10);
   pdf.text(`Date: ${formattedDate}`, 80, 10);
-  pdf.text(`Receipt No: ${transaction.rcptno}`, 10,20);
+  pdf.text(`Sum Of: ${transaction.rcptno}`, 10,20);
+  pdf.text(`Amount: ${transaction.amount}`, 80, 20);
+  pdf.text(`Being: ${transaction.desc}`, 10,30);
+  pdf.text(`Payment Type: ${transaction.pymt_type}`, 80, 30);
   pdf.save("transaction.pdf");
 };
 
