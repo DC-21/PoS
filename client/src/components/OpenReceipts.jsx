@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import useTransactionStore from "../Store";
-import Receipt from "./Receipt";
 
 const TransactionsTable = () => {
   const transactions = useTransactionStore((state) => state.transactions);
@@ -166,7 +165,6 @@ const TransactionsTable = () => {
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.code}
                     </td>
-                    <td>Receipt</td>
                     <td>
                       <input
                         type="checkbox"
