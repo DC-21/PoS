@@ -79,7 +79,7 @@ const TransactionsTable = () => {
     pdf.text(`${transaction.rcptno}`, 145, 53);
 
     pdf.setLineWidth(0.4);
-    pdf.line(30, 70, 170, 70);
+    pdf.line(30, 56, 170, 56);
     pdf.text(`Received:`, 30, 80);
     pdf.setFontSize(10);
     pdf.text(`${transaction.name}`, 60, 80);
