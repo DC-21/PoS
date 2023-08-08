@@ -107,7 +107,7 @@ const TransactionsTable = () => {
     pdf.line(60, 134, 100, 134);
 
     pdf.rect(130, 116, 36, 20);
-    pdf.text("Official Stamp", 150, 64);
+    pdf.text("Official Stamp", 130, 116);
     pdf.save("transaction.pdf");
   };
 
