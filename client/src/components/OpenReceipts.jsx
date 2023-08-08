@@ -45,9 +45,15 @@ const TransactionsTable = () => {
 
 const generatePDF = (transaction) => {
   const pdf = new jsPDF();
-  pdf.text(`Transaction ID: ${transaction.id}`, 10, 10);
-  pdf.text(`Receipt No: ${transaction.rcptno}`, 10, 20);
-  // Add more text lines for other transaction details as needed
+
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getDate()}`;
+
+  pdf.text(`Received: ${transaction.name}`, 10, 10);
+  pdf.text(`Date: ${formattedDate}`, 80, 10);
+  pdf.text(`Receipt No: ${transaction.rcptno}`, 10,20);
   pdf.save("transaction.pdf");
 };
 
