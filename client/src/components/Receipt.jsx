@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import html2pdf from 'html2pdf.js';
 import moment from 'moment';
 import axios from 'axios';
 
 const Receipt = () => {
-  const [transactionData, setTransactionData] = useState("");
+  const [transactionData, setTransactionData] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/transactions")
       .then((response) => {
-        const transactions = response.data.Trans; // Access the transaction array
+        const transactions = response.data.Trans;
         console.log("transactions", transactions);
         setTransactionData(transactions);
       })
@@ -18,27 +18,27 @@ const Receipt = () => {
 
   const generatePdf = async (transaction) => {
     const pdfOptions = {
-      // PDF options here
+      margin: 10,
+      filename: 'transaction_receipt.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     };
 
-    const htmlContent = (
+    const htmlContent = `
       <div>
         <h1>Transaction Receipt</h1>
-        <p>Received: {transaction.name}</p>
-        <p>Date: {moment(transaction.date).format('ddd MMM DD YYYY HH:mm:ss')}</p>
-        <p>Sum of: {numberToWordsCustom(transaction.amount)} Kwacha</p>
-        <p>Amount: {transaction.amount}</p>
-        <p>Being: {transaction.desc}</p>
-        <p>Payment Type: {transaction.pymt_type}</p>
+        <p>Received: ${transaction.name}</p>
+        <p>Date: ${moment(transaction.date).format('ddd MMM DD YYYY HH:mm:ss')}</p>
+        <p>Sum of: ${transaction.amount} Kwacha</p>
+        <p>Amount: ${transaction.amount}</p>
+        <p>Being: ${transaction.desc}</p>
+        <p>Payment Type: ${transaction.pymt_type}</p>
       </div>
-    );
+    `;
 
-    const element = document.createElement('div');
-    element.appendChild(htmlContent);
+    const pdf = await html2pdf().from(htmlContent).set(pdfOptions).outputPdf();
 
-    const pdf = await html2pdf().from(element).set(pdfOptions).outputPdf();
-
-    // Save the PDF or offer it for download
     const blob = new Blob([pdf], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -48,14 +48,9 @@ const Receipt = () => {
     URL.revokeObjectURL(url);
   };
 
-  function numberToWordsCustom(number) {
-    // Implement your numberToWordsCustom function here
-    // This function should convert the amount to words
-  }
-
   return (
     <div>
-      {transactionData ? (
+      {transactionData.length > 0 ? (
         <>
           <p>Transaction Details:</p>
           {transactionData.map((transaction, index) => (
@@ -65,7 +60,7 @@ const Receipt = () => {
               <p>Date: {moment(transaction.date).format('MMM DD, YYYY')}</p>
               <p>Description: {transaction.desc}</p>
               <p>Payment Type: {transaction.pymt_type}</p>
-              <button onClick={() => generatePdf(transaction)}>Generate PDF Receipt</button>
+              <button className='bg-blue-400' onClick={() => generatePdf(transaction)}>Generate PDF Receipt</button>
             </div>
           ))}
         </>

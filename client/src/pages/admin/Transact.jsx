@@ -1,6 +1,6 @@
-import Navbar from '../components/AdminNavbar'
-import Trans from '../components/Trans'
-import Footer from '../components/Footer'
+import Navbar from '../../components/AdminNavbar'
+import Trans from '../../components/Trans'
+import Footer from '../../components/Footer'
 
 const Transact = () => {
   return (
