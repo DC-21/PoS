@@ -112,26 +112,26 @@ const TransactionsTable = () => {
     pdf.text("Issued By:", 30, 107);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
-    pdf.line(50, 118, 100, 107);
+    pdf.line(50, 107, 100, 107);
 
     // Create dotted lines for Signature
-    pdf.text("Signature:", 30, 126);
+    pdf.text("Signature:", 30, 114);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
-    pdf.line(50, 126, 100, 126);
+    pdf.line(50, 114, 100, 114);
 
-    pdf.text("Customers Signature:", 30, 134);
+    pdf.text("Customers Signature:", 30, 121);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
-    pdf.line(60, 134, 100, 134);
+    pdf.line(60, 121, 100, 121);
 
     pdf.setLineDashPattern([]);
 
     pdf.setLineWidth(0.4);
-    pdf.rect(130, 116, 36, 20);
-    pdf.text("Official Stamp", 139, 127);
+    pdf.rect(130, 102, 36, 20);
+    pdf.text("Official Stamp", 139, 112);
 
-    pdf.line(30, 140, 170, 140);
+    pdf.line(30, 128, 170, 128);
     pdf.save("transaction.pdf");
   };
 
