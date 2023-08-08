@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import useTransactionStore from "../Store";
+import jsPDF from "jspdf";
 
 const TransactionsTable = () => {
   const transactions = useTransactionStore((state) => state.transactions);
@@ -41,6 +42,15 @@ const TransactionsTable = () => {
 
     setSelectedTransactions([]);
   };
+
+const generatePDF = (transaction) => {
+  const pdf = new jsPDF();
+  pdf.text(`Transaction ID: ${transaction.id}`, 10, 10);
+  pdf.text(`Receipt No: ${transaction.rcptno}`, 10, 20);
+  // Add more text lines for other transaction details as needed
+  pdf.save("transaction.pdf");
+};
+
 
   useEffect(() => {
     axios
@@ -171,6 +181,14 @@ const TransactionsTable = () => {
                         onChange={() => handleCheckboxChange(transaction.id)}
                       />
                     </td>
+                    <td>
+        <button
+          onClick={() => generatePDF(transaction)}
+          className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-2 px-2 rounded text-white"
+        >
+          Generate PDF
+        </button>
+      </td>
                   </tr>
                 ))
             )}
