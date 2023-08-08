@@ -68,9 +68,10 @@ const TransactionsTable = () => {
     pdf.text(`${company.Name}`, 30, 30);
     pdf.text(`${company.Address}`, 50, 38);
     pdf.setFontSize(8);
+    pdf.text(`Post Address: ${company.Post_Address}`, 70, 42);
     pdf.text(`Email: ${company.Email}`, 110, 46);
-    pdf.text(`Tel: +260${company.Telephone}`, 60, 46);
-    pdf.text(`Post Address: ${company.Post_Address}`, 30, 62);
+    pdf.text(`Fax: ${company.Fax}`, 95, 46);
+    pdf.text(`Tel: +260${company.Telephone}`, 55, 46);
 
     pdf.line(30, 70, 170, 70);
     pdf.text(`Received:`, 30, 80);
