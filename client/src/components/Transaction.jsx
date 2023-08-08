@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Receipt from './Receipt'
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
@@ -20,6 +21,7 @@ const Transaction = () => {
 
   return (
     <div className="w-full py-2 px-4 flex justify-center">
+      <Receipt/>
       {transactions.length > 0 ? (
         <div className="px-4 py-2 bg-slate-200 rounded-md w-full h-auto pb-6 pt-6 flex items-center justify-center">
           <ul className="w-full">

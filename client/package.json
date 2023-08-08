@@ -13,6 +13,7 @@
     "@react-pdf/renderer": "^3.1.12",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "html2pdf.js": "^0.10.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "pako": "^2.1.0",

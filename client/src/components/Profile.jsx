@@ -129,19 +129,29 @@ const Profile = () => {
         <div className="w-full flex flex-col items-center px-4 py-6 mt-4 rounded justify-between bg-[#27105e] gap-4">
           <p className="py-2 px-3 bg-white rounded">Our Team</p>
           <div className="w-full grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {users.map((item,index)=>(
-                <div key={index} className="gap-3 p-4 shadow-lg justify-start rounded-xl bg-[#391886] flex-col md:flex-row flex items-center">
-                  <div className="w-32 h-32 flex items-center rounded-full justify-center">
-                    <img src={own} className="w-full h-full rounded-full object-cover object-center"/>
-                  </div>
-                  <div className="flex gap-2 md:text-left text-center flex-col items-center">
-                    <span className="w-full text-white font-semibold capitalize">{item.full_name}</span>
-                    <span className="w-full text-neutral-300">{item.role}</span>
-                    <span className="w-full text-neutral-300">{item.email}</span>
-                    <span className="w-full text-orange-200 font-semibold tracking-wide">+260{item.phone_number}</span>
-                  </div>
+            {users.map((item, index) => (
+              <div
+                key={index}
+                className="gap-3 p-4 shadow-lg justify-start rounded-xl bg-[#391886] flex-col md:flex-row flex items-center"
+              >
+                <div className="w-32 h-32 flex items-center rounded-full justify-center">
+                  <img
+                    src={own}
+                    className="w-full h-full rounded-full object-cover object-center"
+                  />
                 </div>
-              ))}
+                <div className="flex gap-2 md:text-left text-center flex-col items-center">
+                  <span className="w-full text-white font-semibold capitalize">
+                    {item.full_name}
+                  </span>
+                  <span className="w-full text-neutral-300">{item.role}</span>
+                  <span className="w-full text-neutral-300">{item.email}</span>
+                  <span className="w-full text-orange-200 font-semibold tracking-wide">
+                    +260{item.phone_number}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
           <div className="w-full">
             {showButtons && (
