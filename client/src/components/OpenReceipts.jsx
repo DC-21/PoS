@@ -73,6 +73,9 @@ const generatePDF = (transaction) => {
   pdf.text(`Opening Balance: ${transaction.opn_bal}`, 10,46);
   pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70,46);
   pdf.text(`Time: ${transaction.date}`, 130,46);
+  pdf.text(`Issued By: ${transaction.desc}`, 10,54);
+  pdf.text(`Signature: ${transaction.desc}`, 10,62);
+  pdf.text(`Customers Signature: ${transaction.desc}`, 10,70);
   pdf.save("transaction.pdf");
 };
 
