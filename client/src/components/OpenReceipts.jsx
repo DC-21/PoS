@@ -76,6 +76,8 @@ const generatePDF = (transaction) => {
   pdf.text(`Issued By: ${transaction.desc}`, 10,54);
   pdf.text(`Signature: ${transaction.desc}`, 10,62);
   pdf.text(`Customers Signature: ${transaction.desc}`, 10,70);
+  pdf.rect(144, 54, 36, 20);
+  pdf.text("Official Stamp", 157, 62);
   pdf.save("transaction.pdf");
 };
 
@@ -95,6 +97,18 @@ const generatePDF = (transaction) => {
       .catch((error) => {
         console.error("Error fetching transaction data:", error);
         setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/companies")
+      .then((response) => {
+        const data = response.data;
+        console.log("company data:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching transaction data:", error);
       });
   }, []);
 
