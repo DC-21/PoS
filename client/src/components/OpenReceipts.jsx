@@ -61,18 +61,18 @@ const generatePDF = (transaction) => {
   pdf.setFontSize(10);
 
   pdf.line(10, 2, 200, 2);
-  pdf.text(`Received: ${transaction.name}`, 10, 8);
-  pdf.text(`Date: ${formattedDate}`, 130, 8);
-  pdf.text(`Sum Of: ${capitalizedAmountInWords} Kwacha Only.`, 10,13);
-  pdf.text(`Amount: ${transaction.amount}`, 130, 13);
-  pdf.text(`Being: ${transaction.desc}`, 10,18);
-  pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 18);
-  pdf.text(`Reference No: ${transaction.desc}`, 10,23);
-  pdf.text(`Account No: ${transaction.customer_no}`, 70,23);
-  pdf.text(`Bill No: ${transaction.desc}`, 130,23);
-  pdf.text(`Opening Balance: ${transaction.opn_bal}`, 10,28);
-  pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70,28);
-  pdf.text(`Time: ${transaction.date}`, 130,28);
+  pdf.text(`Received: ${transaction.name}`, 10, 14);
+  pdf.text(`Date: ${formattedDate}`, 130, 14);
+  pdf.text(`Sum Of: ${capitalizedAmountInWords} Kwacha Only.`, 10,22);
+  pdf.text(`Amount: ${transaction.amount}`, 130, 22);
+  pdf.text(`Being: ${transaction.desc}`, 10,30);
+  pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 30);
+  pdf.text(`Reference No: ${transaction.desc}`, 10,38);
+  pdf.text(`Account No: ${transaction.customer_no}`, 70,38);
+  pdf.text(`Bill No: ${transaction.desc}`, 130,38);
+  pdf.text(`Opening Balance: ${transaction.opn_bal}`, 10,46);
+  pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70,46);
+  pdf.text(`Time: ${transaction.date}`, 130,46);
   pdf.save("transaction.pdf");
 };
 
