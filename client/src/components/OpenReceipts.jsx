@@ -61,11 +61,14 @@ const TransactionsTable = () => {
     pdf.setFontSize(10);
 
     pdf.line(10, 2, 200, 2);
-    pdf.text(`Received: ${transaction.name}`, 10, 14);
+    pdf.text(`Received:`, 10, 14);
+    pdf.text(`${transaction.name}`, 40, 14);
+    pdf.text(`Sum Of:`, 10, 22);
+    pdf.text(`${capitalizedAmountInWords} Kwacha Only.`, 40, 22);
+    pdf.text(`Being:`, 10, 30);
+    pdf.text(`${transaction.desc}`, 40, 30);
     pdf.text(`Date: ${formattedDate}`, 130, 14);
-    pdf.text(`Sum Of: ${capitalizedAmountInWords} Kwacha Only.`, 10, 22);
     pdf.text(`Amount: ${transaction.amount}`, 130, 22);
-    pdf.text(`Being: ${transaction.desc}`, 10, 30);
     pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 30);
     pdf.text(`Reference No: ${transaction.desc}`, 10, 38);
     pdf.text(`Account No: ${transaction.customer_no}`, 70, 38);
@@ -74,12 +77,11 @@ const TransactionsTable = () => {
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 70, 46);
     pdf.text(`Time: ${transaction.date}`, 130, 46);
 
-
     pdf.text("Issued By:", 10, 54);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(30, 54, 100, 54);
-  
+
     // Create dotted lines for Signature
     pdf.text("Signature:", 10, 62);
     pdf.setDrawColor(0);
