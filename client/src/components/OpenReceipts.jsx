@@ -81,7 +81,7 @@ const TransactionsTable = () => {
     pdf.text(`Reference No:`, 30, 102);
     pdf.text(`${transaction.desc}`, 60, 102);
 
-    pdf.text(`Account No: ${transaction.customer_no}`, 70, 102);
+    pdf.text(`Account No: ${transaction.customer_no}`, 90, 102);
     pdf.text(`Bill No: ${transaction.desc}`, 130, 102);
 
     pdf.text(`Opening Balance:`, 30, 110);
@@ -90,18 +90,18 @@ const TransactionsTable = () => {
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 110);
     pdf.text(`Time: ${transaction.date}`, 130, 110);
 
-    pdf.text("Issued By:", 30, 86);
+    pdf.text("Issued By:", 30, 118);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(30, 54, 100, 54);
 
     // Create dotted lines for Signature
-    pdf.text("Signature:", 30, 86);
+    pdf.text("Signature:", 30, 126);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(30, 62, 100, 62);
 
-    pdf.text("Customers Signature:", 30, 102);
+    pdf.text("Customers Signature:", 30, 134);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(50, 70, 100, 70);
