@@ -54,7 +54,6 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
 
-        {/* Protected routes for admin */}
         {isLoggedIn && userRole === "admin" && (
           <>
             <Route path="/admin" element={<AdminHome onLogout={handleLogout} />} />
@@ -66,7 +65,6 @@ const App = () => {
           </>
         )}
 
-        {/* Protected routes for user */}
         {isLoggedIn && userRole === "user" && (
           <>
             <Route path="/user" element={<UserHome />} />
@@ -77,7 +75,6 @@ const App = () => {
           </>
         )}
 
-        {/* Redirect to login if not logged in */}
         {!isLoggedIn && <Route path="/*" element={<Navigate to="/login" />} />}
       </Routes>
     </Router>

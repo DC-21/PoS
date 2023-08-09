@@ -14,4 +14,4 @@ PrivateRoute.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
 };
 
-export default PrivateRoute;
+export default PrivateRou
