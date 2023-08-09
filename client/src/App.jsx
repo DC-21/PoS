@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import AdminHome from "./pages/admin/AdminHome";
@@ -21,21 +21,21 @@ const App = () => {
   const handleLogin = (userData) => {
     setIsLoggedIn(true);
     setUserRole(userData.role);
-    localStorage.setItem("userRole", userData.role); // Store user role in local storage
+    localStorage.setItem("userRole", userData.role);
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserRole("");
     localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userRole"); // Remove user role from local storage
+    localStorage.removeItem("userRole");
   };
 
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     if (storedIsLoggedIn === "true") {
       setIsLoggedIn(true);
-      const storedUserRole = localStorage.getItem("userRole"); // Get stored user role
+      const storedUserRole = localStorage.getItem("userRole");
       setUserRole(storedUserRole);
     }
     setIsLoading(false);
@@ -52,50 +52,33 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/login"
-          element={
-            isLoggedIn ? (
-              <Navigate to="/" /> // Redirect to home if already logged in
-            ) : (
-              <Login onLogin={handleLogin} />
-            )
-          }
-        />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+
+        {/* Protected routes for admin */}
         {isLoggedIn && userRole === "admin" && (
-          <Route
-            path="/*" // Match all routes for admin
-            element={
-              <>
-                {/* Add your admin routes here */}
-                <AdminHome onLogout={handleLogout} />
-                <Transact />
-                <Transactions />
-                <OpenTransactionsTable />
-                <ClosedTransactionsTable />
-                <AdminProfile />
-              </>
-            }
-          />
+          <>
+            <Route path="/admin" element={<AdminHome onLogout={handleLogout} />} />
+            <Route path="/transact" element={<Transact />} />
+            <Route path="/transactions" element={<Transactions />} />
+            <Route path="/open" element={<OpenTransactionsTable />} />
+            <Route path="/closed" element={<ClosedTransactionsTable />} />
+            <Route path="/profile" element={<AdminProfile />} />
+          </>
         )}
+
+        {/* Protected routes for user */}
         {isLoggedIn && userRole === "user" && (
-          <Route
-            path="/*" // Match all routes for user
-            element={
-              <>
-                {/* Add your user routes here */}
-                <UserHome />
-                <UserTransact />
-                <UserTransaction />
-                <UserOpenTransactions />
-                <UserClosedTransactions />
-              </>
-            }
-          />
+          <>
+            <Route path="/user" element={<UserHome />} />
+            <Route path="/user-transact" element={<UserTransact />} />
+            <Route path="/user-transaction" element={<UserTransaction />} />
+            <Route path="/user-open" element={<UserOpenTransactions />} />
+            <Route path="/user-closed" element={<UserClosedTransactions />} />
+          </>
         )}
-        {!isLoggedIn && (
-          <Route path="/*" element={<Navigate to="/login" />} /> // Redirect to login if not logged in
-        )}
+
+        {/* Redirect to login if not logged in */}
+        {!isLoggedIn && <Route path="/*" element={<Navigate to="/login" />} />}
       </Routes>
     </Router>
   );
