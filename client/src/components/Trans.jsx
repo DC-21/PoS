@@ -1,12 +1,12 @@
 import axios from "axios";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
-import moment from 'moment-timezone'
+import moment from "moment-timezone";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [currentDate] = useState(moment().format("DD/MM/YY"));
-  const [selectedAccountType, setSelectedAccountType]= useState("");
+  const [selectedAccountType, setSelectedAccountType] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [balanceDueLCY, setBalanceDueLCY] = useState("");
   const [customerNo, setCustomerNo] = useState("");
@@ -18,31 +18,39 @@ const Trans = () => {
   const [selectedIncomeGroup, setSelectedIncomeGroup] = useState(null);
   const [amountTendered, setAmountTendered] = useState("");
   const [change, setChange] = useState("00.00");
-  const [glaccounts, setGlaccounts] = useState("");
+  const [glaccounts, setGlaccounts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/customer-details?_limit=1000")
-      .then((response) => {
-        const data = response.data;
-        console.log("Fetched data:", data);
-        setUserDetails(data.customerData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    if (selectedAccountType === "customer") {
       axios
-      .get("http://localhost:3000/gl-accounts")
-      .then((response) => {
-        const data = response.data;
-        console.log("Fetched data:", data);
-        setGlaccounts(data.accounts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .get("http://localhost:3000/customer-details?_limit=1000")
+        .then((response) => {
+          const data = response.data;
+          console.log("Fetched customer data:", data);
+          setUserDetails(data.customerData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (selectedAccountType === "accounts") {
+      axios
+        .get("http://localhost:3000/gl-accounts")
+        .then((response) => {
+          const data = response.data;
+          console.log("Fetched gl accounts data:", data);
+          if (data.accounts && Array.isArray(data.accounts)) {
+            setGlaccounts(data.accounts);
+          } else {
+            console.log("Invalid gl accounts data structure:", data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [selectedAccountType]);
 
+  useEffect(() => {
     axios
       .get("http://localhost:3000/income-groupcodes")
       .then((response) => {
@@ -106,7 +114,6 @@ const Trans = () => {
   //this section of code triggers the put and post request to provided endpoints when i or another user clicks the submit button //
 
   const handleSubmit = () => {
-    //this section calculates the new balance after deducting the amountToPay from the balanceDueLCY
     const newBalanceDueLCY =
       parseFloat(balanceDueLCY) - parseFloat(amountToPay);
     setBalanceDueLCY(newBalanceDueLCY.toFixed(2));
@@ -129,11 +136,11 @@ const Trans = () => {
       });
 
     // this section prepares the data to be sent in the POST request to create the transaction //
-    const currentTime = new Date(); // Assuming this is your current date object
-  const lusakaTimezone = "Africa/Lusaka";
-  const formattedDate = format(currentTime, "EEEE, MMMM d, yyyy h:mm:ss a", {
-    timeZone: lusakaTimezone,
-  });
+    const currentTime = new Date();
+    const lusakaTimezone = "Africa/Lusaka";
+    const formattedDate = format(currentTime, "EEEE, MMMM d, yyyy h:mm:ss a", {
+      timeZone: lusakaTimezone,
+    });
 
     const transactionData = {
       rcptno: nextReceiptNo,
@@ -226,11 +233,17 @@ const Trans = () => {
               onChange={(e) => setSelectedAccountName(e.target.value)}
             >
               <option value="">Select An Account Name To Receive From</option>
-              {userDetails.map((user) => (
-                <option key={user.id} value={user.name}>
-                  {user.name}
-                </option>
-              ))}
+              {selectedAccountType === "customer"
+                ? userDetails.map((user) => (
+                    <option key={user.id} value={user.name}>
+                      {user.name}
+                    </option>
+                  ))
+                : glaccounts.map((account) => (
+                    <option key={account.id} value={account.name}>
+                      {account.name}
+                    </option>
+                  ))}
             </select>
           </div>
           <div className="w-full flex">
