@@ -34,19 +34,24 @@ const Trans = () => {
         });
     } else if (selectedAccountType === "accounts") {
       axios
-        .get("http://localhost:3000/gl-accounts")
-        .then((response) => {
-          const data = response.data;
-          console.log("Fetched gl accounts data:", data);
-          if (data.accounts && Array.isArray(data.accounts)) {
-            setGlaccounts(data.accounts);
-          } else {
-            console.log("Invalid gl accounts data structure:", data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  .get("http://localhost:3000/gl-accounts")
+  .then((response) => {
+    const data = response.data;
+
+    if (Array.isArray(data)) {
+      // Assuming the data is already an array of objects
+      setGlaccounts(data);
+    } else if (data && Array.isArray(data.data)) {
+      // If data.data is the correct array
+      setGlaccounts(data.data);
+    } else {
+      console.log("Invalid glaccounts data structure:", data);
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
     }
   }, [selectedAccountType]);
 
@@ -223,29 +228,32 @@ const Trans = () => {
             </select>
           </div>
           <div className="w-full flex">
-            <label htmlFor="description3" className="w-1/2 text-start">
-              Received from Account Name:
-            </label>
-            <select
-              id="description3"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-              value={selectedAccountName}
-              onChange={(e) => setSelectedAccountName(e.target.value)}
-            >
-              <option value="">Select An Account Name To Receive From</option>
-              {selectedAccountType === "customer"
-                ? userDetails.map((user) => (
-                    <option key={user.id} value={user.name}>
-                      {user.name}
-                    </option>
-                  ))
-                : glaccounts.map((account) => (
-                    <option key={account.id} value={account.name}>
-                      {account.name}
-                    </option>
-                  ))}
-            </select>
-          </div>
+  <label htmlFor="description3" className="w-1/2 text-start">
+    Received from Account Name:
+  </label>
+  <select
+    id="description3"
+    className="w-1/2 bg-slate-100 border border-gray-400"
+    value={selectedAccountName}
+    onChange={(e) => setSelectedAccountName(e.target.value)}
+  >
+    <option value="">Select An Account Name To Receive From</option>
+    {selectedAccountType === "customer"
+      ? userDetails.map((user) => (
+          <option key={user.id} value={user.name}>
+            {user.name}
+          </option>
+        ))
+      : selectedAccountType === "accounts"
+      ? glaccounts.map((glaccount) => (
+          <option key={glaccount.code} value={glaccount.name}>
+            {glaccount.name}
+          </option>
+        ))
+      : null}
+  </select>
+</div>
+
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
               Received from Account No:
