@@ -41,7 +41,7 @@ const Trans = () => {
           if (Array.isArray(data)) {
             // Assuming the data is already an array of objects
             setGlaccounts(data);
-            console.log(data);
+            console.log(data)
           } else if (data && Array.isArray(data.data)) {
             // If data.data is the correct array
             setGlaccounts(data.data);
