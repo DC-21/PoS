@@ -83,7 +83,7 @@ const TransactionsTable = () => {
     pdf.text(`Received:`, 30, 70);
     pdf.setFontSize(10);
     pdf.text(`${transaction.name}`, 60, 70);
-    pdf.text(`Date: ${formattedDate}`, 130, 70);
+    pdf.text(`Date: ${currentDate}`, 130, 70);
 
     pdf.setFontSize(8);
     pdf.text(`Sum Of:`, 30, 77);

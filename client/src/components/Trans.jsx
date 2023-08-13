@@ -40,7 +40,7 @@ const Trans = () => {
           if (Array.isArray(data)) {
             // Assuming the data is already an array of objects
             setGlaccounts(data);
-            console.log(data)
+            console.log(data);
           } else if (data && Array.isArray(data.data)) {
             // If data.data is the correct array
             setGlaccounts(data.data);
@@ -116,8 +116,7 @@ const Trans = () => {
     setChange("00.00");
   };
 
-  //this section of code triggers the put and post request to provided endpoints when i or another user clicks the submit button //
-
+  const formattedDateForDB = moment(currentDate, "DD/MM/YY").format("YYYY-MM-DD");
   const handleSubmit = () => {
     const newBalanceDueLCY =
       parseFloat(balanceDueLCY) - parseFloat(amountToPay);
@@ -142,7 +141,7 @@ const Trans = () => {
 
     const transactionData = {
       rcptno: nextReceiptNo,
-      date: currentDate,
+      date: formattedDateForDB,
       name: selectedAccountName,
       customer_no: customerNo,
       opn_bal: balanceDueLCY,

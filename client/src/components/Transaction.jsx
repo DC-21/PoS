@@ -38,8 +38,11 @@ const Transaction = () => {
                 </div>
                 <div className="w-full flex justify-between px-4">
                   <p className="text-start flex-1">Date:</p>
-                  <p className="text-start flex-1">{transaction.date}</p>
+                  <p className="text-start flex-1">
+                    {transaction.date.slice(0, 10)}
+                  </p>
                 </div>
+
                 <div className="w-full flex justify-between px-4">
                   <p className="text-start flex-1">Customer No:</p>
                   <p className="text-start flex-1">{transaction.customer_no}</p>
