@@ -53,10 +53,7 @@ const TransactionsTable = () => {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-    const currentDate = new Date();
-    const formattedDate = `${currentDate.getDate()}/${
-      currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()}`;
+      const currentDate = new Date().toISOString().slice(0, 20);
 
     pdf.setFont("helvetica");
 
@@ -159,7 +156,7 @@ const TransactionsTable = () => {
       .then((response) => {
         const data = response.data;
         console.log("company data:", data);
-        setCompanyData(data); 
+        setCompanyData(data);
       })
       .catch((error) => {
         console.error("Error fetching transaction data:", error);
