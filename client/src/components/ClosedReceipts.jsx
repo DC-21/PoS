@@ -98,7 +98,7 @@ const ClosedReceipts = () => {
                     {transaction.rcptno}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {transaction.date}
+                    {transaction.date.slice(0, 10)}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {transaction.customer_no}
