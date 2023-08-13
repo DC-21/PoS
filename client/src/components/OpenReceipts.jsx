@@ -54,6 +54,7 @@ const TransactionsTable = () => {
       .join(" ");
 
       const currentDate = new Date().toISOString().slice(0, 20);
+      const newDate = currentDate.replace("T"," ");
 
     pdf.setFont("helvetica");
 
@@ -80,7 +81,7 @@ const TransactionsTable = () => {
     pdf.text(`Received:`, 30, 70);
     pdf.setFontSize(10);
     pdf.text(`${transaction.name}`, 60, 70);
-    pdf.text(`Date: ${currentDate}`, 130, 70);
+    pdf.text(`Date: ${newDate}`, 130, 70);
 
     pdf.setFontSize(8);
     pdf.text(`Sum Of:`, 30, 77);
