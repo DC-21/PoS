@@ -1,5 +1,4 @@
 import axios from "axios";
-import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import moment from "moment-timezone";
 
@@ -141,16 +140,9 @@ const Trans = () => {
         console.log("Error updating customer balance:", error);
       });
 
-    // this section prepares the data to be sent in the POST request to create the transaction //
-    const currentTime = new Date();
-    const lusakaTimezone = "Africa/Lusaka";
-    const formattedDate = format(currentTime, "EEEE, MMMM d, yyyy h:mm:ss a", {
-      timeZone: lusakaTimezone,
-    });
-
     const transactionData = {
       rcptno: nextReceiptNo,
-      date: formattedDate,
+      date: currentDate,
       name: selectedAccountName,
       customer_no: customerNo,
       opn_bal: balanceDueLCY,
