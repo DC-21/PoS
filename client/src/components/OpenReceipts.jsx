@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { DownloadTableExcel } from 'react-export-table-to-excel';
 import useTransactionStore from "../Store";
 import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
+import ReactHTMLTableToExcel from '../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel';
 
 const TransactionsTable = () => {
   const transactions = useTransactionStore((state) => state.transactions);
@@ -171,7 +171,7 @@ const TransactionsTable = () => {
           Open Receipts
         </h2>
         <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
-          <DownloadTableExcel
+          <ReactHTMLTableToExcel
             id="export-button"
             className="btn btn-primary"
             table="transactions-table"
