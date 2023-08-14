@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
 import useTransactionStore from "../Store";
 
 const ClosedReceipts = () => {
@@ -33,7 +33,7 @@ const ClosedReceipts = () => {
           Transaction History
         </h2>
         <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
-          <ReactHTMLTableToExcel
+          <DownloadTableExcel
             id="export-button"
             className="btn btn-primary"
             table="transactions-table"

@@ -76,6 +76,7 @@ const App = () => {
         )}
 
         {!isLoggedIn && <Route path="/*" element={<Navigate to="/login" />} />}
+        {isLoggedIn && <Route path="/*" element={<Navigate to="/login" />} />}
       </Routes>
     </Router>
   );
