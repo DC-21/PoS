@@ -18,6 +18,8 @@ const Trans = () => {
   const [amountTendered, setAmountTendered] = useState("");
   const [change, setChange] = useState("00.00");
   const [glaccounts, setGlaccounts] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     if (selectedAccountType === "customer") {
@@ -67,6 +69,26 @@ const Trans = () => {
         console.log(error);
       });
   }, []);
+
+  const handleOpenPopup = () => {
+    setShowPopup(true);
+    setSearchText(""); // Clear search text when opening the popup
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+  const handleSelectAccount = (accountName) => {
+    setSelectedAccountName(accountName);
+    handleClosePopup();
+  };
+
+
+  const filteredOptions = selectedAccountType === "customer"
+    ? userDetails.filter(user => user.name.toLowerCase().includes(searchText.toLowerCase()))
+    : selectedAccountType === "accounts"
+    ? glaccounts.filter(glaccount => glaccount.name.toLowerCase().includes(searchText.toLowerCase()))
+    : [];
 
   //this section makes a request to find customer details based on the selected name. //
   useEffect(() => {
@@ -220,31 +242,41 @@ const Trans = () => {
             </select>
           </div>
           <div className="w-full flex">
-            <label htmlFor="description3" className="w-1/2 text-start">
-              Received from Account Name:
-            </label>
-            <select
-              id="description3"
-              className="w-1/2 bg-slate-100 border border-gray-400"
-              value={selectedAccountName}
-              onChange={(e) => setSelectedAccountName(e.target.value)}
-            >
-              <option value="">Select An Account Name To Receive From</option>
-              {selectedAccountType === "customer"
-                ? userDetails.map((user) => (
-                    <option key={user.id} value={user.name}>
-                      {user.name}
-                    </option>
-                  ))
-                : selectedAccountType === "accounts"
-                ? glaccounts.map((glaccount) => (
-                    <option key={glaccount.code} value={glaccount.name}>
-                      {glaccount.name}
-                    </option>
-                  ))
-                : null}
-            </select>
+      <label htmlFor="description3" className="w-1/2 text-start">
+        Received from Account Name:
+      </label>
+      <div className="w-1/2 bg-slate-100 border border-gray-400 relative">
+        <div
+          className="w-full h-full cursor-pointer"
+          onClick={handleOpenPopup} // Show search popup on click
+        >
+          {selectedAccountName || "Select An Account Name To Receive From"}
+        </div>
+        {showPopup && (
+          <div className="popup" style={{ maxHeight: '200px', overflowY: 'auto', backgroundColor:"blue" }}>
+            <input
+              type="text"
+              placeholder="Search Account Name"
+              className="w-full bg-slate-100 border border-gray-400"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <div className="search-results">
+              {filteredOptions.map(option => (
+                <div
+                  key={option.id || option.code}
+                  className="result-item"
+                  onClick={() => handleSelectAccount(option.name)}
+                >
+                  {option.name}
+                </div>
+              ))}
+            </div>
+            <button onClick={handleClosePopup}>Close</button>
           </div>
+        )}
+      </div>
+    </div>
 
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
