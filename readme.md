@@ -23,7 +23,7 @@ Utils/db.js in both server files.
 
 Navigate to the browser and open a tab where the client should run: http://localhost:{port number, mostly 5173}.
 
-Make sure you create a super user account in either Postman or Thunderclient by making a post request to the Users table using the endpoint "http://localhost:3006/signUp" 
+Make sure you create a super user account in either Postman or Thunderclient by making a post request to the Users table using the endpoint "http://localhost:3006/signUp"
 Put the following in the request body and match with appropriate details:
 
 {full_name, email, phone_number, password, role}
