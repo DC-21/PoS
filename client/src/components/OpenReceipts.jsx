@@ -3,7 +3,8 @@ import axios from "axios";
 import useTransactionStore from "../Store";
 import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
-import ReactHTMLTableToExcel from '../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel';
+import companyLogo from "../images/mulonga.png";
+import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
 const TransactionsTable = () => {
   const transactions = useTransactionStore((state) => state.transactions);
@@ -53,13 +54,17 @@ const TransactionsTable = () => {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-      const currentDate = new Date().toISOString().slice(0, 20);
-      const newDate = currentDate.replace("T"," ");
+    const currentDate = new Date().toISOString().slice(0, 10);
+    const newDate = currentDate.replace("T", " ");
 
     pdf.setFont("helvetica");
 
     pdf.setFontSize(8);
     const company = companyData[0];
+
+    const logoWidth = 40;
+    const logoHeight = 20;
+    pdf.addImage(companyLogo, "PNG", 80, 8, logoWidth, logoHeight);
 
     pdf.setLineWidth(0.2);
     pdf.line(30, 26, 170, 26);
