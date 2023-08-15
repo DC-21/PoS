@@ -253,7 +253,7 @@ const Trans = () => {
           {selectedAccountName || "Select An Account Name To Receive From"}
         </div>
         {showPopup && (
-          <div className="popup" style={{ maxHeight: '200px', overflowY: 'auto', backgroundColor:"blue" }}>
+          <div className="popup" style={{ maxHeight: '200px', overflowY: 'auto', backgroundColor:"gray" }}>
             <input
               type="text"
               placeholder="Search Account Name"
