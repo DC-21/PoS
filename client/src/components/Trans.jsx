@@ -248,52 +248,55 @@ const Trans = () => {
             </select>
           </div>
           <div className="w-full flex">
-      <label htmlFor="description3" className="w-1/2 text-start">
-        Received from Account Name:
-      </label>
-      <div className="w-1/2 bg-slate-100 border border-gray-400 relative">
-        <div
-          className="w-full h-full cursor-pointer"
-          onClick={handleOpenPopup} // Show search popup on click
-        >
-          {selectedAccountName || "Select An Account Name To Receive From"}
-        </div>
-        {showPopup && (
-          <div className="popup-overlay fixed inset-0 z-10 flex justify-center items-center">
-            <div className="popup bg-white w-64 p-4 border rounded shadow">
-              <input
-                type="text"
-                placeholder="Search Account Name"
-                className="w-full bg-gray-100 border border-gray-400 p-2 rounded mb-2"
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-              {filteredOptions.length > 0 ? (
-                <div className="search-results max-h-40 overflow-y-auto">
-                  {filteredOptions.map(option => (
-                    <div
-                      key={option.id || option.code}
-                      className="result-item cursor-pointer px-2 py-1 hover:bg-gray-200 rounded"
-                      onClick={() => handleSelectAccount(option.name)}
-                    >
-                      {option.name}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center mt-2 text-gray-500">No results found.</div>
-              )}
-              <button
-                className="mt-2 bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded"
-                onClick={handleClosePopup}
+            <label htmlFor="description3" className="w-1/2 text-start">
+              Received from Account Name:
+            </label>
+            <div className="w-1/2 bg-slate-100 border text-start border-gray-400 relative">
+              <div
+                className="w-full h-full cursor-pointer"
+                onClick={handleOpenPopup}
               >
-                Close
-              </button>
+                {selectedAccountName ||
+                  "Select An Account Name To Receive From"}
+              </div>
+              {showPopup && (
+                <div className="popup-overlay fixed inset-0 z-10 flex justify-center items-center">
+                  <div className="popup bg-white w-64 p-4 border rounded shadow">
+                    <input
+                      type="text"
+                      placeholder="Search Account Name"
+                      className="w-full text-start bg-gray-100 border border-gray-400 p-2 rounded mb-2"
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
+                    {filteredOptions.length > 0 ? (
+                      <div className="search-results max-h-40 overflow-y-auto">
+                        {filteredOptions.map((option) => (
+                          <div
+                            key={option.id || option.code}
+                            className="result-item cursor-pointer px-2 py-1 hover:bg-gray-200 rounded"
+                            onClick={() => handleSelectAccount(option.name)}
+                          >
+                            {option.name}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center mt-2 text-gray-500">
+                        No results found.
+                      </div>
+                    )}
+                    <button
+                      className="mt-2 bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded"
+                      onClick={handleClosePopup}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </div>
-    </div>
 
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
