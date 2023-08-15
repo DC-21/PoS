@@ -69,7 +69,7 @@ const TransactionsTable = () => {
     pdf.text(`${company.Address}`, 72, 34);
     pdf.text(`${company.Post_Address}`, 82, 40);
     pdf.text(`Email: ${company.Email}`, 110, 46);
-    pdf.text(`Fax: ${company.Fax}`, 95, 46);
+    pdf.text(`Fax:`, 95, 46);
     pdf.text(`Tel: +260${company.Telephone}`, 55, 46);
     pdf.setFontSize(11);
     pdf.text(`OFFICIAL RECEIPT(DUPLICATE)`, 70, 53);
