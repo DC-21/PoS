@@ -283,7 +283,7 @@ const Trans = () => {
               {showPopup && (
                 <div className="popup-overlay fixed inset-0 z-10 flex justify-center items-center">
                   <div
-                    className="popup bg-white w-64 p-4 border rounded shadow"
+                    className="popup bg-white w-[500px] p-4 border rounded shadow"
                     ref={popupRef}
                   >
                     <input
@@ -294,19 +294,21 @@ const Trans = () => {
                       onChange={(e) => setSearchText(e.target.value)}
                     />
                     {filteredOptions.length > 0 ? (
-                <div className="search-results max-h-40 overflow-y-auto">
-                  {filteredOptions.map(option => (
-                    <div
-                      key={option.id || option.code}
-                      className="result-item cursor-pointer px-2 py-1 hover:bg-gray-200 rounded"
-                      onClick={() => handleSelectAccount(option.name)}
-                    >
-                      <span className="font-semibold">{option.name}</span>
-                      <span className="text-gray-500 ml-1">({option.customerNo})</span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
+                      <div className="search-results max-h-80 overflow-y-auto">
+                        {filteredOptions.map((option) => (
+                          <div
+                            key={option.id || option.code}
+                            className="result-item cursor-pointer px-2 py-1 hover:bg-gray-200 rounded"
+                            onClick={() => handleSelectAccount(option.name)}
+                          >
+                            <span className="text-gray-500 text-start">{option.name}</span>
+                            <span className="text-gray-500 text-right ml-1">
+                              ({option.customerNo})
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
                       <div className="text-center mt-2 text-gray-500">
                         No results found.
                       </div>
