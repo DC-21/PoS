@@ -66,7 +66,6 @@ const ClosedReceipts = () => {
     pdf.text(`Payment Type: ${transaction.pymt_type}`, 130, 85);
 
     pdf.text(`Reference No:`, 30, 93);
-    pdf.text(`${transaction.desc}`, 60, 93);
 
     pdf.text(`Account No: ${transaction.customer_no}`, 90, 93);
     pdf.text(`Bill No: ${transaction.desc}`, 130, 93);
