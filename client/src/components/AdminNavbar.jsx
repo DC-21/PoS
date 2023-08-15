@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <div className="w-full sticky top-0 flex justify-center">
       <div className="px-4 gap-[50px] py-2 bg-[#260c65] w-full flex items-center justify-between">
-        <Link to="/">
+        <Link to="/admin">
           <img
             className="md:w-[200px] md:h-[80px] rounded"
             src={logo}

@@ -8,7 +8,7 @@ import companyLogo from "../images/mulonga.png";
 
 const ClosedReceipts = () => {
   const transactions = useTransactionStore((state) => state.transactions);
-  const [companyData,setCompanyData]=useState({});
+  const [companyData, setCompanyData] = useState({});
   const [loading, setLoading] = useState(true);
 
   const generatePDF = (transaction) => {
