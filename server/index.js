@@ -1,24 +1,28 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const sequelize = require('./utils/db');
 const useRouter = require('./routes/routes');
-const useTransact = require('./routes/transact');
+const useTransaction = require('./routes/transact');
 const useCompany = require('./routes/company-routes');
 const useIncome = require('./routes/income-groups');
+const useGLA = require('./routes/GLAroute');
 
 const cors = require("cors");
 const app = express();
 
 // Configure bodyParser //
 app.use(cors());
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use routes
 app.use('/', useRouter);
-app.use('/', useTransact);
+app.use('/', useTransaction);
 app.use('/', useCompany);
 app.use('/',useIncome);
-
+app.use('/',useGLA);
 
 // Error handling middleware to protect server from crashing //
 app.use((err, req, res, next) => {

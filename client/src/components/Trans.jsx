@@ -106,10 +106,11 @@ const Trans = () => {
 
   const filteredOptions =
     selectedAccountType === "customer"
-      ? userDetails.filter(user => 
-        user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        user.customerNo.toString().includes(searchText)
-      )
+      ? userDetails.filter(
+          (user) =>
+            user.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            user.customerNo.toString().includes(searchText)
+        )
       : selectedAccountType === "accounts"
       ? glaccounts.filter((glaccount) =>
           glaccount.name.toLowerCase().includes(searchText.toLowerCase())
@@ -302,7 +303,9 @@ const Trans = () => {
                             className="result-item cursor-pointer px-2 py-1 hover:bg-gray-200 rounded w-full flex justify-between items-center"
                             onClick={() => handleSelectAccount(option.name)}
                           >
-                            <span className="text-gray-500 text-start">{option.name}</span>
+                            <span className="text-gray-500 text-start">
+                              {option.name}
+                            </span>
                             <span className="text-gray-500 text-right ml-4">
                               {option.customerNo}
                             </span>
@@ -328,17 +331,24 @@ const Trans = () => {
 
           <div className="w-full flex">
             <label htmlFor="description2" className="w-1/2 text-start">
-              Received from Account No:
+              {selectedAccountType === "customer"
+                ? "Received from Customer No:"
+                : "Received from Account No:"}
             </label>
             <input
               type="number"
               id="description2"
-              placeholder="Account To Receive From"
+              placeholder={
+                selectedAccountType === "customer"
+                  ? "Customer To Receive From"
+                  : "Account To Receive From"
+              }
               className="w-1/2 bg-slate-100 border border-gray-400"
               value={customerNo}
               onChange={(e) => setCustomerNo(e.target.value)}
             />
           </div>
+          
           <div className="w-full flex">
             <label htmlFor="description4" className="w-1/2 text-start">
               Customer Account Balance:

@@ -63,13 +63,47 @@ router.post('/income-group-codes', async (req, res) => {
   }
 });
 
+router.put('/income-group-codes', async (req, res) => {
+  try {
+    // Check if there is data in the fetchedData array
+    if (fetchedData.length === 0) {
+      return res.status(400).json({ message: 'No data to update. Please fetch data first.' });
+    }
+    for (const incomeGroupCode of fetchedData) {
+      const { code, name} = incomeGroupCode;
+      const existingIncomeGroupCode = await IncomeGroups.findOne({
+        where: {
+          code: code,
+        },
+      });
+
+      if (existingIncomeGroupCode) {
+        await existingIncomeGroupCode.update({
+          code: code,
+          name: name,
+        });
+        console.log('Income Group Codes', code, 'updated successfully.');
+      } else {
+        console.log('Income Group Codes', code, 'not found in the database. Skipping.');
+      }
+    }
+
+    fetchedData = [];
+
+    res.status(200).json({ message: 'All income group codes updated successfully.' });
+  } catch (error) {
+    console.error('Error updating income group codes data:', error);
+    res.status(500).json({ message: 'An error occurred while updating G/L accounts data.' });
+  }
+});
+
 
 router.get('/income-groupcodes', async(req,res)=>{
   try{
     const codes = await IncomeGroups.findAll();
     return res.json({codes});
   }catch (error) {
-    console.error("Error fetching next receipt number:", error);
+    console.error("Error fetching income group codes:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 })
