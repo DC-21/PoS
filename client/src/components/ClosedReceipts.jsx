@@ -243,7 +243,7 @@ const ClosedReceipts = () => {
                         onClick={() => generatePDF(transaction)}
                         className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-2 px-2 rounded text-white"
                       >
-                        Generate PDF
+                        Generate Receipt
                       </button>
                     </td>
                   </tr>

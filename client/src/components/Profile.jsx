@@ -162,9 +162,6 @@ const Profile = () => {
                 >
                   Add User
                 </button>
-                <button className="bg-white py-2 px-3 rounded">
-                  Remove User
-                </button>
               </div>
             )}
 
