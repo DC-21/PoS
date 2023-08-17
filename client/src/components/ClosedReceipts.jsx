@@ -74,7 +74,7 @@ const ClosedReceipts = () => {
     pdf.text(`${transaction.opn_bal}`, 60, 100);
 
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 100);
-    pdf.text(`Time: ${transaction.date.slice(0, 10)}`, 130, 100);
+    pdf.text(`Time: ${transaction.date.replace('T', ' ').slice(0, 19)}`, 130, 100);
 
     pdf.text("Issued By:", 30, 107);
     pdf.setDrawColor(0);
@@ -205,7 +205,7 @@ const ClosedReceipts = () => {
                       {transaction.rcptno}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.date.slice(0, 10)}
+                      {transaction.date.replace('T', ' ').slice(0, 19)}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.customer_no}
