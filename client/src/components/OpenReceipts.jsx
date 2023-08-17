@@ -56,6 +56,7 @@ const TransactionsTable = () => {
 
     const currentDate = new Date().toISOString().slice(0, 10);
     const newDate = currentDate.replace("T", " ");
+    const formattedDate = transaction.date.replace('T', ' ').slice(0, 19);
 
     pdf.setFont("helvetica");
 
@@ -109,7 +110,7 @@ const TransactionsTable = () => {
     pdf.text(`${transaction.opn_bal}`, 60, 100);
 
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 100);
-    pdf.text(`Time: ${transaction.date.slice(0, 10)}`, 130, 100);
+    pdf.text(`Time: ${formattedDate}`, 130, 100);
 
     pdf.text("Issued By:", 30, 107);
     pdf.setDrawColor(0);
@@ -246,7 +247,7 @@ const TransactionsTable = () => {
                       {transaction.rcptno}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.date.slice(0, 10)}
+                      {transaction.date.replace('T', ' ').slice(0, 19)}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.customer_no}

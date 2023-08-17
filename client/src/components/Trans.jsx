@@ -4,7 +4,7 @@ import moment from "moment-timezone";
 
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
-  const [currentDate] = useState(moment().format("DD/MM/YY"));
+  const [currentDate] = useState(moment().format("DD/MM/YY HH:mm:ss"));
   const [selectedAccountType, setSelectedAccountType] = useState("");
   const [amountToPay, setAmountToPay] = useState("");
   const [balanceDueLCY, setBalanceDueLCY] = useState("");
@@ -165,9 +165,9 @@ const Trans = () => {
     setChange("00.00");
   };
 
-  const formattedDateForDB = moment(currentDate, "DD/MM/YY").format(
-    "YYYY-MM-DD"
-  );
+  const formattedDateForDB = moment(currentDate, "DD/MM/YY HH:mm:ss")
+    .utcOffset('+02:00')
+    .format("YYYY-MM-DD HH:mm:ss");
   const handleSubmit = () => {
     const newBalanceDueLCY =
       parseFloat(balanceDueLCY) - parseFloat(amountToPay);
@@ -204,6 +204,7 @@ const Trans = () => {
       desc: selectedDescription,
       code: selectedIncomeGroup ? selectedIncomeGroup.name : "",
     };
+    console.log("Transaction Data:", transactionData);
 
     axios
       .post("http://localhost:3000/transactions", transactionData)

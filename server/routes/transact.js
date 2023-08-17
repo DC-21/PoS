@@ -1,11 +1,7 @@
 const Transactions = require("../models/Transactions");
 const express = require("express");
 const router = express.Router();
-const PDFDocument = require("pdfkit");
-const PDFTable = require("voilab-pdf-table");
-const blobStream = require("blob-stream");
 const moment = require("moment-timezone");
-const numberToWords = require("number-to-words");
 
 // Function to generate the next receipt number
 const generateNextReceiptNumber = async () => {
@@ -74,11 +70,18 @@ router.post("/transactions", async (req, res) => {
     } = req.body;
 
     // Log the request body for debugging
-    console.log("Request Body:", req.body);
+    const parsedDate = moment(date, "YYYY/MM/DD HH:mm:ss");
+
+    // Add 2 hours to the parsed date
+    const newDate = parsedDate.add(2, 'hours');
+    
+    // Format the new date and apply the UTC offset
+    const formattedDateForDB = newDate.utcOffset('+02:00').toDate();
+    
 
     const newTransaction = await Transactions.create({
       rcptno,
-      date,
+      date:formattedDateForDB,
       name,
       customer_no,
       opn_bal,
