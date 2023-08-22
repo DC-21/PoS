@@ -166,7 +166,7 @@ const Trans = () => {
   };
 
   const formattedDateForDB = moment(currentDate, "DD/MM/YY HH:mm:ss")
-    .utcOffset('+02:00')
+    .utcOffset("+02:00")
     .format("YYYY-MM-DD HH:mm:ss");
   const handleSubmit = () => {
     const newBalanceDueLCY =
@@ -349,7 +349,7 @@ const Trans = () => {
               onChange={(e) => setCustomerNo(e.target.value)}
             />
           </div>
-          
+
           <div className="w-full flex">
             <label htmlFor="description4" className="w-1/2 text-start">
               Customer Account Balance:
