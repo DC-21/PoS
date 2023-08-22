@@ -27,7 +27,7 @@ const Landing = () => {
       const response = await axios.get("http://localhost:3006/income-group-codes");
       const data = response.data;
       await axios.put("http://localhost:3006/income-group-codes", data);
-      console.log("Customer data updated successfully.");
+      console.log("income group codes updated successfully.");
 
       setIsDataUpdated(true);
       setTimeout(() => {
