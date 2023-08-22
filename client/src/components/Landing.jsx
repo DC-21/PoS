@@ -8,9 +8,9 @@ const Landing = () => {
 
   const handleCustomersUpdate = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/customers");
+      const response = await axios.get("http://localhost:3006/customers");
       const data = response.data;
-      await axios.put("http://localhost:3000/customers", data);
+      await axios.put("http://localhost:3006/customers", data);
       console.log("Customer data updated successfully.");
 
       setIsDataUpdated(true);
@@ -24,9 +24,9 @@ const Landing = () => {
 
   const handleIncomeGroupCodesUpdate = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/income-group-codes");
+      const response = await axios.get("http://localhost:3006/income-group-codes");
       const data = response.data;
-      await axios.put("http://localhost:3000/income-group-codes", data);
+      await axios.put("http://localhost:3006/income-group-codes", data);
       console.log("Customer data updated successfully.");
 
       setIsDataUpdated(true);
@@ -40,9 +40,9 @@ const Landing = () => {
 
   const handleGLAccountsUpdate = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/gl-accounts");
+      const response = await axios.get("http://localhost:3006/gl-accounts");
       const data = response.data;
-      await axios.put("http://localhost:3000/gl-accounts", data);
+      await axios.put("http://localhost:3006/gl-accounts", data);
       console.log("Customer data updated successfully.");
 
       setIsDataUpdated(true);
