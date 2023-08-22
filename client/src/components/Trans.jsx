@@ -24,7 +24,7 @@ const Trans = () => {
   useEffect(() => {
     if (selectedAccountType === "customer") {
       axios
-        .get("http://localhost:3000/customer-details?_limit=1000")
+        .get("http://localhost:3006/customer-details?_limit=1000")
         .then((response) => {
           const data = response.data;
           console.log("Fetched customer data:", data);
@@ -35,7 +35,7 @@ const Trans = () => {
         });
     } else if (selectedAccountType === "accounts") {
       axios
-        .get("http://localhost:3000/gl-accounts")
+        .get("http://localhost:3006/gl-accounts")
         .then((response) => {
           const data = response.data;
 
@@ -59,7 +59,7 @@ const Trans = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/income-groupcodes")
+      .get("http://localhost:3006/income-groupcodes")
       .then((response) => {
         const data = response.data;
         console.log("Fetched codes:", data);
@@ -180,7 +180,7 @@ const Trans = () => {
 
     axios
       .put(
-        `http://localhost:3000/customer-details/${customerNo}`,
+        `http://localhost:3006/customer-details/${customerNo}`,
         customerUpdateData
       )
       .then((response) => {
@@ -207,7 +207,7 @@ const Trans = () => {
     console.log("Transaction Data:", transactionData);
 
     axios
-      .post("http://localhost:3000/transactions", transactionData)
+      .post("http://localhost:3006/transactions", transactionData)
       .then((response) => {
         console.log("Transaction created successfully:", response.data);
       })
@@ -220,7 +220,7 @@ const Trans = () => {
 
   const updateReceiptNumber = () => {
     axios
-      .get("http://localhost:3000/receiptno")
+      .get("http://localhost:3006/receiptno")
       .then((response) => {
         const { receiptNumber } = response.data;
         setNextReceiptNo(receiptNumber);
