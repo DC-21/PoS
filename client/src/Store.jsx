@@ -5,7 +5,7 @@ const useTransactionStore = create((set) => ({
   transactions: [],
   updateClosedStatusInDB: async (transactionId) => {
     try {
-      const response = await axios.put(`http://localhost:3000/transactions/${transactionId}`);
+      const response = await axios.put(`http://localhost:3006/transactions/${transactionId}`);
 
       set((state) => ({
         transactions: state.transactions.map((t) =>
