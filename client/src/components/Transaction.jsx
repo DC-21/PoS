@@ -6,7 +6,7 @@ const Transaction = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/transactions")
+      .get("http://localhost:3006/transactions")
       .then((response) => {
         const data = response.data;
         console.log("Fetched data:", data);
