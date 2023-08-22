@@ -43,7 +43,7 @@ const Landing = () => {
       const response = await axios.get("http://localhost:3006/gl-accounts");
       const data = response.data;
       await axios.put("http://localhost:3006/gl-accounts", data);
-      console.log("Customer data updated successfully.");
+      console.log("gl/accounts updated successfully.");
 
       setIsDataUpdated(true);
       setTimeout(() => {
