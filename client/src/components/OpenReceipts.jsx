@@ -158,7 +158,7 @@ const TransactionsTable = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/companies")
+      .get("http://localhost:3006/companies")
       .then((response) => {
         const data = response.data;
         console.log("company data:", data);
