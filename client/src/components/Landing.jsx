@@ -58,7 +58,7 @@ const Landing = () => {
       <div className="bg-[#f5f6fa] h-screen flex flex-col w-full justify-center items-center">
         {isDataUpdated && (
           <div className="text-red-600 mb-[300px] font-bold text-2xl justify-center items-center w-full flex absolute">
-            Customer data updated successfully.
+            data updated successfully.
           </div>
         )}
         <p className="text-blue-900 text-2xl">Welcome back</p>
