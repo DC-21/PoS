@@ -291,7 +291,7 @@ const Trans = () => {
                   >
                     <input
                       type="text"
-                      placeholder="Search Account Name"
+                      placeholder="Search By Account Name, Customer Number or Address"
                       className="w-full bg-gray-100 border border-gray-400 p-2 rounded mb-2"
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
@@ -311,7 +311,7 @@ const Trans = () => {
                               {option.customerNo}
                             </span>
 
-                            <span className="w-full flex text-center">
+                            <span className="w-full flex text-ends text-gray-500 ml-4">
                               {option.address2}
                             </span>
                           </div>
