@@ -286,7 +286,7 @@ const Trans = () => {
               {showPopup && (
                 <div className="popup-overlay fixed inset-0 z-10 flex justify-center items-center">
                   <div
-                    className="popup bg-white w-[400px] p-4 border rounded shadow"
+                    className="popup bg-white w-[700px] p-4 border rounded shadow"
                     ref={popupRef}
                   >
                     <input
@@ -304,11 +304,15 @@ const Trans = () => {
                             className="result-item cursor-pointer px-2 py-1 hover:bg-gray-200 rounded w-full flex justify-between items-center"
                             onClick={() => handleSelectAccount(option.name)}
                           >
-                            <span className="text-gray-500 text-start">
+                            <span className="w-full flex text-gray-500 text-start">
                               {option.name}
                             </span>
-                            <span className="text-gray-500 text-right ml-4">
+                            <span className="w-full flex text-gray-500 text-right ml-4">
                               {option.customerNo}
+                            </span>
+
+                            <span className="w-full flex text-center">
+                              {option.address2}
                             </span>
                           </div>
                         ))}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -52,7 +52,7 @@ const Login = ({ onLogin }) => {
     } catch (error) {
       console.error("Error in login request:", error);
       setLoading(false);
-      setLoginMessage("An error occurred.");
+      setLoginMessage("invalid credentials.");
     }
   };
 
@@ -113,9 +113,6 @@ const Login = ({ onLogin }) => {
                 Login
               </button>
             )}
-            <div className="w-full flex text-white gap-4 mt-3 mb-3 justify-center">
-              <Link to="/signup">Create account</Link>
-            </div>
           </div>
         </div>
       </div>
