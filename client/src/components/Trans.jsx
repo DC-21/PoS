@@ -288,10 +288,11 @@ const Trans = () => {
               {showPopup && (
                 <div className="popup-overlay fixed inset-0 z-10 flex justify-center items-center">
                   <div
-                    className="popup bg-white w-[700px] p-4 border rounded shadow"
+                    className="popup bg-white w-[950px] p-4 border rounded shadow"
                     ref={popupRef}
                   >
                     <input
+                    style={{ textAlign:"center"}}
                       type="text"
                       placeholder="Search By Account Name, Customer Number or Address"
                       className="w-full bg-gray-100 border border-gray-400 p-2 rounded mb-2"
@@ -312,7 +313,9 @@ const Trans = () => {
                             <span className="w-full flex text-gray-500 text-right ml-4">
                               {option.customerNo}
                             </span>
-
+                            <span className="w-full flex text-ends text-gray-500 ml-4">
+                              {option.address}
+                            </span>
                             <span className="w-full flex text-ends text-gray-500 ml-4">
                               {option.address2}
                             </span>
