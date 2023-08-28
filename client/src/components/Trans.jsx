@@ -110,6 +110,8 @@ const Trans = () => {
           (user) =>
             user.name.toLowerCase().includes(searchText.toLowerCase()) ||
             user.customerNo.toString().includes(searchText)
+            ||
+            user.address2.toString().includes(searchText)
         )
       : selectedAccountType === "accounts"
       ? glaccounts.filter((glaccount) =>
