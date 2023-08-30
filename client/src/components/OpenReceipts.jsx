@@ -17,22 +17,18 @@ const TransactionsTable = () => {
   const [companyData, setCompanyData] = useState({});
 
   const handleSelectAll = () => {
-    if (selectedTransactions.length === transactions.length) {
-      setSelectedTransactions([]);
-    } else {
-      const allTransactionIds = transactions.map(transaction => transaction.id);
-      setSelectedTransactions(allTransactionIds);
-    }
+    const allTransactionIds = transactions.map(transaction => transaction.id);
+    setSelectedTransactions(allTransactionIds);
   };
 
-  const handleMarkAndSubmit = async () => {
+  const handleMarkAll = () => {
+    const allTransactionIds = transactions.map(transaction => transaction.id);
+    setSelectedTransactions(allTransactionIds);
+  };
+
+  const handleSubmit = async () => {
     if (selectedTransactions.length === 0) {
       alert("Please select transactions to submit.");
-      return;
-    }
-
-    const confirmed = window.confirm("Are you sure you want to submit the selected transactions?");
-    if (!confirmed) {
       return;
     }
 
@@ -195,11 +191,17 @@ const TransactionsTable = () => {
           />
         </div>
         <button
-        className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
-        onClick={handleMarkAndSubmit}
-      >
-        Submit Selected
-      </button>
+          className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
+          onClick={handleMarkAll}
+        >
+          Mark All
+        </button>
+        <button
+          className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </div>
       <div className="overflow-x-auto w-full flex">
         <table
