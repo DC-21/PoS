@@ -145,7 +145,7 @@ const TransactionsTable = () => {
   };
 
   const generateTablePDF = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF("landscape");
 
     doc.autoTable({
       html: "#transactions-table",
