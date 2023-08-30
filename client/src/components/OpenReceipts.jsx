@@ -16,6 +16,15 @@ const TransactionsTable = () => {
   const [loading, setLoading] = useState(true);
   const [companyData, setCompanyData] = useState({});
 
+  const handleSelectAll = () => {
+    if (selectedTransactions.length === transactions.length) {
+      setSelectedTransactions([]);
+    } else {
+      const allTransactionIds = transactions.map(transaction => transaction.id);
+      setSelectedTransactions(allTransactionIds);
+    }
+  };
+
   const handleMarkAndSubmit = async () => {
     if (selectedTransactions.length === 0) {
       alert("Please select transactions to submit.");
