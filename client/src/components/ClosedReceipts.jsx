@@ -74,7 +74,11 @@ const ClosedReceipts = () => {
     pdf.text(`${transaction.opn_bal}`, 60, 100);
 
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 100);
-    pdf.text(`Time: ${transaction.date.replace('T', ' ').slice(0, 19)}`, 130, 100);
+    pdf.text(
+      `Time: ${transaction.date.replace("T", " ").slice(0, 19)}`,
+      130,
+      100
+    );
 
     pdf.text("Issued By:", 30, 107);
     pdf.setDrawColor(0);
@@ -100,6 +104,17 @@ const ClosedReceipts = () => {
 
     pdf.line(30, 128, 170, 128);
     pdf.save("transaction.pdf");
+  };
+
+  const generateTablePDF = () => {
+    const doc = new jsPDF("landscape");
+
+    doc.autoTable({
+      html: "#transactions-table",
+      theme: "grid",
+    });
+
+    doc.save("transactions_table.pdf");
   };
 
   useEffect(() => {
@@ -149,6 +164,14 @@ const ClosedReceipts = () => {
             buttonText="Export to Excel"
           />
         </div>
+        <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
+    <button
+      onClick={generateTablePDF}
+      className="btn btn-primary"
+    >
+      Generate PDF of Table
+    </button>
+  </div>
       </div>
       <div className="overflow-x-auto">
         <table
@@ -205,7 +228,7 @@ const ClosedReceipts = () => {
                       {transaction.rcptno}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.date.replace('T', ' ').slice(0, 19)}
+                      {transaction.date.replace("T", " ").slice(0, 19)}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.customer_no}
