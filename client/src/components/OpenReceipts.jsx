@@ -16,17 +16,17 @@ const TransactionsTable = () => {
   const [loading, setLoading] = useState(true);
   const [companyData, setCompanyData] = useState({});
 
-  const handleCheckboxChange = (transactionId) => {
-    if (typeof transactionId === "number") {
-      setSelectedTransactions((prevSelected) =>
-        prevSelected.includes(transactionId)
-          ? prevSelected.filter((id) => id !== transactionId)
-          : [...prevSelected, transactionId]
-      );
-    }
-  };
-
   const handleMarkAndSubmit = async () => {
+    if (selectedTransactions.length === 0) {
+      alert("Please select transactions to submit.");
+      return;
+    }
+
+    const confirmed = window.confirm("Are you sure you want to submit the selected transactions?");
+    if (!confirmed) {
+      return;
+    }
+
     const numericSelectedTransactions = selectedTransactions.filter(
       (id) => typeof id === "number"
     );
@@ -186,11 +186,11 @@ const TransactionsTable = () => {
           />
         </div>
         <button
-          className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
-          onClick={handleMarkAndSubmit}
-        >
-          Submit Selected
-        </button>
+        className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white"
+        onClick={handleMarkAndSubmit}
+      >
+        Submit Selected
+      </button>
       </div>
       <div className="overflow-x-auto w-full flex">
         <table
@@ -280,10 +280,11 @@ const TransactionsTable = () => {
                       {transaction.code}
                     </td>
                     <td>
-                      <input
-                        type="checkbox"
-                        onChange={() => handleCheckboxChange(transaction.id)}
-                      />
+                    <input
+                  type="checkbox"
+                  checked={selectedTransactions.length === transactions.length}
+                  onChange={handleSelectAll}
+                />
                     </td>
                     <td>
                       <button
