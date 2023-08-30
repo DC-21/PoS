@@ -16,6 +16,7 @@
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "html2pdf.js": "^0.10.1",
+    "jspdf-autotable": "^3.6.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "number-to-words": "^1.2.4",
