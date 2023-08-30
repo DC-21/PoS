@@ -106,16 +106,50 @@ const ClosedReceipts = () => {
     pdf.save("transaction.pdf");
   };
 
+  const calculatePaymentTotals = (transactions) => {
+    const paymentTotals = {};
+  
+    transactions.forEach((transaction) => {
+      const paymentType = transaction.pymt_type;
+      const amount = parseFloat(transaction.amount); // Parse amount as float
+  
+      if (!isNaN(amount)) {
+        if (paymentTotals[paymentType]) {
+          paymentTotals[paymentType] += amount;
+        } else {
+          paymentTotals[paymentType] = amount;
+        }
+      }
+    });
+  
+    return paymentTotals;
+  };
+  
+
   const generateTablePDF = () => {
     const doc = new jsPDF("landscape");
-
+  
     doc.autoTable({
       html: "#transactions-table",
       theme: "grid",
     });
-
+  
+    const paymentTotals = calculatePaymentTotals(transactions);
+  
+    // Add payment totals section to the PDF
+    let yPosition = doc.autoTable.previous.finalY + 10; // Adjust Y position
+    doc.setFontSize(12);
+    doc.text("Payment Method Totals:", 30, yPosition);
+    yPosition += 10;
+  
+    Object.keys(paymentTotals).forEach((paymentType, index) => {
+      yPosition += 8;
+      doc.text(`${paymentType}: ${paymentTotals[paymentType]} Kwacha`, 40, yPosition);
+    });
+  
     doc.save("transactions_table.pdf");
   };
+  
 
   useEffect(() => {
     axios
@@ -165,13 +199,10 @@ const ClosedReceipts = () => {
           />
         </div>
         <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
-    <button
-      onClick={generateTablePDF}
-      className="btn btn-primary"
-    >
-      Generate PDF of Table
-    </button>
-  </div>
+          <button onClick={generateTablePDF} className="btn btn-primary">
+            Generate PDF of Table
+          </button>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table
