@@ -114,10 +114,12 @@ const ClosedReceipts = () => {
       const amount = parseFloat(transaction.amount); // Parse amount as float
   
       if (!isNaN(amount)) {
-        if (paymentTotals[paymentType]) {
-          paymentTotals[paymentType] += amount;
+        const capitalizedPaymentType = paymentType.charAt(0).toUpperCase() + paymentType.slice(1);
+  
+        if (paymentTotals[capitalizedPaymentType]) {
+          paymentTotals[capitalizedPaymentType] += amount;
         } else {
-          paymentTotals[paymentType] = amount;
+          paymentTotals[capitalizedPaymentType] = amount;
         }
       }
     });
@@ -142,9 +144,9 @@ const ClosedReceipts = () => {
     doc.text("Payment Method Totals:", 30, yPosition);
     yPosition += 10;
   
-    Object.keys(paymentTotals).forEach((paymentType, index) => {
+    Object.keys(paymentTotals).forEach((paymentType) => {
       yPosition += 8;
-      doc.text(`${paymentType}: ${paymentTotals[paymentType]} Kwacha`, 40, yPosition);
+      doc.text(`${paymentType}: k${paymentTotals[paymentType]}`, 40, yPosition);
     });
   
     doc.save("transactions_table.pdf");
