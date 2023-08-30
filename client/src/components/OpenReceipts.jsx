@@ -3,6 +3,7 @@ import axios from "axios";
 import useTransactionStore from "../Store";
 import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 import companyLogo from "../images/mulonga.png";
 import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
@@ -17,12 +18,12 @@ const TransactionsTable = () => {
   const [companyData, setCompanyData] = useState({});
 
   const handleSelectAll = () => {
-    const allTransactionIds = transactions.map(transaction => transaction.id);
+    const allTransactionIds = transactions.map((transaction) => transaction.id);
     setSelectedTransactions(allTransactionIds);
   };
 
   const handleMarkAll = () => {
-    const allTransactionIds = transactions.map(transaction => transaction.id);
+    const allTransactionIds = transactions.map((transaction) => transaction.id);
     setSelectedTransactions(allTransactionIds);
   };
 
@@ -61,7 +62,7 @@ const TransactionsTable = () => {
 
     const currentDate = new Date().toISOString().slice(0, 10);
     const newDate = currentDate.replace("T", " ");
-    const formattedDate = transaction.date.replace('T', ' ').slice(0, 19);
+    const formattedDate = transaction.date.replace("T", " ").slice(0, 19);
 
     pdf.setFont("helvetica");
 
@@ -143,6 +144,17 @@ const TransactionsTable = () => {
     pdf.save("transaction.pdf");
   };
 
+  const generateTablePDF = () => {
+    const doc = new jsPDF();
+
+    doc.autoTable({
+      html: "#transactions-table",
+      theme: "grid",
+    });
+
+    doc.save("transactions_table.pdf");
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:3006/transactions")
@@ -202,6 +214,14 @@ const TransactionsTable = () => {
         >
           Submit
         </button>
+        <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
+    <button
+      onClick={generateTablePDF}
+      className="btn btn-primary"
+    >
+      Generate PDF of Table
+    </button>
+  </div>
       </div>
       <div className="overflow-x-auto w-full flex">
         <table
@@ -258,7 +278,7 @@ const TransactionsTable = () => {
                       {transaction.rcptno}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.date.replace('T', ' ').slice(0, 19)}
+                      {transaction.date.replace("T", " ").slice(0, 19)}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.customer_no}
@@ -291,11 +311,13 @@ const TransactionsTable = () => {
                       {transaction.code}
                     </td>
                     <td>
-                    <input
-                  type="checkbox"
-                  checked={selectedTransactions.length === transactions.length}
-                  onChange={handleSelectAll}
-                />
+                      <input
+                        type="checkbox"
+                        checked={
+                          selectedTransactions.length === transactions.length
+                        }
+                        onChange={handleSelectAll}
+                      />
                     </td>
                     <td>
                       <button
