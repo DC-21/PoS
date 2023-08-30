@@ -108,14 +108,15 @@ const ClosedReceipts = () => {
 
   const calculatePaymentTotals = (transactions) => {
     const paymentTotals = {};
-  
+
     transactions.forEach((transaction) => {
       const paymentType = transaction.pymt_type;
       const amount = parseFloat(transaction.amount); // Parse amount as float
-  
+
       if (!isNaN(amount)) {
-        const capitalizedPaymentType = paymentType.charAt(0).toUpperCase() + paymentType.slice(1);
-  
+        const capitalizedPaymentType =
+          paymentType.charAt(0).toUpperCase() + paymentType.slice(1);
+
         if (paymentTotals[capitalizedPaymentType]) {
           paymentTotals[capitalizedPaymentType] += amount;
         } else {
@@ -123,35 +124,33 @@ const ClosedReceipts = () => {
         }
       }
     });
-  
+
     return paymentTotals;
   };
-  
 
   const generateTablePDF = () => {
     const doc = new jsPDF("landscape");
-  
+
     doc.autoTable({
       html: "#transactions-table",
       theme: "grid",
     });
-  
+
     const paymentTotals = calculatePaymentTotals(transactions);
-  
+
     // Add payment totals section to the PDF
-    let yPosition = doc.autoTable.previous.finalY + 10; // Adjust Y position
-    doc.setFontSize(12);
-    doc.text("Payment Method Totals:", 30, yPosition);
-    yPosition += 10;
-  
+    let yPosition = doc.autoTable.previous.finalY + 10;
+    doc.setFontSize(13);
+    doc.text("Payment Method Totals:", 13, yPosition);
+    yPosition += 2;
+
     Object.keys(paymentTotals).forEach((paymentType) => {
       yPosition += 8;
-      doc.text(`${paymentType}: k${paymentTotals[paymentType]}`, 40, yPosition);
+      doc.text(`${paymentType}: k${paymentTotals[paymentType]}`, 13, yPosition);
     });
-  
+
     doc.save("transactions_table.pdf");
   };
-  
 
   useEffect(() => {
     axios
