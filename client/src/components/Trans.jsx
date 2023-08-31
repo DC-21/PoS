@@ -5,7 +5,7 @@ import moment from "moment-timezone";
 const Trans = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [currentDate] = useState(moment().format("DD/MM/YY HH:mm:ss"));
-  const [selectedAccountType, setSelectedAccountType] = useState("");
+  const [selectedAccountType, setSelectedAccountType] = useState("customer");
   const [amountToPay, setAmountToPay] = useState("");
   const [balanceDueLCY, setBalanceDueLCY] = useState("");
   const [customerNo, setCustomerNo] = useState("");

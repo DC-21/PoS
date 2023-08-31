@@ -168,32 +168,31 @@ const TransactionsTable = () => {
 
   const generateTablePDF = () => {
     const doc = new jsPDF("landscape");
-  
+
     doc.autoTable({
       html: "#transactions-table",
       theme: "grid",
     });
-  
+
     const paymentTotals = calculatePaymentTotals(transactions);
-  
+
     // Add payment totals section to the PDF
     let yPosition = doc.autoTable.previous.finalY + 10;
     doc.setFontSize(13);
     doc.text("Payment Method Totals:", 13, yPosition);
     yPosition += 2;
-  
+
     Object.keys(paymentTotals).forEach((paymentType) => {
       yPosition += 8;
       doc.text(
-        `${paymentType}: k${paymentTotals[paymentType].toFixed(2)}`, // Fix to two decimal places
+        `${paymentType}: k${paymentTotals[paymentType].toFixed(2)}`,
         13,
         yPosition
       );
     });
-  
+
     doc.save("transactions_table.pdf");
   };
-  
 
   useEffect(() => {
     axios
@@ -255,13 +254,10 @@ const TransactionsTable = () => {
           Submit
         </button>
         <div className="mt-4 text-center items-center bg-blue-900 hover:bg-blue-700 py-3 px-2 rounded text-white">
-    <button
-      onClick={generateTablePDF}
-      className="btn btn-primary"
-    >
-      Generate PDF of Table
-    </button>
-  </div>
+          <button onClick={generateTablePDF} className="btn btn-primary">
+            Generate PDF of Table
+          </button>
+        </div>
       </div>
       <div className="overflow-x-auto w-full flex">
         <table
