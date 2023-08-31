@@ -34,6 +34,8 @@ const Login = ({ onLogin }) => {
         setLoginMessage("Successful login!");
         onLogin(response.data);
         sessionStorage.setItem("isLoggedIn", "true");
+        const token = response.data.token;
+        sessionStorage.setItem("jwtToken", token);
 
         const userRole = response.data.role;
         console.log("User role:", userRole);
