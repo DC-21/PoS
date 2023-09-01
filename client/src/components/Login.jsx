@@ -36,6 +36,7 @@ const Login = ({ onLogin }) => {
         sessionStorage.setItem("isLoggedIn", "true");
         const token = response.data.token;
         sessionStorage.setItem("jwtToken", token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
         const userRole = response.data.role;
         console.log("User role:", userRole);
