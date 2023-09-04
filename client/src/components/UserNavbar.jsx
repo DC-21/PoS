@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "../images/mulonga.png";
 import axios from 'axios'
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import useUserStore from '../Userstore';
 
 const UserNavbar = () => {
-  const[userName,setUserName] = useState(false);
+  const { userName, setUserName } = useUserStore();
 
   useEffect(() => {
     const token = sessionStorage.getItem("jwtToken");
