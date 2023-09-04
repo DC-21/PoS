@@ -5,11 +5,9 @@ import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import companyLogo from "../images/mulonga.png";
-import useUserStore from "../Userstore";
 import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
 const TransactionsTable = () => {
-  const { userName } = useUserStore();
   const transactions = useTransactionStore((state) => state.transactions);
   const updateClosedStatusInDB = useTransactionStore(
     (state) => state.updateClosedStatusInDB
@@ -121,7 +119,7 @@ const TransactionsTable = () => {
     pdf.text(`Time: ${formattedDate}`, 130, 100);
 
     pdf.text(`Issued By:`, 30, 107);
-    pdf.text(`${userName}`,60,107);
+    pdf.text(`${transaction.servedby}`,60,107);
 
     // Create dotted lines for Signature
     pdf.text("Signature:", 30, 114);
