@@ -195,6 +195,7 @@ const Trans = () => {
     const transactionData = {
       rcptno: nextReceiptNo,
       date: formattedDateForDB,
+      servedby: userName,
       name: selectedAccountName,
       customer_no: customerNo,
       opn_bal: balanceDueLCY,
@@ -211,7 +212,7 @@ const Trans = () => {
     axios
       .post("http://localhost:3006/transactions", transactionData)
       .then((response) => {
-        console.log("Transaction created successfully:", response.data);
+        console.log("Transaction created successfully:",response.transactionData);
       })
       .catch((error) => {
         console.log("Error creating transaction:", error);
@@ -484,7 +485,6 @@ const Trans = () => {
               New
             </button>
           </div>
-          <div>{userName}</div>
         </form>
       </div>
     </div>
