@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import logo from "../images/mulonga.png";
-import useUserStore from '../Userstore';
 import axios from "axios";
 
 const Navbar = () => {
-  const { userName, setUserName } = useUserStore();
+  const[userName, setUserName]= useState();
 
   useEffect(() => {
     const token = sessionStorage.getItem("jwtToken");
@@ -27,6 +26,7 @@ const Navbar = () => {
         });
     }
   }, []);
+
 
   return (
     <div className="w-full sticky top-0 flex justify-center">
