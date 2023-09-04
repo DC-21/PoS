@@ -22,7 +22,7 @@ const Navbar = () => {
         .get("http://localhost:3006/user-details")
         .then((response) => {
           // Assuming the response contains the user object
-          const userData = response.data;
+          const userData = response.data.user;
           console.log(userData); // Assuming the response contains user details
           const fullName = userData.full_name; // Access the full_name property
   
