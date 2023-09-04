@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import moment from "moment-timezone";
+import useUserStore from "../Userstore";
 
 const Trans = () => {
+  const { userName } = useUserStore();
   const [userDetails, setUserDetails] = useState([]);
   const [currentDate] = useState(moment().format("DD/MM/YY HH:mm:ss"));
   const [selectedAccountType, setSelectedAccountType] = useState("customer");
@@ -482,6 +484,7 @@ const Trans = () => {
               New
             </button>
           </div>
+          <div>{userName}</div>
         </form>
       </div>
     </div>
