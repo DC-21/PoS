@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logo from "../images/mulonga.png";
+import useUserStore from '../Userstore';
 import axios from "axios";
 
 const Navbar = () => {
-  const [userName, setUserName] = useState("");
+  const { userName, setUserName } = useUserStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
