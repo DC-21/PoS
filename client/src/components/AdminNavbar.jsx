@@ -26,7 +26,7 @@ const Navbar = () => {
       );
       const user = response.data.user;
       console.log("User details:", user);
-      setUserName(user.name);
+      setUserName(user.full_name);
     } catch (error) {
       console.error("Error fetching user details:", error);
       // Handle the error, e.g., set an error message
