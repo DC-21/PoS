@@ -5,9 +5,11 @@ import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import companyLogo from "../images/mulonga.png";
+import useUserStore from "../Userstore";
 import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
 const TransactionsTable = () => {
+  const { userName } = useUserStore();
   const transactions = useTransactionStore((state) => state.transactions);
   const updateClosedStatusInDB = useTransactionStore(
     (state) => state.updateClosedStatusInDB
@@ -118,7 +120,7 @@ const TransactionsTable = () => {
     pdf.text(`Closing Balance: ${transaction.clsn_bal}`, 90, 100);
     pdf.text(`Time: ${formattedDate}`, 130, 100);
 
-    pdf.text("Issued By:", 30, 107);
+    pdf.text(`Issued By: ${userName}`, 30, 107);
     pdf.setDrawColor(0);
     pdf.setLineDashPattern([1, 1]);
     pdf.line(50, 107, 100, 107);
