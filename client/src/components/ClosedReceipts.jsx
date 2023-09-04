@@ -4,12 +4,14 @@ import useTransactionStore from "../Store";
 import ReactHTMLTableToExcel from "react-html-table-to-excel/src/ReactHTMLTableToExcel";
 import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
+import useUserStore from "../Userstore";
 import companyLogo from "../images/mulonga.png";
 
 const ClosedReceipts = () => {
   const transactions = useTransactionStore((state) => state.transactions);
   const [companyData, setCompanyData] = useState({});
   const [loading, setLoading] = useState(true);
+  const{userName}= useUserStore();
 
   const generatePDF = (transaction) => {
     const pdf = new jsPDF();
@@ -81,9 +83,7 @@ const ClosedReceipts = () => {
     );
 
     pdf.text("Issued By:", 30, 107);
-    pdf.setDrawColor(0);
-    pdf.setLineDashPattern([1, 1]);
-    pdf.line(50, 107, 100, 107);
+    pdf.text(`${userName}`,60,107);
 
     // Create dotted lines for Signature
     pdf.text("Signature:", 30, 114);
