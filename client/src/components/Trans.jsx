@@ -212,7 +212,7 @@ const Trans = () => {
     axios
       .post("http://localhost:3006/transactions", transactionData)
       .then((response) => {
-        console.log("Transaction created successfully:",response.transactionData);
+        console.log("Transaction created successfully:",response.data.transactionData);
       })
       .catch((error) => {
         console.log("Error creating transaction:", error);
