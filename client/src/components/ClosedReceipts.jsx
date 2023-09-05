@@ -177,8 +177,14 @@ const ClosedReceipts = () => {
         const filteredTransactions = transactionsArray.filter((transaction) => {
           return transaction.servedby === username;
         });
+        let transactionNumber = 1;
+        const transactionsWithNumbers = filteredTransactions.map((transaction) => {
+          transaction.transactionNumber = transactionNumber++;
+          return transaction;
+        });
+  
         useTransactionStore.setState({
-          transactions: filteredTransactions.reverse(),
+          transactions: transactionsWithNumbers.reverse(),
         });
         setLoading(false);
       })
@@ -259,7 +265,7 @@ const ClosedReceipts = () => {
                     className={index % 2 === 0 ? "bg-gray-100" : ""}
                   >
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.id}
+                      {transaction.transactionNumber}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.rcptno}
