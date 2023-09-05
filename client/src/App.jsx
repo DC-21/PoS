@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./components/Login";
 import AdminHome from "./pages/admin/AdminHome";
 import Transact from "./pages/admin/Transact";
-import Transactions from "./pages/admin/Transactions";
 import AdminProfile from "./pages/admin/AdminProfile";
 import ClosedTransactionsTable from "./pages/admin/ClosedTransactionsTable";
 import OpenTransactionsTable from "./pages/admin/OpenTransactionsTable";
 import UserHome from "./pages/user/UserHome";
 import UserTransact from "./pages/user/UserTransact";
-import UserTransaction from "./pages/user/UserTransaction";
 import UserClosedTransactions from "./pages/user/ClosedTransactions";
 import UserOpenTransactions from "./pages/user/OpenTransactions";
 
@@ -58,7 +56,6 @@ const App = () => {
           <>
             <Route path="/admin" element={<AdminHome onLogout={handleLogout} />} />
             <Route path="/transact" element={<Transact />} />
-            <Route path="/transactions" element={<Transactions />} />
             <Route path="/open" element={<OpenTransactionsTable />} />
             <Route path="/closed" element={<ClosedTransactionsTable />} />
             <Route path="/profile" element={<AdminProfile />} />
@@ -69,7 +66,6 @@ const App = () => {
           <>
             <Route path="/user" element={<UserHome />} />
             <Route path="/user-transact" element={<UserTransact />} />
-            <Route path="/user-transaction" element={<UserTransaction />} />
             <Route path="/user-open" element={<UserOpenTransactions />} />
             <Route path="/user-closed" element={<UserClosedTransactions />} />
           </>

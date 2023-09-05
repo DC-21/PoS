@@ -44,11 +44,6 @@ const Navbar = () => {
               Home
             </p>
           </Link>
-          <Link to="/transactions">
-            <p className="text-lg bg-[#fe8267] hover:bg-[#ee3d16] py-2 px-2 rounded text-white">
-              Transactions
-            </p>
-          </Link>
         </div>
         <Link to="/profile" className="cursor-pointer flex flex-col items-center">
           <svg viewBox="0 0 24 24" fill="white" height="3em" width="3em">
