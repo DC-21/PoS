@@ -4,6 +4,7 @@ import useTransactionStore from "../Store";
 import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import useUserStore from "../Userstore";
 import companyLogo from "../images/mulonga.png";
 import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
@@ -199,8 +200,16 @@ const TransactionsTable = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         const transactionsArray = data.Trans || [];
+        const username = useUserStore.getState().userName; // Assuming you have a method to get the username
+        console.log(username);
+        // Filter transactions where servedBy is equal to the username
+        const filteredTransactions = transactionsArray.filter((transaction) => {
+          return transaction.servedby === username;
+        });
+  
+        // Set the filtered transactions in useTransactionStore
         useTransactionStore.setState({
-          transactions: transactionsArray.reverse(),
+          transactions: filteredTransactions.reverse(),
         });
         setLoading(false);
       })
