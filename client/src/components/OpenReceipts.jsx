@@ -9,6 +9,7 @@ import companyLogo from "../images/mulonga.png";
 import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
 const TransactionsTable = () => {
+  const [transactionNumber, setTransactionNumber] = useState(1);
   const transactions = useTransactionStore((state) => state.transactions);
   const updateClosedStatusInDB = useTransactionStore(
     (state) => state.updateClosedStatusInDB
@@ -200,17 +201,20 @@ const TransactionsTable = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         const transactionsArray = data.Trans || [];
-        const username = useUserStore.getState().userName; // Assuming you have a method to get the username
+        const username = useUserStore.getState().userName;
         console.log(username);
-        // Filter transactions where servedBy is equal to the username
         const filteredTransactions = transactionsArray.filter((transaction) => {
           return transaction.servedby === username;
         });
-  
-        // Set the filtered transactions in useTransactionStore
-        useTransactionStore.setState({
-          transactions: filteredTransactions.reverse(),
-        });
+        let transactionNumber = 1;
+      const transactionsWithNumbers = filteredTransactions.map((transaction) => {
+        transaction.transactionNumber = transactionNumber++;
+        return transaction;
+      });
+
+      useTransactionStore.setState({
+        transactions: transactionsWithNumbers.reverse(),
+      });
         setLoading(false);
       })
       .catch((error) => {
@@ -315,7 +319,7 @@ const TransactionsTable = () => {
                     className={index % 2 === 0 ? "bg-gray-100" : ""}
                   >
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.id}
+                      {transaction.transactionNumber}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {transaction.rcptno}
