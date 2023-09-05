@@ -4,11 +4,11 @@ import useTransactionStore from "../Store";
 import numberToWords from "number-to-words";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import useUserStore from "../Userstore";
 import companyLogo from "../images/mulonga.png";
 import ReactHTMLTableToExcel from "../../node_modules/react-html-table-to-excel/src/ReactHTMLTableToExcel";
 
 const TransactionsTable = () => {
+    const [startingTransactionNumber, setStartingTransactionNumber] = useState(1);
   const transactions = useTransactionStore((state) => state.transactions);
   const updateClosedStatusInDB = useTransactionStore(
     (state) => state.updateClosedStatusInDB
@@ -120,7 +120,7 @@ const TransactionsTable = () => {
     pdf.text(`Time: ${formattedDate}`, 130, 100);
 
     pdf.text(`Issued By:`, 30, 107);
-    pdf.text(`${transaction.servedby}`,60,107);
+    pdf.text(`${transaction.servedby}`, 60, 107);
 
     // Create dotted lines for Signature
     pdf.text("Signature:", 30, 114);
@@ -200,23 +200,28 @@ const TransactionsTable = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         const transactionsArray = data.Trans || [];
- 
-        let transactionNumber = 1;
-      const transactionsWithNumbers = transactionsArray.map((transaction) => {
-        transaction.transactionNumber = transactionNumber++;
-        return transaction;
-      });
 
-      useTransactionStore.setState({
-        transactions: transactionsWithNumbers.reverse(),
-      });
+        // Sort the transactionsArray by transaction.id in ascending order
+        transactionsArray.sort((a, b) => a.id - b.id);
+
+        // Initialize the starting number for transactions
+        let transactionNumber = startingTransactionNumber;
+
+        const transactionsWithNumbers = transactionsArray.map((transaction) => {
+          transaction.transactionNumber = transactionNumber++;
+          return transaction;
+        });
+
+        useTransactionStore.setState({
+          transactions: transactionsWithNumbers.reverse(),
+        });
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching transaction data:", error);
         setLoading(false);
       });
-  }, []);
+  }, [startingTransactionNumber]);
 
   useEffect(() => {
     axios

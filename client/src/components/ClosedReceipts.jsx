@@ -172,8 +172,13 @@ const ClosedReceipts = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         const transactionsArray = data.Trans || [];
+        const username = useUserStore.getState().userName;
+        console.log(username);
+        const filteredTransactions = transactionsArray.filter((transaction) => {
+          return transaction.servedby === username;
+        });
         useTransactionStore.setState({
-          transactions: transactionsArray.reverse(),
+          transactions: filteredTransactions.reverse(),
         });
         setLoading(false);
       })
