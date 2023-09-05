@@ -1,12 +1,12 @@
 import Navbar from '../../components/AdminNavbar'
-import OpenReceipts from '../../components/OpenReceipts'
 import Footer from '../../components/Footer'
+import AdminOpen from '../../components/AdminOpen'
 
 const OpenTransactionsTable = () => {
   return (
     <div>
         <Navbar/>
-        <OpenReceipts/>
+        <AdminOpen/>
         <Footer/>
     </div>
   )

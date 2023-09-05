@@ -200,13 +200,9 @@ const TransactionsTable = () => {
         const data = response.data;
         console.log("Fetched data:", data);
         const transactionsArray = data.Trans || [];
-        const username = useUserStore.getState().userName;
-        console.log(username);
-        const filteredTransactions = transactionsArray.filter((transaction) => {
-          return transaction.servedby === username;
-        });
+ 
         let transactionNumber = 1;
-      const transactionsWithNumbers = filteredTransactions.map((transaction) => {
+      const transactionsWithNumbers = transactionsArray.map((transaction) => {
         transaction.transactionNumber = transactionNumber++;
         return transaction;
       });
