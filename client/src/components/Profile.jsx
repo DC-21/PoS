@@ -206,16 +206,17 @@ const Profile = () => {
                       />
                     </div>
                     <div className="flex w-full">
-  <label className="w-[100px] flex-1">Role:</label>
-  <select
-    className="flex-1 px-2 py-1 rounded border"
-    value={role}
-    onChange={(e) => setRole(e.target.value)}
-  >
-    <option value="user">User</option>
-    <option value="admin">Admin</option>
-  </select>
-</div>
+                      <label className="w-[100px] flex-1">Role:</label>
+                      <select
+                        className="flex-1 px-2 py-1 rounded border"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                      >
+                        <option>Choose Role</option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                    </div>
 
                     <div className="flex w-full">
                       <label className="w-[100px] flex-1">Password:</label>
