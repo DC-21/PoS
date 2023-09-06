@@ -43,7 +43,7 @@ const Navbar = () => {
             <p className="text-lg bg-[#fe8267] w-[100px] text-center hover:bg-[#ee3d16] py-2 px-2 rounded text-white">
               Home
             </p>
-          </Link>
+          </Link> 
         </div>
         <Link to="/profile" className="cursor-pointer flex flex-col items-center">
           <svg viewBox="0 0 24 24" fill="white" height="3em" width="3em">
