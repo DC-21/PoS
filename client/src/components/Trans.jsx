@@ -26,7 +26,7 @@ const Trans = () => {
   useEffect(() => {
     if (selectedAccountType === "customer") {
       axios
-        .get("http://localhost:3006/customer-details?_limit=1000")
+        .get("http://localhost:3006/customers?_limit=1000")
         .then((response) => {
           const data = response.data;
           console.log("Fetched customer data:", data);
