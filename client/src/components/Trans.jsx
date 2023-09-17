@@ -182,7 +182,7 @@ const Trans = () => {
 
     axios
       .put(
-        `http://localhost:3006/customer-details/${customerNo}`,
+        `http://localhost:3006/customers/${customerNo}`,
         customerUpdateData
       )
       .then((response) => {
