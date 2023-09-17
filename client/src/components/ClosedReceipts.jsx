@@ -11,7 +11,7 @@ const ClosedReceipts = () => {
   const transactions = useTransactionStore((state) => state.transactions);
   const [companyData, setCompanyData] = useState({});
   const [loading, setLoading] = useState(true);
-  const{userName}= useUserStore();
+  const { userName } = useUserStore();
 
   const generatePDF = (transaction) => {
     const pdf = new jsPDF();
@@ -83,7 +83,7 @@ const ClosedReceipts = () => {
     );
 
     pdf.text("Issued By:", 30, 107);
-    pdf.text(`${userName}`,60,107);
+    pdf.text(`${userName}`, 60, 107);
 
     // Create dotted lines for Signature
     pdf.text("Signature:", 30, 114);
@@ -154,7 +154,7 @@ const ClosedReceipts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3006/companies")
+      .get("http://localhost:3006/company-data")
       .then((response) => {
         const data = response.data;
         console.log("company data:", data);
@@ -178,11 +178,13 @@ const ClosedReceipts = () => {
           return transaction.servedby === username;
         });
         let transactionNumber = 1;
-        const transactionsWithNumbers = filteredTransactions.map((transaction) => {
-          transaction.transactionNumber = transactionNumber++;
-          return transaction;
-        });
-  
+        const transactionsWithNumbers = filteredTransactions.map(
+          (transaction) => {
+            transaction.transactionNumber = transactionNumber++;
+            return transaction;
+          }
+        );
+
         useTransactionStore.setState({
           transactions: transactionsWithNumbers.reverse(),
         });
