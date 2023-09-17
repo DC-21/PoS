@@ -37,7 +37,7 @@ const Trans = () => {
         });
     } else if (selectedAccountType === "accounts") {
       axios
-        .get("http://localhost:3006/gl-accounts")
+        .get("http://localhost:3006/glaccounts")
         .then((response) => {
           const data = response.data;
 
@@ -59,7 +59,7 @@ const Trans = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3006/income-groupcodes")
+      .get("http://localhost:3006/income-groups")
       .then((response) => {
         const data = response.data;
         console.log("Fetched codes:", data);
@@ -223,7 +223,7 @@ const Trans = () => {
 
   const updateReceiptNumber = () => {
     axios
-      .get("http://localhost:3006/receiptno")
+      .get("http://localhost:3006/receipt-number")
       .then((response) => {
         const { receiptNumber } = response.data;
         setNextReceiptNo(receiptNumber);
